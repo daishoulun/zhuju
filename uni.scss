@@ -1,0 +1,63 @@
+$app-height: 100vh;
+
+$font-color:#333;//基本色
+$font-color-white:#fff;//反色
+$font-color-grey:#7D7D7D;//辅助灰色，如加载更多的提示信息
+$font-color-placeholder: #808080;
+$font-color-disable:#c0c0c0;
+
+/* 背景颜色 */
+$bg-color-black: #181818;
+$bg-color:#ffffff;
+$bg-color-grey:#f8f8f8;
+$bg-color-hover:#f1f1f1;//点击状态颜色
+$bg-color-mask:rgba(0, 0, 0, 0.4);//遮罩颜色
+
+$border-base: 2rpx solid #c8c7cc;
+$border-bold: 4rpx solid #c8c7cc;
+
+/* 边框颜色 */
+$border-color:#c8c7cc;
+
+$margin-sm: 16rpx;
+$margin-mini: 8rpx;
+
+/* 尺寸变量 */
+
+/* 文字尺寸 */
+$font-size-mini:20rpx;
+$font-size-sm:24rpx;
+$font-size-base:28rpx;
+$font-size-lg:32rpx;
+
+/* 图片尺寸 */
+$img-size-sm:40rpx;
+$img-size-base:52rpx;
+$img-size-lg:80rpx;
+
+/* Border Radius */
+$border-radius-sm: 4rpx;
+$border-radius-base: 6rpx;
+$border-radius-lg: 12rpx;
+$border-radius-circle: 50%;
+
+/* 水平间距 */
+$spacing-row-sm: 10rpx;
+$spacing-row-base: 20rpx;
+$spacing-row-lg: 30rpx;
+
+/* 垂直间距 */
+$spacing-col-sm: 8rpx;
+$spacing-col-base: 16rpx;
+$spacing-col-lg: 24rpx;
+
+/* 透明度 */
+$opacity-disabled: 0.3; // 组件禁用态的透明度
+
+/* 文章场景相关 */
+$color-title: #2C405A; // 文章标题颜色
+$font-size-title:20rpx;
+$color-subtitle: #555555; // 二级标题颜色
+$font-size-subtitle:26rpx;
+$color-paragraph: #3F536E; // 文章段落颜色
+$font-size-paragraph:30rpx;
