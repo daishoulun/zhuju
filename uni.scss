@@ -6,12 +6,15 @@ $font-color-grey:#7D7D7D;//辅助灰色，如加载更多的提示信息
 $font-color-placeholder: #808080;
 $font-color-disable:#c0c0c0;
 
+$font-weight-base: 500;
+
 /* 背景颜色 */
 $bg-color-black: #181818;
 $bg-color:#ffffff;
 $bg-color-grey:#f8f8f8;
 $bg-color-hover:#f1f1f1;//点击状态颜色
 $bg-color-mask:rgba(0, 0, 0, 0.4);//遮罩颜色
+$bg-color-main: #343434;
 
 $border-base: 2rpx solid #c8c7cc;
 $border-bold: 4rpx solid #c8c7cc;
@@ -22,6 +25,9 @@ $border-color:#c8c7cc;
 $margin-sm: 16rpx;
 $margin-mini: 8rpx;
 
+$padding-mini: 6rpx;
+$padding-base: 16rpx;
+
 /* 尺寸变量 */
 
 /* 文字尺寸 */
@@ -31,11 +37,13 @@ $font-size-base:28rpx;
 $font-size-lg:32rpx;
 
 /* 图片尺寸 */
+$img-size-mini:20rpx;
 $img-size-sm:40rpx;
 $img-size-base:52rpx;
 $img-size-lg:80rpx;
 
 /* Border Radius */
+
 $border-radius-sm: 4rpx;
 $border-radius-base: 6rpx;
 $border-radius-lg: 12rpx;
@@ -50,6 +58,8 @@ $spacing-row-lg: 30rpx;
 $spacing-col-sm: 8rpx;
 $spacing-col-base: 16rpx;
 $spacing-col-lg: 24rpx;
+
+$btn-width-lg: 686rpx;
 
 /* 透明度 */
 $opacity-disabled: 0.3; // 组件禁用态的透明度

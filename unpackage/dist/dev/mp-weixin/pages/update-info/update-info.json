@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "编辑资料",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#181818",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "form-item": "/components/form-item"
+  }
+}

@@ -3,19 +3,18 @@
 		{
 			"path": "pages/index/index",
 			"style": {
+				"navigationBarTitleText": "uni-app",
+        "navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/list/list",
+			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
 		},
 		{
 			"path" : "pages/person-center/person-center",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
-			}
-		},
-		{
-			"path" : "pages/index/index",
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
@@ -29,30 +28,54 @@
 				"navigationBarTitleText" : "关注列表",
 				"enablePullDownRefresh" : false
 			}
-		}
+		},
+		{
+		  "path" : "pages/skills-list/skills-list",
+		  "style" : 
+		  {
+		    "navigationBarTitleText" : "技能证书",
+        "navigationBarTextStyle": "white",
+        "backgroundColor": "#181818",
+		    "enablePullDownRefresh" : false
+		  }
+		},
+    {
+      "path" : "pages/update-info/update-info",
+      "style" : 
+      {
+        "navigationBarTitleText" : "编辑资料",
+        "navigationBarTextStyle": "white",
+        "backgroundColor": "#181818",
+        "enablePullDownRefresh" : false,
+        "mp-weixin": {
+          "backgroundColor": "#181818"
+        }
+      }
+    }
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#181818",
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
+    "backgroundColor": "#181818",
 		"list": [
 			{
-				"iconPath": "static/c1.png",
+				"iconPath": "static/home.png",
 				"pagePath": "pages/index/index",
-				"selectedIconPath": "static/c2.png"
+				"selectedIconPath": "static/home-active.png"
 			},
 			{
-				"iconPath": "static/c3.png",
+				"iconPath": "static/huodong.png",
 				"pagePath": "pages/list/list",
-				"selectedIconPath": "static/c4.png"
+				"selectedIconPath": "static/huodong-active.png"
 			},
 			{
-				"iconPath": "static/c5.png",
+				"iconPath": "static/person-active.png",
 				"pagePath": "pages/person-center/person-center",
-				"selectedIconPath": "static/c6.png"
+				"selectedIconPath": "static/person-active.png"
 			}
 		]
 	},

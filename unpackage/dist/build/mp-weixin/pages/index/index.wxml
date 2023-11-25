@@ -1,0 +1,1 @@
+<view class="content"><tw-videov class="vue-ref" vue-id="8dd740cc-1" autoplay="{{autoplay}}" data-ref="videoGroup" data-event-opts="{{[['^lodData',[['loadingData']]],['^refreshData',[['refreshData']]]]}}" bind:lodData="__e" bind:refreshData="__e" bind:__l="__l"></tw-videov></view>

@@ -1,0 +1,1 @@
+<view class="dynamics-list"><view class="dynamics-item"><view class="like"><image class="like-icon" src="{{linkCon}}"></image>100</view></view><view class="dynamics-item"><view class="like"><image class="like-icon" src="{{linkCon}}"></image>100</view></view></view>

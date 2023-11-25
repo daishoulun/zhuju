@@ -1,0 +1,43 @@
+
+page{
+  background-color: #000;
+}
+.home{
+  width: 100%;
+  height: calc(100vh - 100rpx);
+  box-sizing: border-box;
+}
+
+@charset "UTF-8";
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.home {
+  position: relative;
+}
+.home .tabbar {
+  position: absolute;
+  top: 24rpx;
+  left: 32rpx;
+  z-index: 999;
+  color: #fff;
+}
+.home .tabbar text {
+  margin-right: 64rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.14);
+}
+.home .tabbar text.active {
+  font-weight: 600;
+  color: #FFFFFF;
+}
+

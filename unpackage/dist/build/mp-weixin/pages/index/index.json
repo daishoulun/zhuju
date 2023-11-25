@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tw-videov": "/components/tsp-video/tsp-video-list/video-v"
+  }
+}

@@ -1,10 +1,12 @@
 <template>
-	<view class="person-center">
+	<view class="person-center" :class="{
+    noLogin: isLogin
+  }">
 		<view class="bg"></view>
     <view class="person-main">
       <view class="user-header">
         <view class="avatar">
-          <image src="../../static/logo.png"></image>
+          <image src="../../static/user-header.png"></image>
         </view>
         <view class="user-data">
           <view class="data-item">
@@ -25,36 +27,77 @@
           </view>
         </view>
       </view>
+      <view class="user-info">
+        <view v-if="isLogin" class="user-name">想吃冰激凌</view>
+        <view v-if="isLogin" class="user-tag">
+          <text class="sex">
+            <image src="../../static/sex-women.png" mode=""></image>
+          </text>
+          <text>双鱼座</text>
+          <text>双鱼座</text>
+        </view>
+        <view v-else class="login-btn">点击登录</view>
+        <view class="user-desc">杭州本地人，想吃冰淇淋杭州本地人，想吃冰淇淋杭州本地人，想吃冰淇淋</view>
+        <button type="default" class="edit-btn" @click="handleEdit">编辑资料</button>  
+       <!-- <button type="default" class="edit-btn">关注</button>  
+        <button type="default" class="edit-btn">已关注</button>  -->
+      </view>
+      <view class="tabbar">
+        <text :class="active === 'active' ? 'active' : ''" @click="handleTabbar('active')">活动</text>
+        <text :class="active === 'dynamics' ? 'active' : ''" @click="handleTabbar('dynamics')">动态</text>
+      </view>
+      <view class="active-wrap">
+        <ActiveList v-if="active === 'active'"></ActiveList>
+        <DynamicsList v-else-if="active === 'dynamics'"></DynamicsList>
+      </view>  
     </view>
 	</view>
 </template>
 
 <script>
+  import ActiveList from '@/components/active-list/active-list'
+  import DynamicsList from '@/components/dynamics-list/dynamics-list'
 	export default {
+    components: {
+      ActiveList,
+      DynamicsList
+    },
 		data() {
 			return {
-				
+        isLogin: false,
+				active: 'active'
 			};
-		}
+		},
+    methods: {
+      handleTabbar(val) {
+        this.active = val
+      },
+      handleEdit() {
+        uni.navigateTo({
+          url: '/pages/update-info/update-info'
+        })
+      }
+    }
 	}
 </script>
 
 <style lang="scss">
 .person-center {
   position: relative;
+  box-sizing: border-box;
+  overflow-y: auto;
   .bg {
     width: 750rpx;
-    height: 622rpx;
-    background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%);
+    height: 446rpx;
+    background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
   }
   .person-main {
     width: 750rpx;
-    position: absolute;
-    top: 344rpx;
     border-radius: 68rpx 68rpx 0rpx 0rpx;
     background: $bg-color-black;
-    padding: 32rpx;
+    padding: 32rpx 32rpx 102rpx;
     box-sizing: border-box;
+    transform: translateY(-102rpx);
     .avatar {
       position: absolute;
       top: -88rpx;
@@ -65,6 +108,7 @@
       overflow: hidden;
       image{
         width: 100%;
+        height: 100%;
       }
     }
     .user-header {
@@ -84,6 +128,63 @@
         }
       }
     }
+    .user-info {
+      .user-tag {
+        text {
+          background: $bg-color-main;
+          border-radius: $border-radius-lg;
+          font-size: $font-size-mini;
+          font-weight: $font-weight-base;
+          color: $font-color-white;
+          line-height: 28rpx;
+          padding: $padding-mini $padding-base;
+          margin-right: $margin-sm;
+          image {
+            width: $img-size-mini;
+            height: $img-size-mini;
+          }
+        }
+      }
+      .login-btn {
+        font-size: 36rpx;
+        font-weight: 500;
+        color: #FFFFFF;
+        margin-top: 32rpx
+      }
+    }
+    .user-desc {
+      font-size: 26rpx;
+      font-weight: 400;
+      color: #7D7D7D;
+      line-height: 40rpx;
+      margin: 32rpx 0 42rpx;
+    }
+    .edit-btn {
+      width: 686rpx;
+      height: 80rpx;
+      background: #343434;
+      border-radius: 16rpx;
+      font-size: 28rpx;
+      font-weight: 500;
+      color: #FFFFFF;
+      line-height: 80rpx;
+      margin-bottom: 40rpx;
+    }
+  }
+  .tabbar {
+    margin-bottom: 36rpx;
+    text {
+      font-size: 36rpx;
+      font-weight: 600;
+      color: #7D7D7D;
+      margin-right: 36rpx;
+      &.active {
+        color: #ffffff;
+      }
+    }
+  }
+  .active-wrap {
+    padding-bottom: 32rpx;
   }
 }
 </style>

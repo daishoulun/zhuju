@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/list/list",
+    "pages/person-center/person-center",
+    "pages/attention/attention",
+    "pages/skills-list/skills-list",
+    "pages/update-info/update-info"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#181818",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "backgroundColor": "#181818",
+    "list": [
+      {
+        "iconPath": "static/home.png",
+        "pagePath": "pages/index/index",
+        "selectedIconPath": "static/home-active.png"
+      },
+      {
+        "iconPath": "static/huodong.png",
+        "pagePath": "pages/list/list",
+        "selectedIconPath": "static/huodong-active.png"
+      },
+      {
+        "iconPath": "static/person-active.png",
+        "pagePath": "pages/person-center/person-center",
+        "selectedIconPath": "static/person-active.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
