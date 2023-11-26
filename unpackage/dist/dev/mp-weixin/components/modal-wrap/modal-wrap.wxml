@@ -1,0 +1,1 @@
+<view class="modal-wrap data-v-58b2ad84"><view class="modal data-v-58b2ad84"><view class="title data-v-58b2ad84"><slot name="title"></slot></view><view class="content data-v-58b2ad84"><slot></slot></view><slot name="footer"></slot></view></view>

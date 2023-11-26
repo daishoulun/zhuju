@@ -45,4 +45,8 @@
 .update-info .user-form .home-bg {
   border-top: 20rpx solid #181818;
 }
+.update-info .user-form .self-desc {
+  font-size: 28rpx;
+  color: #DCAEF4;
+}
 

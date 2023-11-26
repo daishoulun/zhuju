@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "modal-wrap": "/components/modal-wrap/modal-wrap"
+  }
+}

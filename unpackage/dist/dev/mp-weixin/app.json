@@ -5,7 +5,11 @@
     "pages/person-center/person-center",
     "pages/attention/attention",
     "pages/skills-list/skills-list",
-    "pages/update-info/update-info"
+    "pages/update-info/update-info",
+    "pages/self-introduction/self-introduction",
+    "pages/set-avatar/set-avatar",
+    "pages/person-detail/person-detail",
+    "pages/fans-list/fans-list"
   ],
   "subPackages": [],
   "window": {
@@ -28,7 +32,7 @@
         "selectedIconPath": "static/huodong-active.png"
       },
       {
-        "iconPath": "static/person-active.png",
+        "iconPath": "static/person.png",
         "pagePath": "pages/person-center/person-center",
         "selectedIconPath": "static/person-active.png"
       }

@@ -3,14 +3,14 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app",
         "navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/list/list",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "uni-app",
+        "navigationStyle": "custom"
 			}
 		},
 		{
@@ -18,7 +18,8 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+				"enablePullDownRefresh" : false,
+        "navigationStyle": "custom"
 			}
 		},
 		{
@@ -51,6 +52,42 @@
           "backgroundColor": "#181818"
         }
       }
+    },
+    {
+      "path" : "pages/self-introduction/self-introduction",
+      "style" : 
+      {
+        "navigationBarTitleText" : "个人简介",
+        "navigationBarTextStyle": "white",
+        "enablePullDownRefresh" : false
+      }
+    },
+    {
+      "path" : "pages/set-avatar/set-avatar",
+      "style" : 
+      {
+        "navigationBarTitleText" : "设置头像",
+        "enablePullDownRefresh" : false
+      }
+    },
+    {
+      "path" : "pages/person-detail/person-detail",
+      "style" : 
+      {
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText" : "",
+        "enablePullDownRefresh" : false
+      }
+    },
+    {
+      "path" : "pages/fans-list/fans-list",
+      "style" : 
+      {
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText" : "",
+        "enablePullDownRefresh" : false
+      }
     }
 	],
 	"globalStyle": {
@@ -73,7 +110,7 @@
 				"selectedIconPath": "static/huodong-active.png"
 			},
 			{
-				"iconPath": "static/person-active.png",
+				"iconPath": "static/person.png",
 				"pagePath": "pages/person-center/person-center",
 				"selectedIconPath": "static/person-active.png"
 			}

@@ -104,6 +104,14 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function ($event) {
+      _vm.userAgreementModalVisible = _vm.flase
+    }
+    _vm.e1 = function ($event) {
+      _vm.loginModalVisible = _vm.flase
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -155,13 +163,21 @@ var UserAgreement = function UserAgreement() {
     return resolve(__webpack_require__(/*! @/components/user-agreement/user-agreement.vue */ 92));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
+var LoginModal = function LoginModal() {
+  __webpack_require__.e(/*! require.ensure | components/login-modal */ "components/login-modal").then((function () {
+    return resolve(__webpack_require__(/*! @/components/login-modal.vue */ 165));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
   components: {
     twVideov: twVideov,
-    UserAgreement: UserAgreement
+    UserAgreement: UserAgreement,
+    LoginModal: LoginModal
   },
   data: function data() {
     return {
+      userAgreementModalVisible: false,
+      loginModalVisible: false,
       active: 'recommend',
       tabList: [{
         key: 'recommend',

@@ -1,8 +1,8 @@
 {
-  "navigationBarTitleText": "uni-app",
   "navigationStyle": "custom",
   "usingComponents": {
     "tw-videov": "/components/tsp-video/tsp-video-list/video-v",
-    "user-agreement": "/components/user-agreement/user-agreement"
+    "user-agreement": "/components/user-agreement/user-agreement",
+    "login-modal": "/components/login-modal"
   }
 }

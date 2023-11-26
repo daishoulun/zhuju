@@ -1,47 +1,54 @@
 <template>
 	<view>
+    <view class="header-local">
+      <image src="/static/location.png" mode=""></image>
+      <text class="area">杭州</text>
+    </view>
 		<!-- 底部标题 -->
 		<view class="footTitle" :class="[vodIndex == index?(sliderDrag?'vodMenu-bright1':(moveOpacity?'vodMenu-bright2':'vodMenu-bright0')):'']">
-			<view><text class="foot-name">@卧槽无情</text></view>
-			<view><text class="foot-cont">开发不易，如果对你有帮助，请给个五星好评！</text></view>
-			<view style="width: 300rpx;">
-				<!-- <text class="foot-primary">卧槽无情的原声-卧槽</text> -->
+			<view class="v-title-wrap"><text class="foot-name">Club·Puff 7号聚会</text><text class="detail">详情</text><image class="arrow-r" src="/static/arrow-r.png"></image></view>
+			<view class="foot-cont">7月17日 20:30-23:00</view>
+      <view class="location">
+        <image src="/static/location.png" mode=""></image>
+        <text>Club·Puff · 3km</text>
+      </view>
+			<!-- <view style="width: 300rpx;">
 				<view style="height: 80rpx;transform: scale(0.85);margin-left: -32rpx;margin-bottom: -20rpx;">
 					<uninoticebar :single="true" text="卧槽无情的原声-卧槽" scrollable="true" background-color="transparent"
 					 color="#fff" :speed="30"></uninoticebar>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<!-- 右侧操作栏 -->
 		<view class="menuBox">
 			<view class="vodMenu" :class="[vodIndex == index?(sliderDrag?'vodMenu-bright1':(moveOpacity?'vodMenu-bright2':'vodMenu-bright0')):'']">
 				<!-- 头像 -->
 				<view class="menu-avatar">
-					<image src="/static/icon/touxiang.jpg" mode="" class="avatar-image" @click="JumpBtn(1)"></image>
-					<view class="follow" @click="followBtn(index)" v-if="!item.followReally" :class="{followHide:followShow==2}">
-						<image src="/static/icon/gou.png" mode="" class="follow-guanzhu guanzhu-gou" v-if="followShow == 1 || followShow == 2"></image>
-						<image src="/static/icon/guanzhu.png" mode="" class="follow-guanzhu" v-if="followShow==null || followShow==0" :class="{followActive:followShow==0}"></image>
+					<image src="/static/avatar-set.png" mode="" class="avatar-image" @click="JumpBtn(1)"></image>
+					<view class="follow" @click="followBtn(index)" :class="{followHide:followShow==2}">
+						<image src="/static/add-like.png" mode="" class="follow-guanzhu" v-if="followShow==null || followShow==0" :class="{followActive:followShow==0}"></image>
+						<image src="/static/has-like.png" mode="" class="follow-guanzhu guanzhu-gou" v-else></image>
 					</view>
 				</view>
 				<!-- 点赞 -->
 				<view class="fabulous" @click="JumpBtn(2)">
-					<view class="fabulous-image fabulous-taoxin" @click="fabulousBtn(index)">
-						<image src="/static/icon/selectTaoxin.png" mode="" class="fabulous-image" v-if="item.fabulousShow"></image>
-						<image src="/static/icon/taoxin.png" mode="" class="fabulous-image" v-else></image>
-					</view>
+          <view class="fabulous-image fabulous-taoxin" @click="fabulousBtn(index)">
+            <image src="/static/heart-active.png" class="fabulous-image" v-if="item.fabulousShow"></image>
+            <image src="/static/heart.png" mode="" class="fabulous-image" v-else></image>
+          </view>
 					<view class="fabulous-num">{{vodCurIndex}}</view>
 				</view>
 				<!-- 评论 -->
 				<view class="fabulous" style="margin-top: 30rpx;" @click="JumpBtn(3)">
 					<view class="fabulous-image">
-						<image src="/static/icon/pinlun.png" mode="" class="fabulous-image"></image>
+						<image src="/static/comment.png" mode="" class="fabulous-image"></image>
 					</view>
 					<view class="fabulous-num">{{discussNum}}</view>
 				</view>
 				<!-- 转发 -->
 				<view class="fabulous" style="margin-top: 30rpx;" @click="JumpBtn(4)">
 					<view class="fabulous-image">
-						<image src="/static/icon/ward.png" mode="" class="fabulous-image"></image>
+						<image src="/static/forward-arrow.png" mode="" class="fabulous-image"></image>
 					</view>
 					<view class="fabulous-num">转发</view>
 				</view>
@@ -57,10 +64,10 @@
 </template>
 
 <script>
-	import uninoticebar from '../uni-notice-bar/uni-notice-bar.vue'
+	// import uninoticebar from '../uni-notice-bar/uni-notice-bar.vue'
 	export default{
 		components:{
-			uninoticebar
+			// uninoticebar
 		},
 		data(){
 			return {
@@ -120,26 +127,26 @@
 				this.followOpen = true
 				let obj = Object.assign({},this.item)
 				obj.followReally = true
-				this.followShow = 0
+				// this.followShow = 0 
 				setTimeout(()=>{
-					this.followShow = 1
-					setTimeout(()=>{
-						this.followShow = 2
-						setTimeout(()=>{
-							this.followOpen = false
-							this.followShow = null
-							this.$emit('handleInfo',obj)  //关注成功
-						},300)
-					},100)
+					this.followShow = this.followShow === 1 ? 0 : 1
+          this.followOpen = false
+					// setTimeout(()=>{
+					// 	this.followShow = 2
+					// 	setTimeout(()=>{
+					// 		this.followOpen = false
+					// 		this.followShow = null
+					// 		this.$emit('handleInfo',obj)  //关注成功
+					// 	},300)
+					// },100)
 				},500)
 			},
 			/* 点击右侧菜单选项 1头像 2点赞 3评论 4转发 5旋转头像 */
 			JumpBtn(index){
 				switch(index){
 					case 1 :
-						console.log('点击头像')
 						uni.navigateTo({
-							url:'/pages/details/details-v'
+							url:'/pages/person-detail/person-detail'
 						})
 					break;
 					case 2 :
@@ -160,7 +167,24 @@
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
+  .header-local {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 96rpx;
+    left: 32rpx;
+		z-index: 8;
+    font-size: 32rpx;
+    font-weight: 500;
+    color: #FFFFFF;
+    text-shadow: 0px 2px 2px rgba(0,0,0,0.14);
+    image {
+      width: 32rpx;
+      height: 32rpx;
+      margin-right: 12rpx;
+    }
+  }
 	/* 右边菜单栏 */
 	.menuBox{
 		position: absolute;
@@ -203,24 +227,24 @@
 	}
 	.menu-avatar{
 		position: relative;
-		width: 115rpx;
-		height: 115rpx;
+		width: 88rpx;
+		height: 88rpx;
 		border-radius: 50%;
-		background-color: #FFFFFF;
+    border: 3rpx solid #FFFFFF;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 	.avatar-image{
-		width: 100rpx;
-		height: 100rpx;
+    width: 88rpx;
+    height: 88rpx;
 		border-radius: 50%;
 	}
 	.follow{
 		position: absolute;
 		bottom: -20rpx;
-		width: 40rpx;
-		height: 40rpx;
+		width: 36rpx;
+		height: 36rpx;
 		background-color: #FFFFFF;
 		border-radius: 50%;
 		display: flex;
@@ -232,8 +256,8 @@
 		transition: all 0.3s linear;
 	}
 	.follow-guanzhu{
-		width: 40rpx;
-		height: 40rpx;
+		width: 36rpx;
+		height: 36rpx;
 	}
 	.guanzhu-gou{
 		width: 30rpx;
@@ -255,15 +279,17 @@
 		flex-direction: column;
 	}
 	.fabulous-image{
-		width: 80rpx;
-		height: 80rpx;
+		width: 56rpx;
+		height: 56rpx;
 	}
 	.fabulous-num{
 		width: 100rpx;
-		font-size: 28rpx;
-		color: #FFFFFF;
 		text-align: center;
-		margin-top: 10rpx;
+		margin-top: 8rpx;
+    font-size: 22rpx;
+    font-weight: 400;
+    color: #FFFFFF;
+    text-shadow: 0px 2px 2px rgba(0,0,0,0.14);
 	}
 	.fabulous-taoxin:active{
 		transition: all 0.2s linear;
@@ -300,15 +326,47 @@
 		z-index: 8;
 		width: 500rpx;
 		margin-left: 30rpx;
+    .location {
+      display: flex;
+      align-items: center;
+      width: 328rpx;
+      height: 64rpx;
+      background: rgba(0,0,0,0.32);
+      border-radius: 32rpx;
+      font-size: 28rpx;
+      font-weight: 500;
+      color: #CECECE;
+      image {
+        width: 32rpx;
+        height: 32rpx;
+        margin-right: 8rpx;
+      }
+    }
 	}
-	.foot-name{
-		font-size: 33rpx;
-		color: #FFFFFF;
-		font-weight: bold;
-	}
+  .v-title-wrap {
+    display: flex;
+    align-items: center;
+    .foot-name{
+      font-size: 32rpx;
+      font-weight: 500;
+      color: #FFFFFF;
+    }
+    .detail {
+      font-size: 32rpx;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      margin-left: 20rpx;
+    }
+    .arrow-r {
+      width: 32rpx;
+      height: 32rpx;
+    }
+  }
 	.foot-cont{
-		font-size: 30rpx;
-		color: #FFFFFF;
+    font-size: 28rpx;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin: 20rpx 0 24rpx;
 	}
 	.foot-primary{
 		font-size: 27rpx;

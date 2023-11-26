@@ -1,0 +1,53 @@
+@charset "UTF-8";
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.activity-list.data-v-7d5e07c6 {
+  height: calc(100vh - 100rpx);
+  overflow-y: auto;
+  background: #181818;
+  padding-top: 26rpx;
+  box-sizing: border-box;
+}
+.activity-list .swiper-box.data-v-7d5e07c6 {
+  padding-left: 38rpx;
+}
+.activity-list .swiper-box .swiper-item.data-v-7d5e07c6 {
+  width: 100%;
+  height: 279rpx;
+  border-radius: 32rpx;
+  background: red;
+}
+.activity-list .activity-main.data-v-7d5e07c6 {
+  padding: 20rpx;
+}
+.activity-list .no-login.data-v-7d5e07c6 {
+  margin-top: 238rpx;
+  text-align: center;
+}
+.activity-list .no-login image.data-v-7d5e07c6 {
+  width: 264rpx;
+  height: 228rpx;
+}
+.activity-list .no-login .tip.data-v-7d5e07c6 {
+  margin: 80rpx 0 50rpx;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #7D7D7D;
+}
+.activity-list .no-login .btn.data-v-7d5e07c6 {
+  width: 268rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+  border-radius: 38rpx;
+  margin: 0 auto;
+}
+

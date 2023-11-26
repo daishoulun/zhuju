@@ -1,6 +1,4 @@
 {
   "component": true,
-  "usingComponents": {
-    "uninoticebar": "/components/tsp-video/uni-notice-bar/uni-notice-bar"
-  }
+  "usingComponents": {}
 }

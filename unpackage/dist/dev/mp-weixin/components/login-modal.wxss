@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.login-modal .btn.data-v-553528de {
+  width: 576rpx;
+  height: 84rpx;
+  background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+  border-radius: 42rpx;
+  text-align: center;
+  line-height: 84rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #201F2C;
+  margin-bottom: 28rpx;
+}
+.login-modal .no-agree.data-v-553528de {
+  text-align: center;
+}
+.login-modal .no-agree .no-agree-btn.data-v-553528de {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #7D7D7D;
+}
+

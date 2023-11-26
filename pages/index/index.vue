@@ -8,7 +8,8 @@
        @click="handleTabbar(item.key)">{{ item.label }}</text>
     </view>
     <tw-videov ref="videoGroup" @lodData="loadingData" @refreshData="refreshData" :autoplay="autoplay"></tw-videov>
-    <UserAgreement></UserAgreement>
+    <UserAgreement v-if="userAgreementModalVisible" @close="userAgreementModalVisible = flase"></UserAgreement>
+    <LoginModal v-if="loginModalVisible" @close="loginModalVisible = flase"></LoginModal>
   </view>
 </template>
 
@@ -16,13 +17,17 @@
 import twVideov from '@/components/tsp-video/tsp-video-list/video-v.vue'
 import vodData from '@/static/vodData.js' //假数据
 import UserAgreement from '@/components/user-agreement/user-agreement.vue'
+import LoginModal from '@/components/login-modal.vue'
 export default{
   components:{
     twVideov,
-    UserAgreement
+    UserAgreement,
+    LoginModal
   },
   data(){
     return {
+      userAgreementModalVisible: false,
+      loginModalVisible: false,
       active: 'recommend',
       tabList: [
         { key: 'recommend', label: '推荐' },

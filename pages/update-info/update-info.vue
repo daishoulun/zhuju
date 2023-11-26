@@ -6,11 +6,9 @@
     </view>
     <view class="user-form">
       <FormItem v-model="userForm.nickName" label="昵称"></FormItem>
-      <FormItem
-        v-model="userForm.nickName"
-        label="简介"
-        placeholder="介绍一下你自己"
-      ></FormItem>
+      <FormItem label="简介">
+        <text class="self-desc" @click="handleSelfIntro">介绍一下你自己</text>
+      </FormItem>
       <FormItem label="性别">
         <picker @change="selectSex" :value="userForm.sexInd" :range="sexList">
           <view class="uni-input">{{ sexList[userForm.sexInd] }}</view>
@@ -76,11 +74,19 @@
         this.userForm.date = e.detail.value
       },
       handlePic() {
-        uni.chooseImage({
-          count: 1,
-          success: (res) => {
-            this.$SET_USER_IMG(res.tempFilePaths[0])
-          }
+        // uni.chooseImage({
+        //   count: 1,
+        //   success: (res) => {
+        //     this.$SET_USER_IMG(res.tempFilePaths[0])
+        //   }
+        // })
+        uni.navigateTo({
+          url: '/pages/set-avatar/set-avatar'
+        })
+      },
+      handleSelfIntro() {
+        uni.navigateTo({
+          url: '/pages/self-introduction/self-introduction'
         })
       },
       getDate(type) {
@@ -136,6 +142,10 @@
     }
     .home-bg {
       border-top: 20rpx solid #181818;
+    }
+    .self-desc {
+      font-size: 28rpx;
+      color: #DCAEF4;
     }
   }
 }

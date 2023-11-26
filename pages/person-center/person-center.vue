@@ -9,15 +9,15 @@
           <image src="../../static/user-header.png"></image>
         </view>
         <view class="user-data">
-          <view class="data-item">
+          <view class="data-item" @click="handleLike('like')">
             <text class="num">0</text>
             <text class="name">关注</text>
           </view>
-          <view class="data-item">
+          <view class="data-item" @click="handleLike('fans')">
             <text class="num">6728</text>
             <text class="name">粉丝</text>
           </view>
-          <view class="data-item">
+          <view class="data-item" @click="handleLike('firend')">
             <text class="num">45</text>
             <text class="name">好友</text>
           </view>
@@ -76,15 +76,22 @@
         uni.navigateTo({
           url: '/pages/update-info/update-info'
         })
+      },
+      handleLike(val) {
+        uni.navigateTo({
+          url: '/pages/fans-list/fans-list?type=' + val
+        })
       }
     }
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .person-center {
+  height: calc(100vh - 100rpx);
   position: relative;
   box-sizing: border-box;
+  background: #181818;
   overflow-y: auto;
   .bg {
     width: 750rpx;
@@ -92,12 +99,14 @@
     background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
   }
   .person-main {
+    position: relative;
     width: 750rpx;
     border-radius: 68rpx 68rpx 0rpx 0rpx;
     background: $bg-color-black;
-    padding: 32rpx 32rpx 102rpx;
+    padding: 32rpx 32rpx;
     box-sizing: border-box;
-    transform: translateY(-102rpx);
+    // transform: translateY(-102rpx);
+    top: -102rpx;
     .avatar {
       position: absolute;
       top: -88rpx;

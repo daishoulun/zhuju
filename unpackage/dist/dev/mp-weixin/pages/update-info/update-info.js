@@ -189,12 +189,19 @@ var _default = {
       this.userForm.date = e.detail.value;
     },
     handlePic: function handlePic() {
-      var _this = this;
-      uni.chooseImage({
-        count: 1,
-        success: function success(res) {
-          _this.$SET_USER_IMG(res.tempFilePaths[0]);
-        }
+      // uni.chooseImage({
+      //   count: 1,
+      //   success: (res) => {
+      //     this.$SET_USER_IMG(res.tempFilePaths[0])
+      //   }
+      // })
+      uni.navigateTo({
+        url: '/pages/set-avatar/set-avatar'
+      });
+    },
+    handleSelfIntro: function handleSelfIntro() {
+      uni.navigateTo({
+        url: '/pages/self-introduction/self-introduction'
       });
     },
     getDate: function getDate(type) {

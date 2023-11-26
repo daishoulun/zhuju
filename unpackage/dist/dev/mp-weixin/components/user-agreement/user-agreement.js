@@ -120,23 +120,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var ModalWrap = function ModalWrap() {
+  __webpack_require__.e(/*! require.ensure | components/modal-wrap/modal-wrap */ "components/modal-wrap/modal-wrap").then((function () {
+    return resolve(__webpack_require__(/*! ../modal-wrap/modal-wrap.vue */ 157));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
   name: "user-agreement",
+  components: {
+    ModalWrap: ModalWrap
+  },
   data: function data() {
     return {};
   }

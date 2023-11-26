@@ -1,0 +1,9 @@
+{
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "active-list": "/components/active-list/active-list",
+    "dynamics-list": "/components/dynamics-list/dynamics-list"
+  }
+}

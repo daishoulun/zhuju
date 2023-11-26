@@ -1,0 +1,1 @@
+<view class="self-introduction"><view class="textarea-wrap"><textarea class="textarea" maxlength="{{300}}" placeholder="描述一下自己" data-event-opts="{{[['input',[['__set_model',['','introduction','$event',[]]]]]]}}" value="{{introduction}}" bindinput="__e"></textarea><text class="count">{{count}}</text></view><view class="btn">确定</view></view>

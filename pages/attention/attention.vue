@@ -40,9 +40,6 @@
 </script>
 
 <style lang="scss">
-$avatar-size: 106rpx;
-$btn-width: 156rpx;
-$btn-height: 56rpx;
 .attention {
   height: $app-height;
   background: $bg-color-black;

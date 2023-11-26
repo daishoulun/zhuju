@@ -9,26 +9,28 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.person-center {
+.person-center.data-v-49db7cbc {
+  height: calc(100vh - 100rpx);
   position: relative;
   box-sizing: border-box;
+  background: #181818;
   overflow-y: auto;
 }
-.person-center .bg {
+.person-center .bg.data-v-49db7cbc {
   width: 750rpx;
   height: 446rpx;
   background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
 }
-.person-center .person-main {
+.person-center .person-main.data-v-49db7cbc {
+  position: relative;
   width: 750rpx;
   border-radius: 68rpx 68rpx 0rpx 0rpx;
   background: #181818;
-  padding: 32rpx 32rpx 102rpx;
+  padding: 32rpx 32rpx;
   box-sizing: border-box;
-  -webkit-transform: translateY(-102rpx);
-          transform: translateY(-102rpx);
+  top: -102rpx;
 }
-.person-center .person-main .avatar {
+.person-center .person-main .avatar.data-v-49db7cbc {
   position: absolute;
   top: -88rpx;
   left: 32rpx;
@@ -37,26 +39,26 @@
   border-radius: 50%;
   overflow: hidden;
 }
-.person-center .person-main .avatar image {
+.person-center .person-main .avatar image.data-v-49db7cbc {
   width: 100%;
   height: 100%;
 }
-.person-center .person-main .user-header .user-data {
+.person-center .person-main .user-header .user-data.data-v-49db7cbc {
   display: flex;
   width: 498rpx;
   font-size: 28rpx;
   margin-left: 188rpx;
   color: #fff;
 }
-.person-center .person-main .user-header .user-data .data-item {
+.person-center .person-main .user-header .user-data .data-item.data-v-49db7cbc {
   margin-right: 16rpx;
 }
-.person-center .person-main .user-header .user-data .data-item .name {
+.person-center .person-main .user-header .user-data .data-item .name.data-v-49db7cbc {
   color: #7D7D7D;
   font-size: 24rpx;
   margin-left: 8rpx;
 }
-.person-center .person-main .user-info .user-tag text {
+.person-center .person-main .user-info .user-tag text.data-v-49db7cbc {
   background: #343434;
   border-radius: 12rpx;
   font-size: 20rpx;
@@ -66,24 +68,24 @@
   padding: 6rpx 16rpx;
   margin-right: 16rpx;
 }
-.person-center .person-main .user-info .user-tag text image {
+.person-center .person-main .user-info .user-tag text image.data-v-49db7cbc {
   width: 20rpx;
   height: 20rpx;
 }
-.person-center .person-main .user-info .login-btn {
+.person-center .person-main .user-info .login-btn.data-v-49db7cbc {
   font-size: 36rpx;
   font-weight: 500;
   color: #FFFFFF;
   margin-top: 32rpx;
 }
-.person-center .person-main .user-desc {
+.person-center .person-main .user-desc.data-v-49db7cbc {
   font-size: 26rpx;
   font-weight: 400;
   color: #7D7D7D;
   line-height: 40rpx;
   margin: 32rpx 0 42rpx;
 }
-.person-center .person-main .edit-btn {
+.person-center .person-main .edit-btn.data-v-49db7cbc {
   width: 686rpx;
   height: 80rpx;
   background: #343434;
@@ -94,19 +96,19 @@
   line-height: 80rpx;
   margin-bottom: 40rpx;
 }
-.person-center .tabbar {
+.person-center .tabbar.data-v-49db7cbc {
   margin-bottom: 36rpx;
 }
-.person-center .tabbar text {
+.person-center .tabbar text.data-v-49db7cbc {
   font-size: 36rpx;
   font-weight: 600;
   color: #7D7D7D;
   margin-right: 36rpx;
 }
-.person-center .tabbar text.active {
+.person-center .tabbar text.active.data-v-49db7cbc {
   color: #ffffff;
 }
-.person-center .active-wrap {
+.person-center .active-wrap.data-v-49db7cbc {
   padding-bottom: 32rpx;
 }
 
