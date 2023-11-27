@@ -1,6 +1,6 @@
 <template>
   <view class="form-item">
-    <view class="label">{{ label }}</view>
+    <view class="label" @click="handleItem">{{ label }}</view>
     <view class="input">
       <slot>
         <input
@@ -42,6 +42,11 @@
     data() {
       return {
         value: this.inputValue
+      }
+    },
+    methods: {
+      handleItem() {
+        this.$emit('click-label')
       }
     }
   }

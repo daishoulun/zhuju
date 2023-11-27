@@ -2,7 +2,9 @@
 	<view class="person-center" :class="{
     noLogin: isLogin
   }">
-		<view class="bg"></view>
+		<view class="bg">
+      <image class="draw-list" src="/static/list.png" @click="handleSetting"></image>
+    </view>
     <view class="person-main">
       <view class="user-header">
         <view class="avatar">
@@ -51,16 +53,19 @@
         <DynamicsList v-else-if="active === 'dynamics'"></DynamicsList>
       </view>  
     </view>
+    <AccountSetting ref="accountSet"></AccountSetting>
 	</view>
 </template>
 
 <script>
   import ActiveList from '@/components/active-list/active-list'
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
+  import AccountSetting from '@/components/account-setting.vue'
 	export default {
     components: {
       ActiveList,
-      DynamicsList
+      DynamicsList,
+      AccountSetting
     },
 		data() {
 			return {
@@ -81,6 +86,9 @@
         uni.navigateTo({
           url: '/pages/fans-list/fans-list?type=' + val
         })
+      },
+      handleSetting() {
+        this.$refs.accountSet.showDrawer()
       }
     }
 	}
@@ -97,6 +105,13 @@
     width: 750rpx;
     height: 446rpx;
     background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+    .draw-list {
+      position: absolute;
+      left: 32rpx;
+      top: 100rpx;
+      width: 56rpx;
+      height: 56rpx;
+    }
   }
   .person-main {
     position: relative;

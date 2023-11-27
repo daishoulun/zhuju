@@ -29,7 +29,7 @@
     },
     data() {
       return {
-        isLogin: false,
+        isLogin: true,
         current: 0,
 				swiperDotIndex: 0,
         mode: 'default',

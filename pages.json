@@ -88,6 +88,24 @@
         "navigationBarTitleText" : "",
         "enablePullDownRefresh" : false
       }
+    },
+    {
+      "path" : "pages/account-safe/account-safe",
+      "style" : 
+      {
+		    "navigationBarTitleText" : "账号安全",
+        "navigationBarTextStyle": "white",
+        "enablePullDownRefresh" : false
+      }
+    },
+    {
+      "path" : "pages/system-setting/system-setting",
+      "style" : 
+      {
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText" : "设置",
+        "enablePullDownRefresh" : false
+      }
     }
 	],
 	"globalStyle": {
