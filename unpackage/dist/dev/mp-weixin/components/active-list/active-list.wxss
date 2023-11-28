@@ -16,10 +16,16 @@
 .active-list .active-item {
   position: relative;
   width: 338rpx;
-  height: 408rpx;
-  background: #D8D8D8;
   border-radius: 16rpx;
   margin-right: 10px;
+  overflow: hidden;
+}
+.active-list .active-item:nth-of-type(2n) {
+  margin-right: 0;
+}
+.active-list .active-item .active-con {
+  height: 408rpx;
+  background: #D8D8D8;
 }
 .active-list .active-item .status-tag {
   position: absolute;
@@ -38,5 +44,45 @@
 .active-list .active-item .status-tag.progress {
   color: #201F2C;
   background-color: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+}
+.active-list .active-item .active-footer {
+  height: 132rpx;
+  padding: 24rpx 16rpx 0 20rpx;
+  background: #262626;
+}
+.active-list .active-item .active-footer .title {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 36rpx;
+  margin-bottom: 16rpx;
+}
+.active-list .active-item .active-footer .info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.active-list .active-item .active-footer .info-bar .user-info {
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+  font-weight: 400;
+  color: #7D7D7D;
+}
+.active-list .active-item .active-footer .info-bar .user-info image {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+}
+.active-list .active-item .active-footer .info-bar .forward {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+.active-list .active-item .active-footer .info-bar .forward image {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 8rpx;
 }
 

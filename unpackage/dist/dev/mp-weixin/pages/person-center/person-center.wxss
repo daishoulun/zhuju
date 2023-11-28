@@ -21,6 +21,13 @@
   height: 446rpx;
   background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
 }
+.person-center .bg .draw-list.data-v-49db7cbc {
+  position: absolute;
+  left: 32rpx;
+  top: 100rpx;
+  width: 56rpx;
+  height: 56rpx;
+}
 .person-center .person-main.data-v-49db7cbc {
   position: relative;
   width: 750rpx;

@@ -106,11 +106,28 @@
         "navigationBarTitleText" : "设置",
         "enablePullDownRefresh" : false
       }
+    },
+    {
+    	"path" : "pages/protocol-policy/protocol-policy",
+    	"style" : 
+    	{
+			"navigationBarTextStyle": "white",
+    		"navigationBarTitleText" : "隐私政策",
+    		"enablePullDownRefresh" : false
+    	}
+    },
+    {
+      "path" : "pages/select-city/select-city",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "enablePullDownRefresh" : false
+      }
     }
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "煮桔",
 		"navigationBarBackgroundColor": "#181818",
 		"backgroundColor": "#F8F8F8"
 	},

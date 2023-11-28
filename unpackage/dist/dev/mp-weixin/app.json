@@ -9,12 +9,16 @@
     "pages/self-introduction/self-introduction",
     "pages/set-avatar/set-avatar",
     "pages/person-detail/person-detail",
-    "pages/fans-list/fans-list"
+    "pages/fans-list/fans-list",
+    "pages/account-safe/account-safe",
+    "pages/system-setting/system-setting",
+    "pages/protocol-policy/protocol-policy",
+    "pages/select-city/select-city"
   ],
   "subPackages": [],
   "window": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "煮桔",
     "navigationBarBackgroundColor": "#181818",
     "backgroundColor": "#F8F8F8"
   },

@@ -20,9 +20,7 @@
         </picker>
       </FormItem>
       <FormItem label="地区">
-        <picker mode="date" :value="userForm.date" :start="startDate" :end="endDate" @change="selectDate">
-          <view class="uni-input">{{ userForm.date }}</view>
-        </picker>
+        <view class="uni-input" @click="updateCity">杭州</view>
       </FormItem>
       <FormItem class="home-bg" label="主页背景" :hasArrow="false">
         <view class="uni-input">更改主页背景</view>
@@ -82,6 +80,11 @@
         // })
         uni.navigateTo({
           url: '/pages/set-avatar/set-avatar'
+        })
+      },
+      updateCity() {
+        uni.navigateTo({
+          url: '/pages/select-city/select-city'
         })
       },
       handleSelfIntro() {

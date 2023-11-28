@@ -1,0 +1,22 @@
+
+.code-outsidebox.data-v-7e5d4c56 {
+  width: 100%;
+  height: auto;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10rpx;
+}
+.code-box.data-v-7e5d4c56 {
+  width: 102rpx;
+  height: 106rpx;
+  background: #2B2B2B;
+  border-radius: 22rpx;
+  text-align: center;
+  font-size: 44rpx;
+  color: #FFFFFF;
+  line-height: 106rpx;
+  transition: all 0.5s;
+  caret-color: #DCAEF4;
+}
+

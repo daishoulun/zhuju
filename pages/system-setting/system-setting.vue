@@ -1,8 +1,8 @@
 <template>
   <view class="system-setting">
-    <FormItem label="隐私政策" @click-label="handleLabel">&nbsp;</FormItem>
-    <FormItem label="用户服务">&nbsp;</FormItem>
-    <FormItem label="关于我们">&nbsp;</FormItem>
+    <FormItem label="隐私政策" @click-label="handleLabel('privacy')">&nbsp;</FormItem>
+    <FormItem label="用户服务" @click-label="handleLabel('userService')">&nbsp;</FormItem>
+    <FormItem label="关于我们" @click-label="handleLabel('about')">&nbsp;</FormItem>
   </view>
 </template>
 
@@ -18,8 +18,10 @@
       };
     },
     methods: {
-      handleLabel() {
-          console.log(12)
+      handleLabel(type) {
+        uni.navigateTo({
+          url: '/pages/protocol-policy/protocol-policy?type=' + type
+        })
       }
     }
   }

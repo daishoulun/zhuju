@@ -1,1 +1,1 @@
-<view class="active-list"><view class="active-item"><text class="status-tag">进行中</text></view></view>
+<view class="active-list"><view class="active-item"><view class="active-con"><text class="status-tag">进行中</text></view><view class="active-footer"><view class="title">今晚有人一起约酒吗？</view><view class="info-bar"><view class="user-info"><image src="/static/logo.png" mode></image><text class="name">张三</text></view><view class="forward"><image src="/static/forward-arrow.png"></image><text class="num">88</text></view></view></view></view></view>

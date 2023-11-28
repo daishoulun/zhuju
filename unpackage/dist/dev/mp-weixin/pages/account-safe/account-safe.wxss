@@ -1,0 +1,123 @@
+@charset "UTF-8";
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.account-safe.data-v-1a917926 {
+  height: calc(100vh - 88rpx);
+  background: #181818;
+}
+.account-safe .old-phone.data-v-1a917926 {
+  padding: 40rpx 32rpx 60rpx;
+  box-sizing: border-box;
+}
+.account-safe .old-phone .title.data-v-1a917926 {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #7D7D7D;
+}
+.account-safe .old-phone .con.data-v-1a917926 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14rpx;
+}
+.account-safe .old-phone .con .phone.data-v-1a917926 {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+.account-safe .old-phone .con .btn.data-v-1a917926 {
+  width: 148rpx;
+  height: 56rpx;
+  background: #262626;
+  border-radius: 28rpx;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 56rpx;
+  text-align: center;
+}
+.account-safe .log-off.data-v-1a917926 {
+  position: absolute;
+  bottom: 60rpx;
+  width: 686rpx;
+  height: 84rpx;
+  background: #262626;
+  border-radius: 60rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #7D7D7D;
+  line-height: 84rpx;
+  text-align: center;
+}
+.account-safe .new-phone.data-v-1a917926 {
+  padding: 58rpx 68rpx;
+  box-sizing: border-box;
+}
+.account-safe .new-phone .hi.data-v-1a917926 {
+  width: 56rpx;
+  height: 44rpx;
+}
+.account-safe .new-phone .tip.data-v-1a917926 {
+  font-size: 52rpx;
+  color: #DCAEF4;
+  margin-bottom: 56rpx;
+}
+.account-safe .new-phone .input-con.data-v-1a917926 {
+  display: flex;
+  align-items: center;
+  width: 612rpx;
+  height: 132rpx;
+  padding: 0 28rpx;
+  background: #2B2B2B;
+  border-radius: 28rpx;
+  font-size: 36rpx;
+  color: #FFFFFF;
+  margin-bottom: 240rpx;
+}
+.account-safe .new-phone .input-con .label.data-v-1a917926 {
+  width: 64rpx;
+  margin-right: 50rpx;
+}
+.account-safe .new-phone .input-con input.data-v-1a917926 {
+  flex: 1;
+}
+.account-safe .new-phone .send-code.data-v-1a917926 {
+  width: 612rpx;
+  height: 120rpx;
+  background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+  border-radius: 60rpx;
+  text-align: center;
+  line-height: 120rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #201F2C;
+}
+.account-safe .verify-code .phone-info.data-v-1a917926 {
+  padding: 48rpx 70rpx 70rpx;
+  font-size: 44rpx;
+  font-weight: 500;
+  color: #DCAEF4;
+  line-height: 60rpx;
+}
+.account-safe .verify-code .btn.data-v-1a917926 {
+  width: 612rpx;
+  height: 120rpx;
+  background: #5C5C5C;
+  border-radius: 60rpx;
+  margin-top: 252rpx;
+  line-height: 120rpx;
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 600;
+  margin: 252rpx auto 0;
+  color: #201F2C;
+}
+

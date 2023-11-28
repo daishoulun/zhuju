@@ -1,6 +1,6 @@
-(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],[
-/* 0 */,
-/* 1 */
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
+
+/***/ 1:
 /*!*********************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js ***!
   \*********************************************************/
@@ -43,7 +43,1324 @@ var _default = target[key];
 exports.default = _default;
 
 /***/ }),
-/* 2 */
+
+/***/ 10:
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 11:
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ 12);
+function _defineProperty(obj, key, value) {
+  key = toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 12:
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
+var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ 14);
+function _toPropertyKey(arg) {
+  var key = toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 13:
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
+}
+module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 14:
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toPrimitive.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 15:
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/construct.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf.js */ 16);
+var isNativeReflectConstruct = __webpack_require__(/*! ./isNativeReflectConstruct.js */ 17);
+function _construct(Parent, args, Class) {
+  if (isNativeReflectConstruct()) {
+    module.exports = _construct = Reflect.construct.bind(), module.exports.__esModule = true, module.exports["default"] = module.exports;
+  } else {
+    module.exports = _construct = function _construct(Parent, args, Class) {
+      var a = [null];
+      a.push.apply(a, args);
+      var Constructor = Function.bind.apply(Parent, a);
+      var instance = new Constructor();
+      if (Class) setPrototypeOf(instance, Class.prototype);
+      return instance;
+    }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+  }
+  return _construct.apply(null, arguments);
+}
+module.exports = _construct, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 153:
+/*!**********************************************************************************************************!*\
+  !*** /Users/zhengbijun/Desktop/daishoulun/zhuju/components/tsp-video/tsp-video-list/video-v-encipher.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/* 
+ lodData 上拉加载回调
+ refreshData 下拉加载回调
+ */
+var _default = {
+  props: {
+    /* 是否开启下拉刷新 */
+    loadOpen: {
+      type: Boolean,
+      default: true
+    },
+    /* 是否开启定位播放 */
+    currentOpen: {
+      type: Boolean,
+      default: false
+    },
+    /* tabBar栏 0系统tabBar栏 1自定义tabBar栏 */
+    tabBarShow: {
+      type: Number,
+      default: 0
+    },
+    /* 自定义底部栏的高度 */
+    tabBarHeight: {
+      type: Number,
+      default: 50
+    },
+    /* 进度条离底部的距离 px*/
+    speedBottom: {
+      type: Number,
+      default: 0
+    },
+    /* 初始加载完成是否自动播放 */
+    autoplay: {
+      type: Boolean,
+      default: true
+    },
+    /* 是否循环播放 */
+    loopPlay: {
+      type: Boolean,
+      default: true
+    },
+    /* 是否开启自动播放 */
+    nextPlay: {
+      type: Boolean,
+      default: false
+    },
+    /* 视频总数量，有值才能滑动加载到最后一个视频 */
+    totalvod: {
+      type: Number,
+      default: 0
+    }
+  },
+  data: function data() {
+    return {
+      videoStyle: {},
+      screenWidth: 0,
+      //屏幕的宽度
+      screenHeight: 0,
+      //屏幕的高度
+      videoCtx: null,
+      vodIndex: 0,
+      // 当前视频下标
+      currentIndex: 0,
+      //定位播放的下标
+      contentShow: false,
+      loadShow: false,
+      autoplayVideo: true,
+      // 初始加载完成是否自动播放
+      //当前播放的视频数组
+      vodList: [],
+      totalPlayList: [],
+      finalList: [],
+      changeIndex: 0,
+      //current 下标
+      beforeVodInfo: {},
+      //当前播放视频对象
+      vodCurIndex: 0,
+      //当前播放视频对象下标
+      circular: true,
+      durationNum: 300,
+      showShade: false,
+      //显示遮罩swiper
+      openSpot: false,
+      shadeNum: 0,
+      bufferTime: null,
+      //缓冲视频显示加载动画防抖
+      sliderProgress: 0,
+      //进度条滑动层宽度
+      sliderTime: 0,
+      //显示滑动进度条时变化的时间
+      videoTime: 0,
+      //视频时长 时间
+      endTime: 0,
+      //滑动进度条最终的时间
+      sliderDrag: false,
+      //是否在拖动进度
+      brightSlider: false,
+      //是否显示光亮的进度条
+      sliderEndTime: null,
+      //滑动结束隐藏光亮进度条时间延迟
+      bufferNum: null,
+      //显示loading加载进度的时间条件
+      bufferShow: false,
+      //显示loading加载进度的条件
+      playOpen: false,
+      //视频播放失败，是否重播视频的条件
+      failTime: null,
+      //视频播放失败，重播视频的时间
+      repeatTime: null,
+      palyCartoon: false,
+      //是否播放旋转头像
+      shakePlay: false,
+      //是否有防抖视频播放
+      touchClientY: 0,
+      //触碰的坐标
+      moveClientY: 0,
+      //移动的坐标
+      moveOpacity: false,
+      //是否透明
+      refreshShow: false,
+      //是否显示下拉刷新
+      refreshOpacity: 0,
+      //下拉刷新的透明度
+      refreshclientY: 0,
+      //下拉刷新的坐标
+      refreshOpen: false,
+      //下拉刷新的触发条件
+      errNum: 0,
+      playErrTime: null,
+      interceptIndex: [],
+      loadTime: null,
+      beginLoad: 0
+    };
+  },
+  created: function created() {
+    function _0x7349(_0x29ad4e, _0x37bed2) {
+      var _0x23c17f = _0x23c1();
+      return _0x7349 = function _0x7349(_0x73497d, _0x5472e2) {
+        _0x73497d = _0x73497d - 0x149;
+        var _0x58970d = _0x23c17f[_0x73497d];
+        return _0x58970d;
+      }, _0x7349(_0x29ad4e, _0x37bed2);
+    }
+    var _0x595886 = _0x7349;
+    function _0x23c1() {
+      var _0x47e06c = ['screenHeight', 'windowHeight', '242drCRxz', 'videoStyle', '1015496hCtzfI', '8562dLrCiw', 'tabBarHeight', '134461eePFHQ', '38799bLGCtQ', 'screenWidth', 'statusBarHeight', '1036752AsjCcz', '365LzTccU', '7kfuwOI', 'autoplay', '1030DhkLBO', 'getSystemInfoSync', '1629693aFBdGB', '10TgYnYg', '6htTUJU', 'width', '132840hXGrsO', 'height'];
+      _0x23c1 = function _0x23c1() {
+        return _0x47e06c;
+      };
+      return _0x23c1();
+    }
+    (function (_0x4f7b06, _0x1a7bb9) {
+      var _0x463236 = _0x7349,
+        _0x10009d = _0x4f7b06();
+      while (!![]) {
+        try {
+          var _0x43bb3b = parseInt(_0x463236(0x151)) / 0x1 * (parseInt(_0x463236(0x15c)) / 0x2) + parseInt(_0x463236(0x15d)) / 0x3 * (parseInt(_0x463236(0x155)) / 0x4) + parseInt(_0x463236(0x156)) / 0x5 * (parseInt(_0x463236(0x14f)) / 0x6) + -parseInt(_0x463236(0x157)) / 0x7 * (parseInt(_0x463236(0x14e)) / 0x8) + parseInt(_0x463236(0x152)) / 0x9 * (-parseInt(_0x463236(0x159)) / 0xa) + parseInt(_0x463236(0x14c)) / 0xb * (-parseInt(_0x463236(0x15f)) / 0xc) + -parseInt(_0x463236(0x15b)) / 0xd;
+          if (_0x43bb3b === _0x1a7bb9) break;else _0x10009d['push'](_0x10009d['shift']());
+        } catch (_0x3b4710) {
+          _0x10009d['push'](_0x10009d['shift']());
+        }
+      }
+    })(_0x23c1, 0x56aa5), this['autoplayVideo'] = this[_0x595886(0x158)];
+    var deviceInfo = uni[_0x595886(0x15a)]();
+    this[_0x595886(0x14d)][_0x595886(0x154)] = deviceInfo[_0x595886(0x154)] + 'px', this[_0x595886(0x14d)][_0x595886(0x15e)] = deviceInfo[_0x595886(0x153)] + 'px', this[_0x595886(0x153)] = deviceInfo[_0x595886(0x153)], this[_0x595886(0x14a)] = deviceInfo[_0x595886(0x14a)];
+    this['tabBarShow'] == 0x1 ? this[_0x595886(0x14d)][_0x595886(0x149)] = deviceInfo[_0x595886(0x14a)] - deviceInfo[_0x595886(0x154)] - this[_0x595886(0x150)] + 'px' : this[_0x595886(0x14d)][_0x595886(0x149)] = deviceInfo[_0x595886(0x14b)] - deviceInfo[_0x595886(0x154)] + 'px';
+  },
+  watch: {
+    vodCurIndex: function vodCurIndex(newIndex, oldIndex) {
+      var _this = this;
+      /* 上一个视频处理 */
+      function _0x2831(_0x144d98, _0x816507) {
+        var _0x39ca1d = _0x39ca();
+        return _0x2831 = function _0x2831(_0x28318e, _0x3d764b) {
+          _0x28318e = _0x28318e - 0x199;
+          var _0x462dbc = _0x39ca1d[_0x28318e];
+          return _0x462dbc;
+        }, _0x2831(_0x144d98, _0x816507);
+      }
+      var _0x1c7e85 = _0x2831;
+      function _0x39ca() {
+        var _0x5cfd78 = ['8815023pWhEYO', '175530BZneqC', '2773968ydQjsA', '26194kvxxgG', 'createVideoContext', '6NmUfEp', '10huzAvC', '18zWLsXJ', 'pause', 'vodList', 'filter', 'coverOpacity', '369349gBSFiG', 'videoIndex', '994310jeNpkj', 'myVideo', 'vodPaly', '1369276bPamhF', 'coverShow'];
+        _0x39ca = function _0x39ca() {
+          return _0x5cfd78;
+        };
+        return _0x39ca();
+      }
+      (function (_0x58709f, _0x23a180) {
+        var _0x4f5a5a = _0x2831,
+          _0x59cba8 = _0x58709f();
+        while (!![]) {
+          try {
+            var _0x1fce36 = -parseInt(_0x4f5a5a(0x19b)) / 0x1 + -parseInt(_0x4f5a5a(0x1a7)) / 0x2 * (parseInt(_0x4f5a5a(0x1a3)) / 0x3) + -parseInt(_0x4f5a5a(0x1a0)) / 0x4 + -parseInt(_0x4f5a5a(0x19d)) / 0x5 + -parseInt(_0x4f5a5a(0x1a9)) / 0x6 * (parseInt(_0x4f5a5a(0x1a5)) / 0x7) + parseInt(_0x4f5a5a(0x1a4)) / 0x8 + parseInt(_0x4f5a5a(0x1a2)) / 0x9 * (parseInt(_0x4f5a5a(0x1a8)) / 0xa);
+            if (_0x1fce36 === _0x23a180) break;else _0x59cba8['push'](_0x59cba8['shift']());
+          } catch (_0x3dd529) {
+            _0x59cba8['push'](_0x59cba8['shift']());
+          }
+        }
+      })(_0x39ca, 0x37e2b);
+      if (oldIndex >= 0x0) {
+        var oldObj = null;
+        this[_0x1c7e85(0x1ab)][_0x1c7e85(0x199)](function (_0x248fea, _0x2164f4) {
+          var _0x934d79 = _0x1c7e85;
+          oldIndex == _0x248fea[_0x934d79(0x19c)] && (_0x248fea[_0x934d79(0x19a)] = _0x248fea[_0x934d79(0x1a1)] ? !![] : ![], _0x248fea[_0x934d79(0x19f)] = ![], _0x248fea['pauseShow'] = ![], _0x248fea['loadingShow'] = ![], uni[_0x934d79(0x1a6)](_0x934d79(0x19e) + _0x2164f4, _this)[_0x934d79(0x1aa)]());
+        });
+      }
+    }
+  },
+  methods: {
+    /* 初始加载视频 */initVod: function initVod(dataList, index) {
+      var _this2 = this;
+      var _0x3b4b7c = _0x15ea;
+      function _0x3d57() {
+        var _0x378a0d = ['stringify', 'push', '10315350yGlDMW', '28248jzRtMd', 'beforeVodInfo', 'totalPlayList', 'changeIndex', '41391QvwCUk', 'filter', '640074qJkomi', 'loadTime', 'vodIndex', 'vodList', 'currentOpen', 'vodCurIndex', 'beginLoad', '664fNvTat', '2gTXjXv', 'videoIndex', 'slice', 'lodData', 'coverOpacity', 'getVodInfo', 'loadShow', 'swiperPlay', 'loadingShow', 'parse', '20KrWKwc', 'length', '10551042cXmfZu', 'vodPaly', 'pauseShow', '$emit', 'circular', 'durationNum', '1100692kGjgQz', '22jheRqo', '1579950BiOHPr'];
+        _0x3d57 = function _0x3d57() {
+          return _0x378a0d;
+        };
+        return _0x3d57();
+      }
+      (function (_0x38138c, _0x2707da) {
+        var _0x2a1146 = _0x15ea,
+          _0x1f1257 = _0x38138c();
+        while (!![]) {
+          try {
+            var _0x1dc3b7 = parseInt(_0x2a1146(0x128)) / 0x1 * (-parseInt(_0x2a1146(0x120)) / 0x2) + -parseInt(_0x2a1146(0x11a)) / 0x3 + -parseInt(_0x2a1146(0x114)) / 0x4 * (-parseInt(_0x2a1146(0x132)) / 0x5) + -parseInt(_0x2a1146(0x116)) / 0x6 + parseInt(_0x2a1146(0x11e)) / 0x7 * (-parseInt(_0x2a1146(0x127)) / 0x8) + -parseInt(_0x2a1146(0x134)) / 0x9 + parseInt(_0x2a1146(0x119)) / 0xa * (parseInt(_0x2a1146(0x115)) / 0xb);
+            if (_0x1dc3b7 === _0x2707da) break;else _0x1f1257['push'](_0x1f1257['shift']());
+          } catch (_0x293899) {
+            _0x1f1257['push'](_0x1f1257['shift']());
+          }
+        }
+      })(_0x3d57, 0x8f836);
+      index && (this['durationNum'] = 0x0);
+      var playIndex = index ? index : 0x0;
+      dataList['filter'](function (_0x4275b7, _0xf1b807) {
+        var _0x550f1b = _0x15ea;
+        _0x4275b7[_0x550f1b(0x129)] = _0xf1b807, _0x4275b7[_0x550f1b(0x135)] = _0xf1b807 == playIndex ? !![] : ![], _0x4275b7[_0x550f1b(0x110)] = ![], _0x4275b7[_0x550f1b(0x130)] = ![], _0x4275b7[_0x550f1b(0x12c)] = _0x4275b7['coverShow'] ? !![] : ![];
+      }), dataList['sort'](function (_0x3ff146, _0x2ad01f) {
+        var _0x4ec343 = _0x15ea;
+        return _0x3ff146[_0x4ec343(0x129)] - _0x2ad01f[_0x4ec343(0x129)];
+      }), this[_0x3b4b7c(0x11c)] = dataList, this['contentShow'] = dataList[_0x3b4b7c(0x133)] > 0x0 ? !![] : ![], this[_0x3b4b7c(0x12e)] = dataList['length'] > 0x0 ? !![] : ![], this[_0x3b4b7c(0x125)] = playIndex;
+      var currentNum = 0x0;
+      function _0x15ea(_0x30bf0e, _0x4a9870) {
+        var _0x3d57c9 = _0x3d57();
+        return _0x15ea = function _0x15ea(_0x15ea1d, _0x5830e3) {
+          _0x15ea1d = _0x15ea1d - 0x110;
+          var _0x1f7ded = _0x3d57c9[_0x15ea1d];
+          return _0x1f7ded;
+        }, _0x15ea(_0x30bf0e, _0x4a9870);
+      }
+      this[_0x3b4b7c(0x123)] = [{}, {}, {}], setTimeout(function () {
+        var _0x229f25 = _0x3b4b7c;
+        var _0x537322 = _this2[_0x229f25(0x11c)]['length'],
+          _0x45ad35 = _0x537322 % 0x3,
+          _0x196a80 = playIndex - 0x1 < 0x0 ? 0x0 : playIndex - 0x1,
+          _0x19dcab = playIndex + 0x2,
+          _0x3294a6 = _0x537322 - _0x45ad35;
+        if (playIndex == 0x0 || playIndex + 0x1 >= _0x3294a6) {
+          _this2[_0x229f25(0x112)] = ![];
+          var _0x7bc87e = [];
+          playIndex == 0x0 ? _0x7bc87e = JSON['parse'](JSON[_0x229f25(0x117)](_this2['totalPlayList']['slice'](_0x196a80, playIndex + 0x3))) : _0x7bc87e = JSON[_0x229f25(0x131)](JSON[_0x229f25(0x117)](_this2[_0x229f25(0x11c)][_0x229f25(0x12a)](_0x3294a6 - 0x3, _0x3294a6)));
+          _0x7bc87e[_0x229f25(0x11f)](function (_0x1343dc) {
+            var _0x44b021 = _0x229f25;
+            if (_0x1343dc[_0x44b021(0x129)] % 0x3 == 0x0) _this2[_0x44b021(0x123)][0x0] = _0x1343dc;else {
+              if (_0x1343dc[_0x44b021(0x129)] % 0x3 == 0x1) _this2[_0x44b021(0x123)][0x1] = _0x1343dc;else _0x1343dc['videoIndex'] % 0x3 == 0x2 && (_this2['vodList'][0x2] = _0x1343dc);
+            }
+          });
+          if (playIndex != 0x0) {
+            var _0x2961a0 = JSON['parse'](JSON[_0x229f25(0x117)](_this2[_0x229f25(0x11c)][_0x229f25(0x12a)](_0x3294a6, _0x537322)));
+            _0x2961a0['filter'](function (_0x2af821) {
+              var _0x1115a5 = _0x229f25;
+              _this2['vodList'][_0x1115a5(0x118)](_0x2af821);
+            }), _this2['totalPlayList'][_0x229f25(0x133)] >= _this2['totalvod'] && (_this2[_0x229f25(0x12e)] = ![]);
+          }
+        } else {
+          _this2[_0x229f25(0x112)] = !![];
+          var _0x19cede = JSON[_0x229f25(0x131)](JSON[_0x229f25(0x117)](_this2[_0x229f25(0x11c)][_0x229f25(0x12a)](_0x196a80, _0x19dcab)));
+          _0x19cede[_0x229f25(0x11f)](function (_0x27d527) {
+            var _0x4dd3a4 = _0x229f25;
+            if (_0x27d527[_0x4dd3a4(0x129)] % 0x3 == 0x0) _this2['vodList'][0x0] = _0x27d527;else {
+              if (_0x27d527[_0x4dd3a4(0x129)] % 0x3 == 0x1) _this2[_0x4dd3a4(0x123)][0x1] = _0x27d527;else _0x27d527[_0x4dd3a4(0x129)] % 0x3 == 0x2 && (_this2[_0x4dd3a4(0x123)][0x2] = _0x27d527);
+            }
+          });
+        }
+        _this2[_0x229f25(0x12d)](), _this2[_0x229f25(0x123)][_0x229f25(0x11f)](function (_0x993d75, _0x19eb2f) {
+          var _0x463ecd = _0x229f25;
+          _this2[_0x463ecd(0x125)] == _0x993d75['videoIndex'] && (currentNum = _0x19eb2f);
+        }), _this2[_0x229f25(0x124)] && (_this2['currentIndex'] = currentNum), _this2[_0x229f25(0x11d)] = currentNum, _this2[_0x229f25(0x122)] = currentNum, _this2[_0x229f25(0x125)] + 0x1 >= _this2[_0x229f25(0x11c)]['length'] - _this2[_0x229f25(0x11c)]['length'] % 0x3 && (clearTimeout(_this2['loadTime']), _this2[_0x229f25(0x121)] = setTimeout(function () {
+          var _0x4917a7 = _0x229f25;
+          _this2[_0x4917a7(0x126)] = _this2['totalPlayList']['length'], _this2[_0x4917a7(0x111)](_0x4917a7(0x12b));
+        }, 0x12c));
+      }, 0x64), setTimeout(function () {
+        var _0x730180 = _0x3b4b7c;
+        _this2[_0x730180(0x113)] = 0x12c, _this2['autoplayVideo'] ? _this2[_0x730180(0x12f)](currentNum) : (_this2[_0x730180(0x11b)][_0x730180(0x135)] = ![], _this2[_0x730180(0x11b)][_0x730180(0x110)] = !![]);
+      }, 0xc8);
+    },
+    /* 到底加载方法 */lodingData: function lodingData(dataList) {
+      var _this3 = this;
+      var _0x57624a = _0x121b;
+      function _0x67b3() {
+        var _0x16fd98 = ['12MuXZHT', '4rjCkhx', 'pauseShow', '352jVFyyL', '6SzMiZC', '108846cgWxQQ', '3519150jMKmEX', '903369XNqqOE', 'length', '6402950MhgLHR', 'vodPaly', 'loadingShow', 'videoIndex', 'coverOpacity', '7047073snsrRu', 'totalPlayList', 'getVodSliceList', '143228kvspEr', 'concat', 'circular', '3214295XFiuEc', 'coverShow', '$nextTick'];
+        _0x67b3 = function _0x67b3() {
+          return _0x16fd98;
+        };
+        return _0x67b3();
+      }
+      (function (_0x4a9a80, _0x514f43) {
+        var _0x491d08 = _0x121b,
+          _0xe9ac1d = _0x4a9a80();
+        while (!![]) {
+          try {
+            var _0x3ac61e = -parseInt(_0x491d08(0xbc)) / 0x1 + -parseInt(_0x491d08(0xaf)) / 0x2 * (parseInt(_0x491d08(0xb2)) / 0x3) + -parseInt(_0x491d08(0xc3)) / 0x4 * (-parseInt(_0x491d08(0xb4)) / 0x5) + parseInt(_0x491d08(0xc2)) / 0x6 * (parseInt(_0x491d08(0xbf)) / 0x7) + -parseInt(_0x491d08(0xae)) / 0x8 * (parseInt(_0x491d08(0xb0)) / 0x9) + -parseInt(_0x491d08(0xb1)) / 0xa + parseInt(_0x491d08(0xb9)) / 0xb;
+            if (_0x3ac61e === _0x514f43) break;else _0xe9ac1d['push'](_0xe9ac1d['shift']());
+          } catch (_0xba0fc1) {
+            _0xe9ac1d['push'](_0xe9ac1d['shift']());
+          }
+        }
+      })(_0x67b3, 0xdde9b);
+      function _0x121b(_0x2b75b3, _0x5e7a4c) {
+        var _0x67b3d3 = _0x67b3();
+        return _0x121b = function _0x121b(_0x121b01, _0x15e204) {
+          _0x121b01 = _0x121b01 - 0xae;
+          var _0xad5ae9 = _0x67b3d3[_0x121b01];
+          return _0xad5ae9;
+        }, _0x121b(_0x2b75b3, _0x5e7a4c);
+      }
+      var num = this[_0x57624a(0xba)][_0x57624a(0xb3)];
+      dataList['filter'](function (_0x1c2f46, _0x2c68d6) {
+        var _0x43707f = _0x57624a;
+        _0x1c2f46[_0x43707f(0xb7)] = num + _0x2c68d6, _0x1c2f46[_0x43707f(0xb5)] = ![], _0x1c2f46[_0x43707f(0xc4)] = ![], _0x1c2f46[_0x43707f(0xb6)] = ![], _0x1c2f46[_0x43707f(0xb8)] = _0x1c2f46[_0x43707f(0xc0)] ? !![] : ![];
+      }), this[_0x57624a(0xba)] = this[_0x57624a(0xba)][_0x57624a(0xbd)](dataList), this[_0x57624a(0xc1)](function () {
+        var _0x326c11 = _0x57624a;
+        _this3[_0x326c11(0xbb)](), _this3[_0x326c11(0xbe)] = !![];
+      });
+    },
+    /* 重新加载 */refreshSquare: function refreshSquare(dataList, index) {
+      var _this4 = this;
+      function _0x4df3() {
+        var _0x483d5f = ['showToast', '800538ftqeha', '1285039OicPYK', '928947huUNjn', '48YeaErO', '55103445jLuJvu', 'totalPlayList', 'initVod', '2051KYEmBJ', '475180rQcAVO', 'refreshOpen', 'refreshShow', '1157670umBKNa', '46392mszWYn'];
+        _0x4df3 = function _0x4df3() {
+          return _0x483d5f;
+        };
+        return _0x4df3();
+      }
+      var _0xfa389 = _0x5e2c;
+      (function (_0x219357, _0x133ff7) {
+        var _0x4c7dfb = _0x5e2c,
+          _0x2f17ff = _0x219357();
+        while (!![]) {
+          try {
+            var _0x6605e7 = -parseInt(_0x4c7dfb(0xaa)) / 0x1 + -parseInt(_0x4c7dfb(0xa6)) / 0x2 + -parseInt(_0x4c7dfb(0x9d)) / 0x3 + -parseInt(_0x4c7dfb(0x9e)) / 0x4 * (parseInt(_0x4c7dfb(0xa3)) / 0x5) + -parseInt(_0x4c7dfb(0xa9)) / 0x6 + parseInt(_0x4c7dfb(0xa2)) / 0x7 * (-parseInt(_0x4c7dfb(0xa7)) / 0x8) + parseInt(_0x4c7dfb(0x9f)) / 0x9;
+            if (_0x6605e7 === _0x133ff7) break;else _0x2f17ff['push'](_0x2f17ff['shift']());
+          } catch (_0x29449f) {
+            _0x2f17ff['push'](_0x2f17ff['shift']());
+          }
+        }
+      })(_0x4df3, 0xee4f8);
+      var playIndex = index ? index : 0x0;
+      function _0x5e2c(_0x4f5ac7, _0x4e2391) {
+        var _0x4df386 = _0x4df3();
+        return _0x5e2c = function _0x5e2c(_0x5e2c0c, _0x49aa34) {
+          _0x5e2c0c = _0x5e2c0c - 0x9d;
+          var _0x27e9ed = _0x4df386[_0x5e2c0c];
+          return _0x27e9ed;
+        }, _0x5e2c(_0x4f5ac7, _0x4e2391);
+      }
+      this['resetData'](), this[_0xfa389(0xa5)] = ![], this[_0xfa389(0xa4)] = ![], this['vodList'] = [], this[_0xfa389(0xa0)] = [], setTimeout(function () {
+        var _0xa52bef = _0xfa389;
+        _this4[_0xa52bef(0xa1)](dataList, playIndex), uni[_0xa52bef(0xa8)]({
+          'title': '刷新成功',
+          'icon': 'none'
+        });
+      }, 0x32);
+    },
+    /* onShow播放视频 */showPlay: function showPlay() {
+      if (this.vodIndex != null && this.contentShow && !this.beforeVodInfo.vodPaly) {
+        this.videoPlay(this.vodIndex);
+      }
+    },
+    /* onHide暂停视频 */hidePause: function hidePause() {
+      if (this.vodIndex != null && this.contentShow && this.beforeVodInfo.vodPaly) {
+        this.videoPause(this.vodIndex);
+      }
+      this.brightSlider = false; //隐藏光亮的进度条
+    },
+    /* 点击暂停、播放视频 */playSpot: function playSpot(index) {
+      if (this.beforeVodInfo.vodPaly) {
+        //暂停
+        this.videoPause(index);
+        this.beforeVodInfo.pauseShow = true; //显示暂停图标
+      } else {
+        //播放
+        this.videoPlay(index);
+        this.beforeVodInfo.pauseShow = false; //关闭暂停图标
+      }
+    },
+    /* 播放视频 */videoPlay: function videoPlay(index) {
+      var _this5 = this;
+      // console.log('播放视频myVideo============>' + index)
+      var _0x3b1a6f = _0x32ff;
+      function _0x32ff(_0x2de257, _0x510101) {
+        var _0x348416 = _0x3484();
+        return _0x32ff = function _0x32ff(_0x32ffac, _0x401dd1) {
+          _0x32ffac = _0x32ffac - 0x86;
+          var _0x32352e = _0x348416[_0x32ffac];
+          return _0x32352e;
+        }, _0x32ff(_0x2de257, _0x510101);
+      }
+      function _0x3484() {
+        var _0x45be57 = ['$nextTick', '4534537zvIIKb', '6YciMvB', 'beforeVodInfo', 'vodPaly', 'moveOpacity', 'myVideo', '62596CHsVdD', '95zccWoq', 'brightSlider', '4199576pKOeOG', 'openSpot', 'createVideoContext', 'play', 'getVodInfo', '2993190EVoYnG', '9DZmUjm', '11sUYawS', '215398XXcuGR', '28834608QMhrEf', '4991560LWmHgK'];
+        _0x3484 = function _0x3484() {
+          return _0x45be57;
+        };
+        return _0x3484();
+      }
+      (function (_0x9fa0e4, _0x578eb1) {
+        var _0x1fdda0 = _0x32ff,
+          _0x468d9f = _0x9fa0e4();
+        while (!![]) {
+          try {
+            var _0x110fd2 = -parseInt(_0x1fdda0(0x86)) / 0x1 * (parseInt(_0x1fdda0(0x87)) / 0x2) + -parseInt(_0x1fdda0(0x99)) / 0x3 + parseInt(_0x1fdda0(0x91)) / 0x4 * (-parseInt(_0x1fdda0(0x92)) / 0x5) + parseInt(_0x1fdda0(0x8c)) / 0x6 * (parseInt(_0x1fdda0(0x8b)) / 0x7) + parseInt(_0x1fdda0(0x94)) / 0x8 * (parseInt(_0x1fdda0(0x9a)) / 0x9) + -parseInt(_0x1fdda0(0x89)) / 0xa + parseInt(_0x1fdda0(0x88)) / 0xb;
+            if (_0x110fd2 === _0x578eb1) break;else _0x468d9f['push'](_0x468d9f['shift']());
+          } catch (_0x4d1381) {
+            _0x468d9f['push'](_0x468d9f['shift']());
+          }
+        }
+      })(_0x3484, 0xc7038), this[_0x3b1a6f(0x95)] = !![], this[_0x3b1a6f(0x98)](), this['showShade'] = ![], this[_0x3b1a6f(0x8d)][_0x3b1a6f(0x8e)] = !![], this[_0x3b1a6f(0x8d)]['pauseShow'] = ![], this[_0x3b1a6f(0x93)] = ![], this[_0x3b1a6f(0x8a)](function () {
+        var _0x48df7f = _0x3b1a6f;
+        _this5[_0x48df7f(0x8f)] = ![], uni[_0x48df7f(0x96)](_0x48df7f(0x90) + index, _this5)[_0x48df7f(0x97)]();
+      });
+    },
+    /* 暂停视频 */videoPause: function videoPause(index) {
+      var _this6 = this;
+      // console.log('暂停视频myVideo============>' + index)
+      var _0x4e3151 = _0x3363;
+      (function (_0x3382e1, _0x2820dc) {
+        var _0x7fcd87 = _0x3363,
+          _0x23195d = _0x3382e1();
+        while (!![]) {
+          try {
+            var _0x4378f7 = parseInt(_0x7fcd87(0x9d)) / 0x1 + parseInt(_0x7fcd87(0x99)) / 0x2 + parseInt(_0x7fcd87(0xa3)) / 0x3 + -parseInt(_0x7fcd87(0xa4)) / 0x4 + -parseInt(_0x7fcd87(0x9a)) / 0x5 * (-parseInt(_0x7fcd87(0x9c)) / 0x6) + parseInt(_0x7fcd87(0xa0)) / 0x7 + -parseInt(_0x7fcd87(0x9f)) / 0x8;
+            if (_0x4378f7 === _0x2820dc) break;else _0x23195d['push'](_0x23195d['shift']());
+          } catch (_0x518c6b) {
+            _0x23195d['push'](_0x23195d['shift']());
+          }
+        }
+      })(_0x8e55, 0x9ae10), this['getVodInfo'](), this[_0x4e3151(0xa1)]['vodPaly'] = ![];
+      this[_0x4e3151(0x9b)] == index && this['beforeVodInfo'][_0x4e3151(0xa2)] && (this[_0x4e3151(0x98)] = !![]);
+      function _0x3363(_0x1884d0, _0x4ea235) {
+        var _0x8e5562 = _0x8e55();
+        return _0x3363 = function _0x3363(_0x3363fe, _0x1bd5d4) {
+          _0x3363fe = _0x3363fe - 0x97;
+          var _0x5eb19d = _0x8e5562[_0x3363fe];
+          return _0x5eb19d;
+        }, _0x3363(_0x1884d0, _0x4ea235);
+      }
+      this['$nextTick'](function () {
+        var _0x4c9851 = _0x4e3151;
+        uni['createVideoContext'](_0x4c9851(0x97) + index, _this6)[_0x4c9851(0x9e)]();
+      });
+      function _0x8e55() {
+        var _0x182b3e = ['5095440YsEWQr', 'beforeVodInfo', 'sliderShow', '2551146CicWgH', '1883824qwtVzp', 'myVideo', 'brightSlider', '1433750YfDkwB', '5VPqmLa', 'vodIndex', '5597538hfnNKY', '429637HlxrLc', 'pause', '20419176olCZUP'];
+        _0x8e55 = function _0x8e55() {
+          return _0x182b3e;
+        };
+        return _0x8e55();
+      }
+    },
+    changeSwiper: function changeSwiper(ev) {
+      var _0x10c9e5 = _0xcbd5;
+      (function (_0x1a5519, _0x356f25) {
+        var _0x3d879c = _0xcbd5,
+          _0x57ae63 = _0x1a5519();
+        while (!![]) {
+          try {
+            var _0x470d3c = parseInt(_0x3d879c(0x13c)) / 0x1 * (-parseInt(_0x3d879c(0x132)) / 0x2) + -parseInt(_0x3d879c(0x143)) / 0x3 * (parseInt(_0x3d879c(0x134)) / 0x4) + -parseInt(_0x3d879c(0x131)) / 0x5 * (parseInt(_0x3d879c(0x13b)) / 0x6) + -parseInt(_0x3d879c(0x13d)) / 0x7 + -parseInt(_0x3d879c(0x145)) / 0x8 * (parseInt(_0x3d879c(0x148)) / 0x9) + -parseInt(_0x3d879c(0x139)) / 0xa * (-parseInt(_0x3d879c(0x147)) / 0xb) + parseInt(_0x3d879c(0x14a)) / 0xc * (parseInt(_0x3d879c(0x144)) / 0xd);
+            if (_0x470d3c === _0x356f25) break;else _0x57ae63['push'](_0x57ae63['shift']());
+          } catch (_0x15953c) {
+            _0x57ae63['push'](_0x57ae63['shift']());
+          }
+        }
+      })(_0x1c88, 0x85501);
+      var curIndex = ev[_0x10c9e5(0x146)][_0x10c9e5(0x13e)],
+        videoIndex = this['vodList'][curIndex][_0x10c9e5(0x133)];
+      function _0xcbd5(_0x22dc0b, _0x38303d) {
+        var _0x1c887f = _0x1c88();
+        return _0xcbd5 = function _0xcbd5(_0xcbd508, _0x3088e2) {
+          _0xcbd508 = _0xcbd508 - 0x131;
+          var _0x2c829c = _0x1c887f[_0xcbd508];
+          return _0x2c829c;
+        }, _0xcbd5(_0x22dc0b, _0x38303d);
+      }
+      function _0x1c88() {
+        var _0x4beb3d = ['23268lXhKQe', '5RykXBR', '482194OynPOO', 'videoIndex', '77816TEJZgE', 'openSpot', 'length', 'totalPlayList', 'getVodSliceList', '6354850sKlBtg', 'vodCurIndex', '4555644cyyTfG', '2RjMauJ', '1395387IsBByj', 'current', 'changeIndex', 'getVodInfo', 'showShade', 'shadeNum', '15VfOetw', '13039arZQwD', '392NuTLGd', 'detail', '11BlFOiH', '91134BoNIcI', 'autoplayVideo'];
+        _0x1c88 = function _0x1c88() {
+          return _0x4beb3d;
+        };
+        return _0x1c88();
+      }
+      this['moveOpacity'] = !![], this[_0x10c9e5(0x142)]++, this[_0x10c9e5(0x135)] = ![], this[_0x10c9e5(0x149)] = !![];
+      var vodTotal = this['totalPlayList'][_0x10c9e5(0x136)] % 0x3;
+      (videoIndex == 0x0 || videoIndex + 0x1 == this[_0x10c9e5(0x137)][_0x10c9e5(0x136)] - vodTotal) && this[_0x10c9e5(0x142)] > 0x1 && (this[_0x10c9e5(0x141)] = !![]);
+      this[_0x10c9e5(0x13f)] = curIndex, this[_0x10c9e5(0x13a)] = videoIndex, this[_0x10c9e5(0x138)](), this[_0x10c9e5(0x140)]();
+    },
+    /* 要播放视频的下标 */swiperVod: function swiperVod(ev) {
+      var _this7 = this;
+      var _0x3c2994 = _0x1799;
+      (function (_0x179881, _0x2d183c) {
+        var _0x45b7dc = _0x1799,
+          _0x6e3251 = _0x179881();
+        while (!![]) {
+          try {
+            var _0x357714 = -parseInt(_0x45b7dc(0x74)) / 0x1 * (parseInt(_0x45b7dc(0x79)) / 0x2) + -parseInt(_0x45b7dc(0x84)) / 0x3 * (parseInt(_0x45b7dc(0x75)) / 0x4) + -parseInt(_0x45b7dc(0x71)) / 0x5 + parseInt(_0x45b7dc(0x82)) / 0x6 * (parseInt(_0x45b7dc(0x6b)) / 0x7) + -parseInt(_0x45b7dc(0x70)) / 0x8 + parseInt(_0x45b7dc(0x83)) / 0x9 + -parseInt(_0x45b7dc(0x67)) / 0xa * (-parseInt(_0x45b7dc(0x7e)) / 0xb);
+            if (_0x357714 === _0x2d183c) break;else _0x6e3251['push'](_0x6e3251['shift']());
+          } catch (_0x309c60) {
+            _0x6e3251['push'](_0x6e3251['shift']());
+          }
+        }
+      })(_0x444e, 0xe4855);
+      var curIndex = ev[_0x3c2994(0x77)]['current'];
+      if (this[_0x3c2994(0x7f)]) return;
+      this[_0x3c2994(0x85)](), this[_0x3c2994(0x88)] = ![], this[_0x3c2994(0x73)] = 0x0, this[_0x3c2994(0x6e)] = ![], this[_0x3c2994(0x86)][_0x3c2994(0x81)](function (_0x23721c) {
+        var _0x520224 = _0x3c2994;
+        if (_0x23721c[_0x520224(0x6f)] % 0x3 == 0x0) _this7['vodList'][0x0] = _0x23721c;else {
+          if (_0x23721c['videoIndex'] % 0x3 == 0x1) _this7[_0x520224(0x68)][0x1] = _0x23721c;else _0x23721c[_0x520224(0x6f)] % 0x3 == 0x2 && (_this7[_0x520224(0x68)][0x2] = _0x23721c);
+        }
+      });
+      function _0x1799(_0x546793, _0x5e67eb) {
+        var _0x444e08 = _0x444e();
+        return _0x1799 = function _0x1799(_0x179925, _0x24d190) {
+          _0x179925 = _0x179925 - 0x67;
+          var _0x4e8bc1 = _0x444e08[_0x179925];
+          return _0x4e8bc1;
+        }, _0x1799(_0x546793, _0x5e67eb);
+      }
+      var endNum = this[_0x3c2994(0x72)]['length'] - this[_0x3c2994(0x72)][_0x3c2994(0x6d)] % 0x3;
+      function _0x444e() {
+        var _0x113726 = ['filter', '2001390DvtyUR', '10795671qkcJWN', '822teWfUg', 'resetData', 'finalList', 'totalvod', 'moveOpacity', '55440EcWXLp', 'vodList', 'lodData', 'swiperPlay', '35VnGzXg', 'beginLoad', 'length', 'showShade', 'videoIndex', '3182072NURNUM', '1304400nUOGmy', 'totalPlayList', 'shadeNum', '1864706MUDSdp', '12724wFhJRu', 'vodCurIndex', 'detail', 'changeIndex', '2JqKFod', 'push', 'vodIndex', 'circular', 'loadTime', '2904qRQxnZ', 'openSpot', 'loadShow'];
+        _0x444e = function _0x444e() {
+          return _0x113726;
+        };
+        return _0x444e();
+      }
+      if (this[_0x3c2994(0x76)] == 0x0 || this[_0x3c2994(0x76)] + 0x1 >= endNum) {
+        this[_0x3c2994(0x7c)] = ![];
+        var appendNum = this[_0x3c2994(0x87)] - this['totalvod'] % 0x3;
+        if (this[_0x3c2994(0x76)] != 0x0 && this['vodList'][_0x3c2994(0x6d)] == 0x3 && this[_0x3c2994(0x76)] + 0x1 >= appendNum && this[_0x3c2994(0x87)] > 0x0) {
+          var arrList = this[_0x3c2994(0x72)]['slice'](this['vodCurIndex'] + 0x1, this[_0x3c2994(0x72)]['length']);
+          arrList[_0x3c2994(0x81)](function (_0x3a553f) {
+            var _0x38e493 = _0x3c2994;
+            _this7['vodList'][_0x38e493(0x7a)](_0x3a553f);
+          });
+        }
+      } else {
+        this[_0x3c2994(0x7c)] = !![];
+        var loadNum = this['beginLoad'] - this[_0x3c2994(0x6c)] % 0x3;
+        if (this[_0x3c2994(0x6c)] > 0x0 && this[_0x3c2994(0x76)] + 0x1 >= loadNum && this['vodCurIndex'] + 0x1 <= this[_0x3c2994(0x6c)]) {} else this['vodList'][_0x3c2994(0x6d)] > 0x3 && (this[_0x3c2994(0x68)][_0x3c2994(0x6d)] = 0x3), this[_0x3c2994(0x6c)] = 0x0;
+      }
+      this[_0x3c2994(0x87)] > 0x0 && (this[_0x3c2994(0x80)] = this['totalPlayList']['length'] >= this[_0x3c2994(0x87)] ? ![] : !![]);
+      this[_0x3c2994(0x7b)] = this[_0x3c2994(0x78)], this[_0x3c2994(0x6a)](this[_0x3c2994(0x7b)]);
+      this[_0x3c2994(0x76)] + 0x1 >= this[_0x3c2994(0x72)][_0x3c2994(0x6d)] - this[_0x3c2994(0x72)][_0x3c2994(0x6d)] % 0x3 && (clearTimeout(this[_0x3c2994(0x7d)]), this['loadTime'] = setTimeout(function () {
+        var _0x35699f = _0x3c2994;
+        _this7['$emit'](_0x35699f(0x69));
+      }, 0x12c));
+    },
+    /* 获取当前视频播放对象 */getVodInfo: function getVodInfo() {
+      var _this8 = this;
+      this.vodList.filter(function (item) {
+        if (_this8.vodCurIndex == item.videoIndex) {
+          _this8.beforeVodInfo = item;
+        }
+      });
+    },
+    /* 截取要播放的视频列表 */getVodSliceList: function getVodSliceList() {
+      var _this9 = this;
+      var _0x40962e = _0x1422;
+      (function (_0xc5cb20, _0x5d0273) {
+        var _0x29c85a = _0x1422,
+          _0x475164 = _0xc5cb20();
+        while (!![]) {
+          try {
+            var _0x440837 = parseInt(_0x29c85a(0x168)) / 0x1 * (-parseInt(_0x29c85a(0x164)) / 0x2) + -parseInt(_0x29c85a(0x160)) / 0x3 + -parseInt(_0x29c85a(0x161)) / 0x4 * (-parseInt(_0x29c85a(0x162)) / 0x5) + parseInt(_0x29c85a(0x170)) / 0x6 + -parseInt(_0x29c85a(0x16c)) / 0x7 + -parseInt(_0x29c85a(0x16f)) / 0x8 * (-parseInt(_0x29c85a(0x166)) / 0x9) + parseInt(_0x29c85a(0x16e)) / 0xa * (parseInt(_0x29c85a(0x16a)) / 0xb);
+            if (_0x440837 === _0x5d0273) break;else _0x475164['push'](_0x475164['shift']());
+          } catch (_0x27f83b) {
+            _0x475164['push'](_0x475164['shift']());
+          }
+        }
+      })(_0x2339, 0x48551);
+      function _0x2339() {
+        var _0x48f83e = ['66076XGeTSH', '70rcskRX', 'videoIndex', '208pvRsPH', 'stringify', '63711kGRDOX', 'vodList', '146NyiBhT', 'totalPlayList', '44cHHMjj', 'slice', '2691521XfcQsi', 'filter', '783110qFqvGP', '88gFlJXi', '442098BIiyQQ', 'changeIndex', '306HhPfCT'];
+        _0x2339 = function _0x2339() {
+          return _0x48f83e;
+        };
+        return _0x2339();
+      }
+      var videoIndex = this['vodList'][this[_0x40962e(0x171)]]['videoIndex'],
+        starIdx = videoIndex - 0x1 < 0x0 ? 0x0 : videoIndex - 0x1,
+        endIdx = videoIndex + 0x2,
+        resultList = JSON['parse'](JSON[_0x40962e(0x165)](this[_0x40962e(0x169)][_0x40962e(0x16b)](starIdx, endIdx)));
+      function _0x1422(_0x55e24c, _0x2085ec) {
+        var _0x2339a5 = _0x2339();
+        return _0x1422 = function _0x1422(_0x142292, _0x5ba452) {
+          _0x142292 = _0x142292 - 0x160;
+          var _0x3ee022 = _0x2339a5[_0x142292];
+          return _0x3ee022;
+        }, _0x1422(_0x55e24c, _0x2085ec);
+      }
+      resultList[_0x40962e(0x16d)](function (_0x4577bd) {
+        var _0x20f122 = _0x40962e;
+        if (_0x4577bd['videoIndex'] % 0x3 == 0x0) _this9[_0x20f122(0x167)][0x0][_0x20f122(0x163)] = _0x4577bd[_0x20f122(0x163)];else {
+          if (_0x4577bd[_0x20f122(0x163)] % 0x3 == 0x1) _this9['vodList'][0x1]['videoIndex'] = _0x4577bd[_0x20f122(0x163)];else _0x4577bd[_0x20f122(0x163)] % 0x3 == 0x2 && (_this9['vodList'][0x2]['videoIndex'] = _0x4577bd['videoIndex']);
+        }
+      }), this['finalList'] = resultList;
+    },
+    /* swiper播放视频 */swiperPlay: function swiperPlay(newIndex, oldIndex) {
+      var _0x1c930b = _0x10aa;
+      function _0x50d3() {
+        var _0x1c8b18 = ['9306816qEWqDD', '12rKJLSj', '2923906YguVWQ', '1483889sUgiXp', '1387239RPcZDl', 'failTime', 'videoPlay', '1080GTLIDZ', '91RZQlBT', '150496uXBOku', '1826155FRCUVp', 'myVideo', 'vodPaly', 'shakePlay', 'playOpen', 'repeatTime', '81891DNXhwg'];
+        _0x50d3 = function _0x50d3() {
+          return _0x1c8b18;
+        };
+        return _0x50d3();
+      }
+      (function (_0x34b0d8, _0x4e8949) {
+        var _0x41dc8a = _0x10aa,
+          _0x1e8988 = _0x34b0d8();
+        while (!![]) {
+          try {
+            var _0x357595 = parseInt(_0x41dc8a(0xa7)) / 0x1 + -parseInt(_0x41dc8a(0xa6)) / 0x2 + -parseInt(_0x41dc8a(0xa8)) / 0x3 + -parseInt(_0x41dc8a(0xa5)) / 0x4 * (-parseInt(_0x41dc8a(0x9d)) / 0x5) + parseInt(_0x41dc8a(0xa4)) / 0x6 + -parseInt(_0x41dc8a(0x9b)) / 0x7 * (parseInt(_0x41dc8a(0x9c)) / 0x8) + -parseInt(_0x41dc8a(0xa3)) / 0x9 * (parseInt(_0x41dc8a(0x9a)) / 0xa);
+            if (_0x357595 === _0x4e8949) break;else _0x1e8988['push'](_0x1e8988['shift']());
+          } catch (_0xbe7eb7) {
+            _0x1e8988['push'](_0x1e8988['shift']());
+          }
+        }
+      })(_0x50d3, 0xef0a0), this[_0x1c930b(0xa1)] = ![], clearInterval(this[_0x1c930b(0xa9)]), clearInterval(this[_0x1c930b(0xa2)]);
+      function _0x10aa(_0x1c5696, _0x59899b) {
+        var _0x50d3be = _0x50d3();
+        return _0x10aa = function _0x10aa(_0x10aafb, _0x148327) {
+          _0x10aafb = _0x10aafb - 0x9a;
+          var _0x1a2975 = _0x50d3be[_0x10aafb];
+          return _0x1a2975;
+        }, _0x10aa(_0x1c5696, _0x59899b);
+      }
+      uni['createVideoContext'](_0x1c930b(0x9e) + newIndex, this) && (this[_0x1c930b(0xa0)] = ![], this['beforeVodInfo'][_0x1c930b(0x9f)] = !![], this[_0x1c930b(0xaa)](newIndex));
+    },
+    /* 当开始/继续播放时 */startPlay: function startPlay(index) {
+      function _0x4656(_0x477cb9, _0x40efbf) {
+        var _0x406fa4 = _0x406f();
+        return _0x4656 = function _0x4656(_0x46560d, _0x5a1143) {
+          _0x46560d = _0x46560d - 0x1e8;
+          var _0x2d24bc = _0x406fa4[_0x46560d];
+          return _0x2d24bc;
+        }, _0x4656(_0x477cb9, _0x40efbf);
+      }
+      function _0x406f() {
+        var _0x15574a = ['failTime', 'coverOpacity', '337546IynjkC', '117064zrSWyS', 'vodIndex', '469SKDSDL', 'rotateImgShow', '36RwpDau', '102728RsclwA', '145QbINEo', 'palyCartoon', '132CjUZEa', '115zipqDs', '1344522OxZuIl', '44748OFrTAn', 'playOpen', '18FtNGPl', 'errNum', 'beforeVodInfo', '4209710EzFbSD', 'repeatTime'];
+        _0x406f = function _0x406f() {
+          return _0x15574a;
+        };
+        return _0x406f();
+      }
+      var _0x28f3e1 = _0x4656;
+      (function (_0x3ca37f, _0x3770dd) {
+        var _0x37ae9a = _0x4656,
+          _0x4df606 = _0x3ca37f();
+        while (!![]) {
+          try {
+            var _0x505a61 = -parseInt(_0x37ae9a(0x1f0)) / 0x1 * (-parseInt(_0x37ae9a(0x1ee)) / 0x2) + -parseInt(_0x37ae9a(0x1f4)) / 0x3 + parseInt(_0x37ae9a(0x1ea)) / 0x4 * (parseInt(_0x37ae9a(0x1f3)) / 0x5) + parseInt(_0x37ae9a(0x1f5)) / 0x6 + -parseInt(_0x37ae9a(0x1ec)) / 0x7 * (parseInt(_0x37ae9a(0x1ef)) / 0x8) + -parseInt(_0x37ae9a(0x1f7)) / 0x9 * (-parseInt(_0x37ae9a(0x1fa)) / 0xa) + -parseInt(_0x37ae9a(0x1e9)) / 0xb * (-parseInt(_0x37ae9a(0x1f2)) / 0xc);
+            if (_0x505a61 === _0x3770dd) break;else _0x4df606['push'](_0x4df606['shift']());
+          } catch (_0x1e0677) {
+            _0x4df606['push'](_0x4df606['shift']());
+          }
+        }
+      })(_0x406f, 0x874a9);
+      this[_0x28f3e1(0x1eb)] == index && (this[_0x28f3e1(0x1f9)][_0x28f3e1(0x1e8)] = ![], this[_0x28f3e1(0x1f6)] = ![], this[_0x28f3e1(0x1f8)] = 0x0, this[_0x28f3e1(0x1f9)][_0x28f3e1(0x1ed)] && (this[_0x28f3e1(0x1f1)] = !![]), clearInterval(this[_0x28f3e1(0x1fc)]), clearInterval(this[_0x28f3e1(0x1fb)]));
+    },
+    /* 视频出现缓冲 */bufferVod: function bufferVod(index) {
+      // console.log('缓冲视频================》'+index)
+      function _0xc289(_0xb05cf7, _0x5eb797) {
+        var _0x43b1a3 = _0x43b1();
+        return _0xc289 = function _0xc289(_0xc28984, _0x47f104) {
+          _0xc28984 = _0xc28984 - 0xd4;
+          var _0xaa598e = _0x43b1a3[_0xc28984];
+          return _0xaa598e;
+        }, _0xc289(_0xb05cf7, _0x5eb797);
+      }
+      var _0x5de3d5 = _0xc289;
+      function _0x43b1() {
+        var _0x42c215 = ['278993BUEiYp', '70nKmpcS', 'length', '140gpQMJe', 'vodList', 'vodPaly', '194786cepaPJ', '836ASMELE', 'vodIndex', 'changeIndex', 'beforeVodInfo', '145322pqgeVE', '2469672ZZmZIv', '76736sJwIDM', '130dkqDVV', '9NOhhxc', '868254VzrZhJ', 'scheduleLoad'];
+        _0x43b1 = function _0x43b1() {
+          return _0x42c215;
+        };
+        return _0x43b1();
+      }
+      (function (_0x184746, _0x1b7340) {
+        var _0x1e545d = _0xc289,
+          _0x1730ae = _0x184746();
+        while (!![]) {
+          try {
+            var _0x57b32b = -parseInt(_0x1e545d(0xe2)) / 0x1 + parseInt(_0x1e545d(0xd5)) / 0x2 * (-parseInt(_0x1e545d(0xd9)) / 0x3) + parseInt(_0x1e545d(0xe3)) / 0x4 * (-parseInt(_0x1e545d(0xd8)) / 0x5) + -parseInt(_0x1e545d(0xda)) / 0x6 + parseInt(_0x1e545d(0xdd)) / 0x7 * (parseInt(_0x1e545d(0xd7)) / 0x8) + parseInt(_0x1e545d(0xd6)) / 0x9 + -parseInt(_0x1e545d(0xdf)) / 0xa * (-parseInt(_0x1e545d(0xdc)) / 0xb);
+            if (_0x57b32b === _0x1b7340) break;else _0x1730ae['push'](_0x1730ae['shift']());
+          } catch (_0x1e9eb9) {
+            _0x1730ae['push'](_0x1730ae['shift']());
+          }
+        }
+      })(_0x43b1, 0x27ac2);
+      this[_0x5de3d5(0xe0)][_0x5de3d5(0xde)] > 0x0 && this[_0x5de3d5(0xe5)] == this[_0x5de3d5(0xe4)] && !this['bufferShow'] && this[_0x5de3d5(0xd4)][_0x5de3d5(0xe1)] && (this['playOpen'] = !![], this[_0x5de3d5(0xdb)]());
+    },
+    /* 视频播放失败 */errVod: function errVod(index) {
+      var _this10 = this;
+      // console.log('视频播放失败================》'+index)
+      function _0x338a(_0x1e0df4, _0x5d8f4e) {
+        var _0xa9fae5 = _0xa9fa();
+        return _0x338a = function _0x338a(_0x338a83, _0x3e4055) {
+          _0x338a83 = _0x338a83 - 0x165;
+          var _0x1701d5 = _0xa9fae5[_0x338a83];
+          return _0x1701d5;
+        }, _0x338a(_0x1e0df4, _0x5d8f4e);
+      }
+      var _0xed706a = _0x338a;
+      function _0xa9fa() {
+        var _0x5c0839 = ['1809564zAvhzh', 'errNum', '7QPvUCv', '115662Fvejcf', 'beforeVodInfo', '120669GLCqEx', '199338NHRBDn', 'vodPaly', 'playErrTime', 'scheduleLoad', 'changeIndex', '5rNQGtz', 'bufferShow', 'palyCartoon', '10206yOWyUt', 'vodList', '174504ZnmzxP', '9330bxnYRK', '2622240FUkQND'];
+        _0xa9fa = function _0xa9fa() {
+          return _0x5c0839;
+        };
+        return _0xa9fa();
+      }
+      (function (_0x1ce60a, _0x4fec91) {
+        var _0x1dff82 = _0x338a,
+          _0x15c30e = _0x1ce60a();
+        while (!![]) {
+          try {
+            var _0x3a1d7b = -parseInt(_0x1dff82(0x170)) / 0x1 + parseInt(_0x1dff82(0x16a)) / 0x2 + -parseInt(_0x1dff82(0x172)) / 0x3 + parseInt(_0x1dff82(0x16d)) / 0x4 * (-parseInt(_0x1dff82(0x165)) / 0x5) + -parseInt(_0x1dff82(0x173)) / 0x6 * (-parseInt(_0x1dff82(0x16f)) / 0x7) + -parseInt(_0x1dff82(0x16c)) / 0x8 + parseInt(_0x1dff82(0x168)) / 0x9 * (parseInt(_0x1dff82(0x16b)) / 0xa);
+            if (_0x3a1d7b === _0x4fec91) break;else _0x15c30e['push'](_0x15c30e['shift']());
+          } catch (_0x4f20b8) {
+            _0x15c30e['push'](_0x15c30e['shift']());
+          }
+        }
+      })(_0xa9fa, 0x3b309), clearTimeout(this['playErrTime']), this[_0xed706a(0x175)] = setTimeout(function () {
+        var _0x249301 = _0xed706a;
+        _this10[_0x249301(0x169)]['length'] > 0x0 && _this10[_0x249301(0x177)] == _this10['vodIndex'] && !_this10[_0x249301(0x166)] && _this10[_0x249301(0x171)][_0x249301(0x174)] && (_this10['playOpen'] = !![], _this10[_0x249301(0x167)] = ![], _this10[_0x249301(0x16e)] = 0x1, _this10[_0x249301(0x176)]());
+      }, 0x12c);
+    },
+    /* 播放进度变化时触发 */timeupdateVod: function timeupdateVod(ev, index) {
+      var _0x178ade = _0x323a;
+      function _0x323a(_0x145a64, _0x49875a) {
+        var _0x19db16 = _0x19db();
+        return _0x323a = function _0x323a(_0x323afe, _0xc6ad29) {
+          _0x323afe = _0x323afe - 0x119;
+          var _0x1eca29 = _0x19db16[_0x323afe];
+          return _0x1eca29;
+        }, _0x323a(_0x145a64, _0x49875a);
+      }
+      (function (_0x1646c8, _0x31d9ac) {
+        var _0x1e06d6 = _0x323a,
+          _0x2cfa94 = _0x1646c8();
+        while (!![]) {
+          try {
+            var _0x2ade23 = parseInt(_0x1e06d6(0x125)) / 0x1 * (parseInt(_0x1e06d6(0x12e)) / 0x2) + -parseInt(_0x1e06d6(0x119)) / 0x3 + -parseInt(_0x1e06d6(0x120)) / 0x4 + parseInt(_0x1e06d6(0x127)) / 0x5 + -parseInt(_0x1e06d6(0x11d)) / 0x6 + -parseInt(_0x1e06d6(0x131)) / 0x7 + parseInt(_0x1e06d6(0x11b)) / 0x8 * (parseInt(_0x1e06d6(0x130)) / 0x9);
+            if (_0x2ade23 === _0x31d9ac) break;else _0x2cfa94['push'](_0x2cfa94['shift']());
+          } catch (_0x15f4ee) {
+            _0x2cfa94['push'](_0x2cfa94['shift']());
+          }
+        }
+      })(_0x19db, 0xeedf4);
+      if (this[_0x178ade(0x12d)] != index) return ![];
+      !this[_0x178ade(0x122)] && (this['videoTime'] = ev[_0x178ade(0x12f)][_0x178ade(0x124)], this[_0x178ade(0x128)] = ev[_0x178ade(0x12f)][_0x178ade(0x11e)], this[_0x178ade(0x12a)] = ev[_0x178ade(0x12f)][_0x178ade(0x11e)] / ev['detail']['duration'] * this[_0x178ade(0x123)]);
+      function _0x19db() {
+        var _0x23c428 = ['detail', '36oYSLyH', '10325462WhKmtC', '5101488gvUGyY', 'length', '8743856SbMDyT', 'bufferNum', '11205822SZsRPH', 'currentTime', 'vodList', '4714680CKchvw', 'beforeVodInfo', 'sliderDrag', 'screenWidth', 'duration', '28MMYsLE', 'bufferShow', '8567285pivyGi', 'sliderTime', 'repeatTime', 'sliderProgress', 'bufferTime', 'errNum', 'vodIndex', '79636IKsaxY'];
+        _0x19db = function _0x19db() {
+          return _0x23c428;
+        };
+        return _0x19db();
+      }
+      this[_0x178ade(0x11f)][_0x178ade(0x11a)] > 0x0 && (this[_0x178ade(0x11c)] = ev[_0x178ade(0x12f)]['currentTime'], this[_0x178ade(0x126)] = ![], this[_0x178ade(0x121)]['loadingShow'] = ![], this[_0x178ade(0x12c)] = 0x1, clearTimeout(this[_0x178ade(0x12b)]), clearInterval(this['failTime']), clearInterval(this[_0x178ade(0x129)]));
+    },
+    /* 显示进度加载动画 */scheduleLoad: function scheduleLoad() {
+      var _this11 = this;
+      var _0x3a6682 = _0x3031;
+      (function (_0x29ff12, _0x2e3163) {
+        var _0x15bc2 = _0x3031,
+          _0x51cd6f = _0x29ff12();
+        while (!![]) {
+          try {
+            var _0x2cee27 = parseInt(_0x15bc2(0x7c)) / 0x1 + parseInt(_0x15bc2(0x75)) / 0x2 + -parseInt(_0x15bc2(0x74)) / 0x3 + -parseInt(_0x15bc2(0x73)) / 0x4 + parseInt(_0x15bc2(0x6f)) / 0x5 * (parseInt(_0x15bc2(0x72)) / 0x6) + parseInt(_0x15bc2(0x7a)) / 0x7 + -parseInt(_0x15bc2(0x77)) / 0x8;
+            if (_0x2cee27 === _0x2e3163) break;else _0x51cd6f['push'](_0x51cd6f['shift']());
+          } catch (_0xb153a3) {
+            _0x51cd6f['push'](_0x51cd6f['shift']());
+          }
+        }
+      })(_0x3e9e, 0x74f44);
+      function _0x3031(_0x2f0f93, _0x10d533) {
+        var _0x3e9e88 = _0x3e9e();
+        return _0x3031 = function _0x3031(_0x30313a, _0x22ad30) {
+          _0x30313a = _0x30313a - 0x6f;
+          var _0x2bdc2d = _0x3e9e88[_0x30313a];
+          return _0x2bdc2d;
+        }, _0x3031(_0x2f0f93, _0x10d533);
+      }
+      !this[_0x3a6682(0x7b)] && (this[_0x3a6682(0x7b)] = !![], this[_0x3a6682(0x76)] = setTimeout(function () {
+        var _0x24aad3 = _0x3a6682;
+        _this11['beforeVodInfo'][_0x24aad3(0x78)] = !![], _this11[_0x24aad3(0x71)] && (_this11[_0x24aad3(0x79)] = setInterval(function () {
+          var _0x333dc4 = _0x24aad3;
+          _this11[_0x333dc4(0x70)]();
+        }, 0x1f4));
+      }, 0x5dc));
+      function _0x3e9e() {
+        var _0x3d1978 = ['3164357hoNCio', 'bufferShow', '94159tJtEYv', '1232935OfSuna', 'vodLoad', 'playOpen', '12bozBvy', '3140476PHPizr', '501186bMLjUk', '1534918FWmNTC', 'bufferTime', '3004944XQfwSF', 'loadingShow', 'repeatTime'];
+        _0x3e9e = function _0x3e9e() {
+          return _0x3d1978;
+        };
+        return _0x3e9e();
+      }
+    },
+    /* 重新播放视频 */vodLoad: function vodLoad() {
+      var _this12 = this;
+      /* 视频播放失败，重新播放视频 */
+      function _0x1ef4() {
+        var _0xd6c637 = ['7abmEtg', '879312PhsWGC', '30bLyYhN', '6674680sYAGfA', '822476RlzhPB', '7731tCGhmT', 'loadingShow', '500yDqYhE', '2908702HjplhH', '29997737qBzXbv', '3079749xCWCSN', 'beforeVodInfo', 'bufferShow', '1Gajcbt', 'vodLoad', 'playOpen', 'repeatTime'];
+        _0x1ef4 = function _0x1ef4() {
+          return _0xd6c637;
+        };
+        return _0x1ef4();
+      }
+      var _0x539090 = _0x5142;
+      function _0x5142(_0x6eb7c0, _0x31a49d) {
+        var _0x1ef4b8 = _0x1ef4();
+        return _0x5142 = function _0x5142(_0x514228, _0x3ed3a0) {
+          _0x514228 = _0x514228 - 0x1b1;
+          var _0x4d8d7e = _0x1ef4b8[_0x514228];
+          return _0x4d8d7e;
+        }, _0x5142(_0x6eb7c0, _0x31a49d);
+      }
+      (function (_0xe3056f, _0x3dc6e9) {
+        var _0x523ca7 = _0x5142,
+          _0x5de733 = _0xe3056f();
+        while (!![]) {
+          try {
+            var _0x52d8aa = -parseInt(_0x523ca7(0x1b8)) / 0x1 * (parseInt(_0x523ca7(0x1b3)) / 0x2) + -parseInt(_0x523ca7(0x1b5)) / 0x3 + -parseInt(_0x523ca7(0x1c0)) / 0x4 * (-parseInt(_0x523ca7(0x1be)) / 0x5) + parseInt(_0x523ca7(0x1bd)) / 0x6 + parseInt(_0x523ca7(0x1bc)) / 0x7 * (-parseInt(_0x523ca7(0x1bf)) / 0x8) + parseInt(_0x523ca7(0x1c1)) / 0x9 * (-parseInt(_0x523ca7(0x1b2)) / 0xa) + parseInt(_0x523ca7(0x1b4)) / 0xb;
+            if (_0x52d8aa === _0x3dc6e9) break;else _0x5de733['push'](_0x5de733['shift']());
+          } catch (_0x386fdb) {
+            _0x5de733['push'](_0x5de733['shift']());
+          }
+        }
+      })(_0x1ef4, 0xb6e3a);
+      !this[_0x539090(0x1b7)] && (this[_0x539090(0x1b7)] = !![], this['bufferTime'] = setTimeout(function () {
+        var _0x158553 = _0x539090;
+        _this12[_0x158553(0x1b6)][_0x158553(0x1b1)] = !![], _this12[_0x158553(0x1ba)] && (_this12[_0x158553(0x1bb)] = setInterval(function () {
+          var _0xc7435 = _0x158553;
+          _this12[_0xc7435(0x1b9)]();
+        }, 0x1f4));
+      }, 0x5dc));
+    },
+    /* 视频播放结束 */endedVod: function endedVod(index) {
+      // console.log('视频播放结束'+index)
+      function _0x421d() {
+        var _0x49d747 = ['10McJknZ', '331896EQzCoB', '70aKsuNA', '233276QOXXun', 'nextPlay', 'currentIndex', '4348683bNvavp', '311758mUaxOI', '8803795lBJPWn', '24332460blRGIp', '630856HodWsw', 'vodIndex', '7Oqiice', '105ZYLdwW', '36zirtIk'];
+        _0x421d = function _0x421d() {
+          return _0x49d747;
+        };
+        return _0x421d();
+      }
+      var _0x4db5a3 = _0x3493;
+      (function (_0x2ea5e2, _0x22e45b) {
+        var _0x4a0b94 = _0x3493,
+          _0x5620ac = _0x2ea5e2();
+        while (!![]) {
+          try {
+            var _0x1a90ac = -parseInt(_0x4a0b94(0x13d)) / 0x1 * (parseInt(_0x4a0b94(0x138)) / 0x2) + -parseInt(_0x4a0b94(0x13f)) / 0x3 * (-parseInt(_0x4a0b94(0x134)) / 0x4) + parseInt(_0x4a0b94(0x133)) / 0x5 * (parseInt(_0x4a0b94(0x132)) / 0x6) + -parseInt(_0x4a0b94(0x13e)) / 0x7 * (-parseInt(_0x4a0b94(0x13b)) / 0x8) + -parseInt(_0x4a0b94(0x137)) / 0x9 * (-parseInt(_0x4a0b94(0x131)) / 0xa) + parseInt(_0x4a0b94(0x139)) / 0xb + -parseInt(_0x4a0b94(0x13a)) / 0xc;
+            if (_0x1a90ac === _0x22e45b) break;else _0x5620ac['push'](_0x5620ac['shift']());
+          } catch (_0x5c8b6c) {
+            _0x5620ac['push'](_0x5620ac['shift']());
+          }
+        }
+      })(_0x421d, 0xc8a15);
+      function _0x3493(_0x49c92f, _0x2ceeb6) {
+        var _0x421dae = _0x421d();
+        return _0x3493 = function _0x3493(_0x34938a, _0x53dd8b) {
+          _0x34938a = _0x34938a - 0x131;
+          var _0x5917e4 = _0x421dae[_0x34938a];
+          return _0x5917e4;
+        }, _0x3493(_0x49c92f, _0x2ceeb6);
+      }
+      this[_0x4db5a3(0x13c)] == index && this[_0x4db5a3(0x135)] && (this['vodIndex'] < 0x2 ? this['vodIndex'] += 0x1 : this[_0x4db5a3(0x13c)] = 0x0, this[_0x4db5a3(0x136)] = this[_0x4db5a3(0x13c)]);
+    },
+    // 根据秒获取时间
+    formatSeconds: function formatSeconds(a) {
+      var hh = parseInt(a / 3600);
+      var mm = parseInt((a - hh * 3600) / 60);
+      if (mm < 10) mm = "0" + mm;
+      var ss = parseInt((a - hh * 3600) % 60);
+      if (ss < 10) ss = "0" + ss;
+      if (hh < 10) hh = hh == 0 ? '' : "0".concat(hh, ":");
+      var length = hh + mm + ":" + ss;
+      if (a >= 0) {
+        return length;
+      } else {
+        return "00:00";
+      }
+    },
+    /* 进度条滑动 */touchmoveSlider: function touchmoveSlider(event) {
+      var objclientX = event.changedTouches[0].clientX;
+      var _0x581424 = _0x5f52;
+      (function (_0x3d0f5e, _0x45f965) {
+        var _0x5189f8 = _0x5f52,
+          _0x45da4b = _0x3d0f5e();
+        while (!![]) {
+          try {
+            var _0x150889 = parseInt(_0x5189f8(0x186)) / 0x1 * (-parseInt(_0x5189f8(0x187)) / 0x2) + parseInt(_0x5189f8(0x184)) / 0x3 * (-parseInt(_0x5189f8(0x174)) / 0x4) + -parseInt(_0x5189f8(0x17a)) / 0x5 + parseInt(_0x5189f8(0x17b)) / 0x6 * (-parseInt(_0x5189f8(0x17d)) / 0x7) + -parseInt(_0x5189f8(0x183)) / 0x8 * (-parseInt(_0x5189f8(0x181)) / 0x9) + parseInt(_0x5189f8(0x175)) / 0xa * (parseInt(_0x5189f8(0x178)) / 0xb) + -parseInt(_0x5189f8(0x185)) / 0xc * (-parseInt(_0x5189f8(0x177)) / 0xd);
+            if (_0x150889 === _0x45f965) break;else _0x45da4b['push'](_0x45da4b['shift']());
+          } catch (_0x58322b) {
+            _0x45da4b['push'](_0x45da4b['shift']());
+          }
+        }
+      })(_0x3805, 0xddb25), this[_0x581424(0x17e)] = !![];
+      function _0x3805() {
+        var _0x358d14 = ['sliderDrag', 'sliderProgress', 'brightSlider', '12501594mFFaKo', 'screenWidth', '8mKlRPk', '3lhxnWf', '7203528CExMHN', '2171XTloZU', '746WVZulW', '5156564CTvnOo', '5956730grJhoy', 'videoTime', '65sgLQmQ', '11EWlcvX', 'endTime', '4221830IvOPvj', '300PWlvMu', 'sliderEndTime', '158879yQjocQ'];
+        _0x3805 = function _0x3805() {
+          return _0x358d14;
+        };
+        return _0x3805();
+      }
+      function _0x5f52(_0x5e8bf0, _0x1e2b18) {
+        var _0x3805e5 = _0x3805();
+        return _0x5f52 = function _0x5f52(_0x5f523c, _0x16f0cc) {
+          _0x5f523c = _0x5f523c - 0x174;
+          var _0x2be695 = _0x3805e5[_0x5f523c];
+          return _0x2be695;
+        }, _0x5f52(_0x5e8bf0, _0x1e2b18);
+      }
+      if (objclientX >= 0x0 && objclientX <= this[_0x581424(0x182)] - 0x2) {
+        this[_0x581424(0x17c)] != null && clearTimeout(this[_0x581424(0x17c)]);
+        this[_0x581424(0x180)] = !![], this[_0x581424(0x17f)] = objclientX;
+        var num = this[_0x581424(0x17f)] / (this[_0x581424(0x182)] - 0x2);
+        this['sliderTime'] = num * this[_0x581424(0x176)], this[_0x581424(0x179)] = num * this[_0x581424(0x176)];
+      }
+    },
+    /* 进度条滑动结束 */touchendSlider: function touchendSlider() {
+      var _this13 = this;
+      var _0x2ce612 = _0x283f;
+      function _0x283f(_0x48a855, _0x1a8e25) {
+        var _0x288595 = _0x2885();
+        return _0x283f = function _0x283f(_0x283f80, _0xec62e5) {
+          _0x283f80 = _0x283f80 - 0x1ae;
+          var _0x2596a9 = _0x288595[_0x283f80];
+          return _0x2596a9;
+        }, _0x283f(_0x48a855, _0x1a8e25);
+      }
+      (function (_0x33fe38, _0x5a1a3d) {
+        var _0x302ad9 = _0x283f,
+          _0xd7d14c = _0x33fe38();
+        while (!![]) {
+          try {
+            var _0x1ef407 = parseInt(_0x302ad9(0x1b6)) / 0x1 * (-parseInt(_0x302ad9(0x1c2)) / 0x2) + parseInt(_0x302ad9(0x1b5)) / 0x3 + -parseInt(_0x302ad9(0x1b7)) / 0x4 + parseInt(_0x302ad9(0x1b8)) / 0x5 * (-parseInt(_0x302ad9(0x1c0)) / 0x6) + parseInt(_0x302ad9(0x1ae)) / 0x7 * (-parseInt(_0x302ad9(0x1b2)) / 0x8) + -parseInt(_0x302ad9(0x1bf)) / 0x9 + parseInt(_0x302ad9(0x1bb)) / 0xa * (parseInt(_0x302ad9(0x1af)) / 0xb);
+            if (_0x1ef407 === _0x5a1a3d) break;else _0xd7d14c['push'](_0xd7d14c['shift']());
+          } catch (_0x419f45) {
+            _0xd7d14c['push'](_0xd7d14c['shift']());
+          }
+        }
+      })(_0x2885, 0x8e387), this[_0x2ce612(0x1be)] = ![];
+      var videoCtx = uni[_0x2ce612(0x1b3)](_0x2ce612(0x1b1) + this[_0x2ce612(0x1ba)], this);
+      videoCtx[_0x2ce612(0x1b4)](this[_0x2ce612(0x1b0)]), videoCtx['play'](), this[_0x2ce612(0x1bd)][_0x2ce612(0x1c1)] = !![], this[_0x2ce612(0x1bd)][_0x2ce612(0x1bc)] = ![], this[_0x2ce612(0x1b9)] = setTimeout(function () {
+        _this13['brightSlider'] = ![];
+      }, 0x7d0);
+      function _0x2885() {
+        var _0x503fe8 = ['sliderDrag', '1719423qIfSeW', '396FXrNUc', 'vodPaly', '2fBXKOH', '985579KHTyMS', '68640epbajj', 'endTime', 'myVideo', '56CvPnVo', 'createVideoContext', 'seek', '2864517hlxnug', '1146994nySCYV', '1594840qFjLQb', '29495ktWLwT', 'sliderEndTime', 'vodIndex', '4390jaKvuq', 'pauseShow', 'beforeVodInfo'];
+        _0x2885 = function _0x2885() {
+          return _0x503fe8;
+        };
+        return _0x2885();
+      }
+    },
+    /* 触碰的坐标 */vodViewStart: function vodViewStart(e) {
+      this.touchClientY = e.changedTouches[0].clientY;
+    },
+    /* 上下滑动的坐标 */vodViewMove: function vodViewMove(e) {
+      this.moveClientY = e.changedTouches[0].clientY - this.touchClientY;
+
+      /* 是否透明进度条 */
+      function _0x40f1(_0x4eb715, _0x6b6356) {
+        var _0x27a74d = _0x27a7();
+        return _0x40f1 = function _0x40f1(_0x40f105, _0x4d7a09) {
+          _0x40f105 = _0x40f105 - 0xd5;
+          var _0x4c5055 = _0x27a74d[_0x40f105];
+          return _0x4c5055;
+        }, _0x40f1(_0x4eb715, _0x6b6356);
+      }
+      var _0x2a8213 = _0x40f1;
+      (function (_0x5eb343, _0xdefeca) {
+        var _0x15a24f = _0x40f1,
+          _0x3fb0cd = _0x5eb343();
+        while (!![]) {
+          try {
+            var _0xbedce5 = parseInt(_0x15a24f(0xdc)) / 0x1 + parseInt(_0x15a24f(0xe1)) / 0x2 * (parseInt(_0x15a24f(0xd8)) / 0x3) + parseInt(_0x15a24f(0xdb)) / 0x4 + -parseInt(_0x15a24f(0xd9)) / 0x5 + -parseInt(_0x15a24f(0xd5)) / 0x6 + parseInt(_0x15a24f(0xe4)) / 0x7 * (parseInt(_0x15a24f(0xda)) / 0x8) + -parseInt(_0x15a24f(0xdd)) / 0x9;
+            if (_0xbedce5 === _0xdefeca) break;else _0x3fb0cd['push'](_0x3fb0cd['shift']());
+          } catch (_0x375404) {
+            _0x3fb0cd['push'](_0x3fb0cd['shift']());
+          }
+        }
+      })(_0x27a7, 0xe518d);
+      this[_0x2a8213(0xe2)] > 0x0 || this['moveClientY'] < 0x0 ? this[_0x2a8213(0xd7)] = !![] : this[_0x2a8213(0xd7)] = ![];
+      function _0x27a7() {
+        var _0xd51b72 = ['5640956PkUwCI', '1521371yzXBQQ', '3073878aHlkod', 'refreshOpen', 'vodCurIndex', 'refreshOpacity', '18YeEcJQ', 'moveClientY', 'refreshShow', '7BzVbNI', '6938346WRDRqf', 'loadOpen', 'moveOpacity', '287733AtSfQN', '8712705wSEaIg', '3072368hisuvy'];
+        _0x27a7 = function _0x27a7() {
+          return _0xd51b72;
+        };
+        return _0x27a7();
+      }
+      this[_0x2a8213(0xd6)] && this[_0x2a8213(0xdf)] == 0x0 && !this[_0x2a8213(0xde)] && (this['moveClientY'] > 0xa ? (this[_0x2a8213(0xe3)] = !![], this[_0x2a8213(0xe2)] > 0xa && this[_0x2a8213(0xe2)] <= 0x3c && this[_0x2a8213(0xe3)] && (this[_0x2a8213(0xe0)] = this[_0x2a8213(0xe2)] / 0x3c, this['refreshclientY'] = this[_0x2a8213(0xe2)] / 0x2)) : this[_0x2a8213(0xe3)] = ![]);
+    },
+    /* 滑动结束的坐标 */vodViewEnd: function vodViewEnd(e) {
+      var _this14 = this;
+      this.moveClientY = e.changedTouches[0].clientY - this.touchClientY;
+      var _0x299d2f = _0x2f89;
+      (function (_0x22a353, _0x213735) {
+        var _0x429289 = _0x2f89,
+          _0x39f035 = _0x22a353();
+        while (!![]) {
+          try {
+            var _0x4446dc = parseInt(_0x429289(0x124)) / 0x1 + -parseInt(_0x429289(0x127)) / 0x2 * (parseInt(_0x429289(0x11c)) / 0x3) + parseInt(_0x429289(0x125)) / 0x4 * (-parseInt(_0x429289(0x12a)) / 0x5) + parseInt(_0x429289(0x121)) / 0x6 * (-parseInt(_0x429289(0x12b)) / 0x7) + -parseInt(_0x429289(0x11b)) / 0x8 + parseInt(_0x429289(0x123)) / 0x9 * (parseInt(_0x429289(0x11f)) / 0xa) + parseInt(_0x429289(0x122)) / 0xb;
+            if (_0x4446dc === _0x213735) break;else _0x39f035['push'](_0x39f035['shift']());
+          } catch (_0x1ad049) {
+            _0x39f035['push'](_0x39f035['shift']());
+          }
+        }
+      })(_0x3154, 0x5d469), this[_0x299d2f(0x12d)] = ![];
+      function _0x2f89(_0x15d384, _0x1fc3d2) {
+        var _0x31547d = _0x3154();
+        return _0x2f89 = function _0x2f89(_0x2f89ec, _0x552f10) {
+          _0x2f89ec = _0x2f89ec - 0x11b;
+          var _0x38c114 = _0x31547d[_0x2f89ec];
+          return _0x38c114;
+        }, _0x2f89(_0x15d384, _0x1fc3d2);
+      }
+      if (this[_0x299d2f(0x11e)]) {
+        if (this[_0x299d2f(0x11d)] == 0x0 && this['refreshShow']) {
+          if (this[_0x299d2f(0x128)] > 0x1 && this[_0x299d2f(0x128)] < 0x3c && !this[_0x299d2f(0x126)]) this['refreshOpacity'] = 0x0, this['refreshclientY'] = 0x0, setTimeout(function () {
+            var _0x1a0f87 = _0x299d2f;
+            _this14[_0x1a0f87(0x120)] = ![];
+          }, 0x12c);else {
+            if (this[_0x299d2f(0x126)]) return;
+            this[_0x299d2f(0x126)] = !![], this[_0x299d2f(0x12c)](_0x299d2f(0x129));
+          }
+        }
+      }
+      function _0x3154() {
+        var _0x3f898d = ['$emit', 'moveOpacity', '5226992ktRzKl', '3BuDqrU', 'vodCurIndex', 'loadOpen', '1790LzTuCX', 'refreshShow', '6TIrBwu', '6682610EhAcsG', '31923ZpzRgh', '675770FmNCiZ', '90004vNDYRH', 'refreshOpen', '1312672vGgNpK', 'moveClientY', 'refreshData', '15srgBjG', '1112461kMKIZZ'];
+        _0x3154 = function _0x3154() {
+          return _0x3f898d;
+        };
+        return _0x3154();
+      }
+    },
+    /* 重置状态数据 */resetData: function resetData() {
+      function _0x4904() {
+        var _0x5d98fb = ['endTime', '5700BIfnpb', '1178ByyIVo', '3398515mdcJtH', '54uqPFhI', '4939WovzXE', 'sliderTime', 'sliderEndTime', '9atYYdo', 'sliderDrag', '3327880psYGSo', '4eJUmpm', '2112027ojpbLv', '493892AfOULO', 'bufferNum', 'sliderProgress', 'brightSlider', '647tVxcmF', 'videoTime', '395904boLfSI'];
+        _0x4904 = function _0x4904() {
+          return _0x5d98fb;
+        };
+        return _0x4904();
+      }
+      function _0x11c2(_0x3dfc3f, _0x3de4f5) {
+        var _0x4904bc = _0x4904();
+        return _0x11c2 = function _0x11c2(_0x11c232, _0x40a050) {
+          _0x11c232 = _0x11c232 - 0x172;
+          var _0x599c82 = _0x4904bc[_0x11c232];
+          return _0x599c82;
+        }, _0x11c2(_0x3dfc3f, _0x3de4f5);
+      }
+      var _0x5f0a5b = _0x11c2;
+      (function (_0x27e985, _0x2e7d95) {
+        var _0x13bccf = _0x11c2,
+          _0x36543a = _0x27e985();
+        while (!![]) {
+          try {
+            var _0x258698 = -parseInt(_0x13bccf(0x174)) / 0x1 * (-parseInt(_0x13bccf(0x179)) / 0x2) + -parseInt(_0x13bccf(0x183)) / 0x3 * (parseInt(_0x13bccf(0x182)) / 0x4) + parseInt(_0x13bccf(0x17a)) / 0x5 + -parseInt(_0x13bccf(0x17b)) / 0x6 * (parseInt(_0x13bccf(0x184)) / 0x7) + parseInt(_0x13bccf(0x181)) / 0x8 * (parseInt(_0x13bccf(0x17f)) / 0x9) + -parseInt(_0x13bccf(0x178)) / 0xa * (-parseInt(_0x13bccf(0x17c)) / 0xb) + -parseInt(_0x13bccf(0x176)) / 0xc;
+            if (_0x258698 === _0x2e7d95) break;else _0x36543a['push'](_0x36543a['shift']());
+          } catch (_0x5b4298) {
+            _0x36543a['push'](_0x36543a['shift']());
+          }
+        }
+      })(_0x4904, 0x580f8), this[_0x5f0a5b(0x172)] = 0x0, this[_0x5f0a5b(0x17d)] = 0x0, this[_0x5f0a5b(0x175)] = 0x0, this[_0x5f0a5b(0x177)] = 0x0, this[_0x5f0a5b(0x185)] = null, this['bufferShow'] = ![], this[_0x5f0a5b(0x180)] = ![], this[_0x5f0a5b(0x173)] = ![], this[_0x5f0a5b(0x17e)] = null;
+    },
+    /* 点赞关注操作 */handleInfo: function handleInfo(obj) {
+      var _this15 = this;
+      this.totalPlayList.filter(function (item, index) {
+        if (item.videoIndex == obj.videoIndex) {
+          _this15.$set(_this15.totalPlayList, index, obj);
+        }
+      });
+      this.vodList.filter(function (item, index) {
+        if (item.videoIndex == obj.videoIndex) {
+          _this15.$set(_this15.vodList, index, obj);
+        }
+      });
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 16:
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/setPrototypeOf.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _setPrototypeOf(o, p) {
+  module.exports = _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+  return _setPrototypeOf(o, p);
+}
+module.exports = _setPrototypeOf, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 17:
+/*!*************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/isNativeReflectConstruct.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+module.exports = _isNativeReflectConstruct, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 18:
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ 19);
+var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ 20);
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 8);
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ 21);
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 19:
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 2:
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
   \************************************************************/
@@ -780,8 +2097,8 @@ function populateParameters(result) {
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "3.96",
-    uniRuntimeVersion: "3.96",
+    uniCompileVersion: "3.98",
+    uniRuntimeVersion: "3.98",
     uniPlatform: undefined || "mp-weixin",
     deviceBrand: deviceBrand,
     deviceModel: model,
@@ -2450,347 +3767,8 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 3 */
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 4 */
-/*!**********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
-module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 5 */
-/*!**************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ 6);
-var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ 7);
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 8);
-var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ 10);
-function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-}
-module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 6 */
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 7 */
-/*!*********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _iterableToArrayLimit(arr, i) {
-  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
-  if (null != _i) {
-    var _s,
-      _e,
-      _x,
-      _r,
-      _arr = [],
-      _n = !0,
-      _d = !1;
-    try {
-      if (_x = (_i = _i.call(arr)).next, 0 === i) {
-        if (Object(_i) !== _i) return;
-        _n = !1;
-      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) {
-        ;
-      }
-    } catch (err) {
-      _d = !0, _e = err;
-    } finally {
-      try {
-        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-    return _arr;
-  }
-}
-module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 8 */
-/*!***************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 9 */
-/*!*****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-  return arr2;
-}
-module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 10 */
-/*!****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 11 */
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ 12);
-function _defineProperty(obj, key, value) {
-  key = toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
-module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 12 */
-/*!**************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
-var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ 14);
-function _toPropertyKey(arg) {
-  var key = toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
-}
-module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 13 */
-/*!*******************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
-}
-module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 14 */
-/*!************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/toPrimitive.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return (hint === "string" ? String : Number)(input);
-}
-module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 15 */
-/*!**********************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/construct.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf.js */ 16);
-var isNativeReflectConstruct = __webpack_require__(/*! ./isNativeReflectConstruct.js */ 17);
-function _construct(Parent, args, Class) {
-  if (isNativeReflectConstruct()) {
-    module.exports = _construct = Reflect.construct.bind(), module.exports.__esModule = true, module.exports["default"] = module.exports;
-  } else {
-    module.exports = _construct = function _construct(Parent, args, Class) {
-      var a = [null];
-      a.push.apply(a, args);
-      var Constructor = Function.bind.apply(Parent, a);
-      var instance = new Constructor();
-      if (Class) setPrototypeOf(instance, Class.prototype);
-      return instance;
-    }, module.exports.__esModule = true, module.exports["default"] = module.exports;
-  }
-  return _construct.apply(null, arguments);
-}
-module.exports = _construct, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 16 */
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/setPrototypeOf.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _setPrototypeOf(o, p) {
-  module.exports = _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports;
-  return _setPrototypeOf(o, p);
-}
-module.exports = _setPrototypeOf, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 17 */
-/*!*************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/isNativeReflectConstruct.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
-  if (typeof Proxy === "function") return true;
-  try {
-    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-module.exports = _isNativeReflectConstruct, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 18 */
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ 19);
-var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ 20);
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 8);
-var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ 21);
-function _toConsumableArray(arr) {
-  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
-}
-module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 19 */
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return arrayLikeToArray(arr);
-}
-module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 20 */
+/***/ 20:
 /*!****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
   \****************************************************************/
@@ -2803,7 +3781,8 @@ function _iterableToArray(iter) {
 module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 21 */
+
+/***/ 21:
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
   \******************************************************************/
@@ -2816,7 +3795,8 @@ function _nonIterableSpread() {
 module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 22 */
+
+/***/ 22:
 /*!*************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-i18n/dist/uni-i18n.es.js ***!
   \*************************************************************/
@@ -3352,7 +4332,8 @@ function resolveLocaleChain(locale) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 23 */
+
+/***/ 23:
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
   \***************************************************************/
@@ -3367,7 +4348,8 @@ function _classCallCheck(instance, Constructor) {
 module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 24 */
+
+/***/ 24:
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/createClass.js ***!
   \************************************************************/
@@ -3395,7 +4377,8 @@ function _createClass(Constructor, protoProps, staticProps) {
 module.exports = _createClass, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 25 */
+
+/***/ 25:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
   \******************************************************************************************/
@@ -9476,22 +10459,50 @@ internalMixin(Vue);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 26 */
-/*!**********************************!*\
-  !*** E:/job/sihuo/zj/pages.json ***!
-  \**********************************/
+
+/***/ 26:
+/*!*************************************************************!*\
+  !*** /Users/zhengbijun/Desktop/daishoulun/zhuju/pages.json ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */
+
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 32:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
   \**********************************************************************************************************/
@@ -9622,10 +10633,11 @@ function normalizeComponent (
 
 
 /***/ }),
-/* 33 */
-/*!****************************************!*\
-  !*** E:/job/sihuo/zj/style/theme.scss ***!
-  \****************************************/
+
+/***/ 33:
+/*!*******************************************************************!*\
+  !*** /Users/zhengbijun/Desktop/daishoulun/zhuju/style/theme.scss ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9634,10 +10646,11 @@ function normalizeComponent (
   
 
 /***/ }),
-/* 34 */
-/*!**************************************!*\
-  !*** E:/job/sihuo/zj/store/index.js ***!
-  \**************************************/
+
+/***/ 34:
+/*!*****************************************************************!*\
+  !*** /Users/zhengbijun/Desktop/daishoulun/zhuju/store/index.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9683,7 +10696,8 @@ var _default = store;
 exports.default = _default;
 
 /***/ }),
-/* 35 */
+
+/***/ 35:
 /*!**************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vuex3/dist/vuex.common.js ***!
   \**************************************************************************************/
@@ -10939,10 +11953,11 @@ module.exports = index_cjs;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 36 */
-/*!************************************************!*\
-  !*** E:/job/sihuo/zj/uni.promisify.adaptor.js ***!
-  \************************************************/
+
+/***/ 36:
+/*!***************************************************************************!*\
+  !*** /Users/zhengbijun/Desktop/daishoulun/zhuju/uni.promisify.adaptor.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10962,16 +11977,27 @@ uni.addInterceptor({
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */
-/*!*****************************************!*\
-  !*** E:/job/sihuo/zj/static/vodData.js ***!
-  \*****************************************/
+
+/***/ 4:
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+module.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 43:
+/*!********************************************************************!*\
+  !*** /Users/zhengbijun/Desktop/daishoulun/zhuju/static/vodData.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11047,1165 +12073,116 @@ var _default = vodData;
 exports.default = _default;
 
 /***/ }),
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */
-/*!*******************************************************************************!*\
-  !*** E:/job/sihuo/zj/components/tsp-video/tsp-video-list/video-v-encipher.js ***!
-  \*******************************************************************************/
+
+/***/ 5:
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ 6);
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ 7);
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ 8);
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ 10);
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/* 
- lodData 上拉加载回调
- refreshData 下拉加载回调
- */
-var _default = {
-  props: {
-    /* 是否开启下拉刷新 */
-    loadOpen: {
-      type: Boolean,
-      default: true
-    },
-    /* 是否开启定位播放 */
-    currentOpen: {
-      type: Boolean,
-      default: false
-    },
-    /* tabBar栏 0系统tabBar栏 1自定义tabBar栏 */
-    tabBarShow: {
-      type: Number,
-      default: 0
-    },
-    /* 自定义底部栏的高度 */
-    tabBarHeight: {
-      type: Number,
-      default: 50
-    },
-    /* 进度条离底部的距离 px*/
-    speedBottom: {
-      type: Number,
-      default: 0
-    },
-    /* 初始加载完成是否自动播放 */
-    autoplay: {
-      type: Boolean,
-      default: true
-    },
-    /* 是否循环播放 */
-    loopPlay: {
-      type: Boolean,
-      default: true
-    },
-    /* 是否开启自动播放 */
-    nextPlay: {
-      type: Boolean,
-      default: false
-    },
-    /* 视频总数量，有值才能滑动加载到最后一个视频 */
-    totalvod: {
-      type: Number,
-      default: 0
-    }
-  },
-  data: function data() {
-    return {
-      videoStyle: {},
-      screenWidth: 0,
-      //屏幕的宽度
-      screenHeight: 0,
-      //屏幕的高度
-      videoCtx: null,
-      vodIndex: 0,
-      // 当前视频下标
-      currentIndex: 0,
-      //定位播放的下标
-      contentShow: false,
-      loadShow: false,
-      autoplayVideo: true,
-      // 初始加载完成是否自动播放
-      //当前播放的视频数组
-      vodList: [],
-      totalPlayList: [],
-      finalList: [],
-      changeIndex: 0,
-      //current 下标
-      beforeVodInfo: {},
-      //当前播放视频对象
-      vodCurIndex: 0,
-      //当前播放视频对象下标
-      circular: true,
-      durationNum: 300,
-      showShade: false,
-      //显示遮罩swiper
-      openSpot: false,
-      shadeNum: 0,
-      bufferTime: null,
-      //缓冲视频显示加载动画防抖
-      sliderProgress: 0,
-      //进度条滑动层宽度
-      sliderTime: 0,
-      //显示滑动进度条时变化的时间
-      videoTime: 0,
-      //视频时长 时间
-      endTime: 0,
-      //滑动进度条最终的时间
-      sliderDrag: false,
-      //是否在拖动进度
-      brightSlider: false,
-      //是否显示光亮的进度条
-      sliderEndTime: null,
-      //滑动结束隐藏光亮进度条时间延迟
-      bufferNum: null,
-      //显示loading加载进度的时间条件
-      bufferShow: false,
-      //显示loading加载进度的条件
-      playOpen: false,
-      //视频播放失败，是否重播视频的条件
-      failTime: null,
-      //视频播放失败，重播视频的时间
-      repeatTime: null,
-      palyCartoon: false,
-      //是否播放旋转头像
-      shakePlay: false,
-      //是否有防抖视频播放
-      touchClientY: 0,
-      //触碰的坐标
-      moveClientY: 0,
-      //移动的坐标
-      moveOpacity: false,
-      //是否透明
-      refreshShow: false,
-      //是否显示下拉刷新
-      refreshOpacity: 0,
-      //下拉刷新的透明度
-      refreshclientY: 0,
-      //下拉刷新的坐标
-      refreshOpen: false,
-      //下拉刷新的触发条件
-      errNum: 0,
-      playErrTime: null,
-      interceptIndex: [],
-      loadTime: null,
-      beginLoad: 0
-    };
-  },
-  created: function created() {
-    function _0x7349(_0x29ad4e, _0x37bed2) {
-      var _0x23c17f = _0x23c1();
-      return _0x7349 = function _0x7349(_0x73497d, _0x5472e2) {
-        _0x73497d = _0x73497d - 0x149;
-        var _0x58970d = _0x23c17f[_0x73497d];
-        return _0x58970d;
-      }, _0x7349(_0x29ad4e, _0x37bed2);
-    }
-    var _0x595886 = _0x7349;
-    function _0x23c1() {
-      var _0x47e06c = ['screenHeight', 'windowHeight', '242drCRxz', 'videoStyle', '1015496hCtzfI', '8562dLrCiw', 'tabBarHeight', '134461eePFHQ', '38799bLGCtQ', 'screenWidth', 'statusBarHeight', '1036752AsjCcz', '365LzTccU', '7kfuwOI', 'autoplay', '1030DhkLBO', 'getSystemInfoSync', '1629693aFBdGB', '10TgYnYg', '6htTUJU', 'width', '132840hXGrsO', 'height'];
-      _0x23c1 = function _0x23c1() {
-        return _0x47e06c;
-      };
-      return _0x23c1();
-    }
-    (function (_0x4f7b06, _0x1a7bb9) {
-      var _0x463236 = _0x7349,
-        _0x10009d = _0x4f7b06();
-      while (!![]) {
-        try {
-          var _0x43bb3b = parseInt(_0x463236(0x151)) / 0x1 * (parseInt(_0x463236(0x15c)) / 0x2) + parseInt(_0x463236(0x15d)) / 0x3 * (parseInt(_0x463236(0x155)) / 0x4) + parseInt(_0x463236(0x156)) / 0x5 * (parseInt(_0x463236(0x14f)) / 0x6) + -parseInt(_0x463236(0x157)) / 0x7 * (parseInt(_0x463236(0x14e)) / 0x8) + parseInt(_0x463236(0x152)) / 0x9 * (-parseInt(_0x463236(0x159)) / 0xa) + parseInt(_0x463236(0x14c)) / 0xb * (-parseInt(_0x463236(0x15f)) / 0xc) + -parseInt(_0x463236(0x15b)) / 0xd;
-          if (_0x43bb3b === _0x1a7bb9) break;else _0x10009d['push'](_0x10009d['shift']());
-        } catch (_0x3b4710) {
-          _0x10009d['push'](_0x10009d['shift']());
-        }
-      }
-    })(_0x23c1, 0x56aa5), this['autoplayVideo'] = this[_0x595886(0x158)];
-    var deviceInfo = uni[_0x595886(0x15a)]();
-    this[_0x595886(0x14d)][_0x595886(0x154)] = deviceInfo[_0x595886(0x154)] + 'px', this[_0x595886(0x14d)][_0x595886(0x15e)] = deviceInfo[_0x595886(0x153)] + 'px', this[_0x595886(0x153)] = deviceInfo[_0x595886(0x153)], this[_0x595886(0x14a)] = deviceInfo[_0x595886(0x14a)];
-    this['tabBarShow'] == 0x1 ? this[_0x595886(0x14d)][_0x595886(0x149)] = deviceInfo[_0x595886(0x14a)] - deviceInfo[_0x595886(0x154)] - this[_0x595886(0x150)] + 'px' : this[_0x595886(0x14d)][_0x595886(0x149)] = deviceInfo[_0x595886(0x14b)] - deviceInfo[_0x595886(0x154)] + 'px';
-  },
-  watch: {
-    vodCurIndex: function vodCurIndex(newIndex, oldIndex) {
-      var _this = this;
-      /* 上一个视频处理 */
-      function _0x2831(_0x144d98, _0x816507) {
-        var _0x39ca1d = _0x39ca();
-        return _0x2831 = function _0x2831(_0x28318e, _0x3d764b) {
-          _0x28318e = _0x28318e - 0x199;
-          var _0x462dbc = _0x39ca1d[_0x28318e];
-          return _0x462dbc;
-        }, _0x2831(_0x144d98, _0x816507);
-      }
-      var _0x1c7e85 = _0x2831;
-      function _0x39ca() {
-        var _0x5cfd78 = ['8815023pWhEYO', '175530BZneqC', '2773968ydQjsA', '26194kvxxgG', 'createVideoContext', '6NmUfEp', '10huzAvC', '18zWLsXJ', 'pause', 'vodList', 'filter', 'coverOpacity', '369349gBSFiG', 'videoIndex', '994310jeNpkj', 'myVideo', 'vodPaly', '1369276bPamhF', 'coverShow'];
-        _0x39ca = function _0x39ca() {
-          return _0x5cfd78;
-        };
-        return _0x39ca();
-      }
-      (function (_0x58709f, _0x23a180) {
-        var _0x4f5a5a = _0x2831,
-          _0x59cba8 = _0x58709f();
-        while (!![]) {
-          try {
-            var _0x1fce36 = -parseInt(_0x4f5a5a(0x19b)) / 0x1 + -parseInt(_0x4f5a5a(0x1a7)) / 0x2 * (parseInt(_0x4f5a5a(0x1a3)) / 0x3) + -parseInt(_0x4f5a5a(0x1a0)) / 0x4 + -parseInt(_0x4f5a5a(0x19d)) / 0x5 + -parseInt(_0x4f5a5a(0x1a9)) / 0x6 * (parseInt(_0x4f5a5a(0x1a5)) / 0x7) + parseInt(_0x4f5a5a(0x1a4)) / 0x8 + parseInt(_0x4f5a5a(0x1a2)) / 0x9 * (parseInt(_0x4f5a5a(0x1a8)) / 0xa);
-            if (_0x1fce36 === _0x23a180) break;else _0x59cba8['push'](_0x59cba8['shift']());
-          } catch (_0x3dd529) {
-            _0x59cba8['push'](_0x59cba8['shift']());
-          }
-        }
-      })(_0x39ca, 0x37e2b);
-      if (oldIndex >= 0x0) {
-        var oldObj = null;
-        this[_0x1c7e85(0x1ab)][_0x1c7e85(0x199)](function (_0x248fea, _0x2164f4) {
-          var _0x934d79 = _0x1c7e85;
-          oldIndex == _0x248fea[_0x934d79(0x19c)] && (_0x248fea[_0x934d79(0x19a)] = _0x248fea[_0x934d79(0x1a1)] ? !![] : ![], _0x248fea[_0x934d79(0x19f)] = ![], _0x248fea['pauseShow'] = ![], _0x248fea['loadingShow'] = ![], uni[_0x934d79(0x1a6)](_0x934d79(0x19e) + _0x2164f4, _this)[_0x934d79(0x1aa)]());
-        });
-      }
-    }
-  },
-  methods: {
-    /* 初始加载视频 */initVod: function initVod(dataList, index) {
-      var _this2 = this;
-      var _0x3b4b7c = _0x15ea;
-      function _0x3d57() {
-        var _0x378a0d = ['stringify', 'push', '10315350yGlDMW', '28248jzRtMd', 'beforeVodInfo', 'totalPlayList', 'changeIndex', '41391QvwCUk', 'filter', '640074qJkomi', 'loadTime', 'vodIndex', 'vodList', 'currentOpen', 'vodCurIndex', 'beginLoad', '664fNvTat', '2gTXjXv', 'videoIndex', 'slice', 'lodData', 'coverOpacity', 'getVodInfo', 'loadShow', 'swiperPlay', 'loadingShow', 'parse', '20KrWKwc', 'length', '10551042cXmfZu', 'vodPaly', 'pauseShow', '$emit', 'circular', 'durationNum', '1100692kGjgQz', '22jheRqo', '1579950BiOHPr'];
-        _0x3d57 = function _0x3d57() {
-          return _0x378a0d;
-        };
-        return _0x3d57();
-      }
-      (function (_0x38138c, _0x2707da) {
-        var _0x2a1146 = _0x15ea,
-          _0x1f1257 = _0x38138c();
-        while (!![]) {
-          try {
-            var _0x1dc3b7 = parseInt(_0x2a1146(0x128)) / 0x1 * (-parseInt(_0x2a1146(0x120)) / 0x2) + -parseInt(_0x2a1146(0x11a)) / 0x3 + -parseInt(_0x2a1146(0x114)) / 0x4 * (-parseInt(_0x2a1146(0x132)) / 0x5) + -parseInt(_0x2a1146(0x116)) / 0x6 + parseInt(_0x2a1146(0x11e)) / 0x7 * (-parseInt(_0x2a1146(0x127)) / 0x8) + -parseInt(_0x2a1146(0x134)) / 0x9 + parseInt(_0x2a1146(0x119)) / 0xa * (parseInt(_0x2a1146(0x115)) / 0xb);
-            if (_0x1dc3b7 === _0x2707da) break;else _0x1f1257['push'](_0x1f1257['shift']());
-          } catch (_0x293899) {
-            _0x1f1257['push'](_0x1f1257['shift']());
-          }
-        }
-      })(_0x3d57, 0x8f836);
-      index && (this['durationNum'] = 0x0);
-      var playIndex = index ? index : 0x0;
-      dataList['filter'](function (_0x4275b7, _0xf1b807) {
-        var _0x550f1b = _0x15ea;
-        _0x4275b7[_0x550f1b(0x129)] = _0xf1b807, _0x4275b7[_0x550f1b(0x135)] = _0xf1b807 == playIndex ? !![] : ![], _0x4275b7[_0x550f1b(0x110)] = ![], _0x4275b7[_0x550f1b(0x130)] = ![], _0x4275b7[_0x550f1b(0x12c)] = _0x4275b7['coverShow'] ? !![] : ![];
-      }), dataList['sort'](function (_0x3ff146, _0x2ad01f) {
-        var _0x4ec343 = _0x15ea;
-        return _0x3ff146[_0x4ec343(0x129)] - _0x2ad01f[_0x4ec343(0x129)];
-      }), this[_0x3b4b7c(0x11c)] = dataList, this['contentShow'] = dataList[_0x3b4b7c(0x133)] > 0x0 ? !![] : ![], this[_0x3b4b7c(0x12e)] = dataList['length'] > 0x0 ? !![] : ![], this[_0x3b4b7c(0x125)] = playIndex;
-      var currentNum = 0x0;
-      function _0x15ea(_0x30bf0e, _0x4a9870) {
-        var _0x3d57c9 = _0x3d57();
-        return _0x15ea = function _0x15ea(_0x15ea1d, _0x5830e3) {
-          _0x15ea1d = _0x15ea1d - 0x110;
-          var _0x1f7ded = _0x3d57c9[_0x15ea1d];
-          return _0x1f7ded;
-        }, _0x15ea(_0x30bf0e, _0x4a9870);
-      }
-      this[_0x3b4b7c(0x123)] = [{}, {}, {}], setTimeout(function () {
-        var _0x229f25 = _0x3b4b7c;
-        var _0x537322 = _this2[_0x229f25(0x11c)]['length'],
-          _0x45ad35 = _0x537322 % 0x3,
-          _0x196a80 = playIndex - 0x1 < 0x0 ? 0x0 : playIndex - 0x1,
-          _0x19dcab = playIndex + 0x2,
-          _0x3294a6 = _0x537322 - _0x45ad35;
-        if (playIndex == 0x0 || playIndex + 0x1 >= _0x3294a6) {
-          _this2[_0x229f25(0x112)] = ![];
-          var _0x7bc87e = [];
-          playIndex == 0x0 ? _0x7bc87e = JSON['parse'](JSON[_0x229f25(0x117)](_this2['totalPlayList']['slice'](_0x196a80, playIndex + 0x3))) : _0x7bc87e = JSON[_0x229f25(0x131)](JSON[_0x229f25(0x117)](_this2[_0x229f25(0x11c)][_0x229f25(0x12a)](_0x3294a6 - 0x3, _0x3294a6)));
-          _0x7bc87e[_0x229f25(0x11f)](function (_0x1343dc) {
-            var _0x44b021 = _0x229f25;
-            if (_0x1343dc[_0x44b021(0x129)] % 0x3 == 0x0) _this2[_0x44b021(0x123)][0x0] = _0x1343dc;else {
-              if (_0x1343dc[_0x44b021(0x129)] % 0x3 == 0x1) _this2[_0x44b021(0x123)][0x1] = _0x1343dc;else _0x1343dc['videoIndex'] % 0x3 == 0x2 && (_this2['vodList'][0x2] = _0x1343dc);
-            }
-          });
-          if (playIndex != 0x0) {
-            var _0x2961a0 = JSON['parse'](JSON[_0x229f25(0x117)](_this2[_0x229f25(0x11c)][_0x229f25(0x12a)](_0x3294a6, _0x537322)));
-            _0x2961a0['filter'](function (_0x2af821) {
-              var _0x1115a5 = _0x229f25;
-              _this2['vodList'][_0x1115a5(0x118)](_0x2af821);
-            }), _this2['totalPlayList'][_0x229f25(0x133)] >= _this2['totalvod'] && (_this2[_0x229f25(0x12e)] = ![]);
-          }
-        } else {
-          _this2[_0x229f25(0x112)] = !![];
-          var _0x19cede = JSON[_0x229f25(0x131)](JSON[_0x229f25(0x117)](_this2[_0x229f25(0x11c)][_0x229f25(0x12a)](_0x196a80, _0x19dcab)));
-          _0x19cede[_0x229f25(0x11f)](function (_0x27d527) {
-            var _0x4dd3a4 = _0x229f25;
-            if (_0x27d527[_0x4dd3a4(0x129)] % 0x3 == 0x0) _this2['vodList'][0x0] = _0x27d527;else {
-              if (_0x27d527[_0x4dd3a4(0x129)] % 0x3 == 0x1) _this2[_0x4dd3a4(0x123)][0x1] = _0x27d527;else _0x27d527[_0x4dd3a4(0x129)] % 0x3 == 0x2 && (_this2[_0x4dd3a4(0x123)][0x2] = _0x27d527);
-            }
-          });
-        }
-        _this2[_0x229f25(0x12d)](), _this2[_0x229f25(0x123)][_0x229f25(0x11f)](function (_0x993d75, _0x19eb2f) {
-          var _0x463ecd = _0x229f25;
-          _this2[_0x463ecd(0x125)] == _0x993d75['videoIndex'] && (currentNum = _0x19eb2f);
-        }), _this2[_0x229f25(0x124)] && (_this2['currentIndex'] = currentNum), _this2[_0x229f25(0x11d)] = currentNum, _this2[_0x229f25(0x122)] = currentNum, _this2[_0x229f25(0x125)] + 0x1 >= _this2[_0x229f25(0x11c)]['length'] - _this2[_0x229f25(0x11c)]['length'] % 0x3 && (clearTimeout(_this2['loadTime']), _this2[_0x229f25(0x121)] = setTimeout(function () {
-          var _0x4917a7 = _0x229f25;
-          _this2[_0x4917a7(0x126)] = _this2['totalPlayList']['length'], _this2[_0x4917a7(0x111)](_0x4917a7(0x12b));
-        }, 0x12c));
-      }, 0x64), setTimeout(function () {
-        var _0x730180 = _0x3b4b7c;
-        _this2[_0x730180(0x113)] = 0x12c, _this2['autoplayVideo'] ? _this2[_0x730180(0x12f)](currentNum) : (_this2[_0x730180(0x11b)][_0x730180(0x135)] = ![], _this2[_0x730180(0x11b)][_0x730180(0x110)] = !![]);
-      }, 0xc8);
-    },
-    /* 到底加载方法 */lodingData: function lodingData(dataList) {
-      var _this3 = this;
-      var _0x57624a = _0x121b;
-      function _0x67b3() {
-        var _0x16fd98 = ['12MuXZHT', '4rjCkhx', 'pauseShow', '352jVFyyL', '6SzMiZC', '108846cgWxQQ', '3519150jMKmEX', '903369XNqqOE', 'length', '6402950MhgLHR', 'vodPaly', 'loadingShow', 'videoIndex', 'coverOpacity', '7047073snsrRu', 'totalPlayList', 'getVodSliceList', '143228kvspEr', 'concat', 'circular', '3214295XFiuEc', 'coverShow', '$nextTick'];
-        _0x67b3 = function _0x67b3() {
-          return _0x16fd98;
-        };
-        return _0x67b3();
-      }
-      (function (_0x4a9a80, _0x514f43) {
-        var _0x491d08 = _0x121b,
-          _0xe9ac1d = _0x4a9a80();
-        while (!![]) {
-          try {
-            var _0x3ac61e = -parseInt(_0x491d08(0xbc)) / 0x1 + -parseInt(_0x491d08(0xaf)) / 0x2 * (parseInt(_0x491d08(0xb2)) / 0x3) + -parseInt(_0x491d08(0xc3)) / 0x4 * (-parseInt(_0x491d08(0xb4)) / 0x5) + parseInt(_0x491d08(0xc2)) / 0x6 * (parseInt(_0x491d08(0xbf)) / 0x7) + -parseInt(_0x491d08(0xae)) / 0x8 * (parseInt(_0x491d08(0xb0)) / 0x9) + -parseInt(_0x491d08(0xb1)) / 0xa + parseInt(_0x491d08(0xb9)) / 0xb;
-            if (_0x3ac61e === _0x514f43) break;else _0xe9ac1d['push'](_0xe9ac1d['shift']());
-          } catch (_0xba0fc1) {
-            _0xe9ac1d['push'](_0xe9ac1d['shift']());
-          }
-        }
-      })(_0x67b3, 0xdde9b);
-      function _0x121b(_0x2b75b3, _0x5e7a4c) {
-        var _0x67b3d3 = _0x67b3();
-        return _0x121b = function _0x121b(_0x121b01, _0x15e204) {
-          _0x121b01 = _0x121b01 - 0xae;
-          var _0xad5ae9 = _0x67b3d3[_0x121b01];
-          return _0xad5ae9;
-        }, _0x121b(_0x2b75b3, _0x5e7a4c);
-      }
-      var num = this[_0x57624a(0xba)][_0x57624a(0xb3)];
-      dataList['filter'](function (_0x1c2f46, _0x2c68d6) {
-        var _0x43707f = _0x57624a;
-        _0x1c2f46[_0x43707f(0xb7)] = num + _0x2c68d6, _0x1c2f46[_0x43707f(0xb5)] = ![], _0x1c2f46[_0x43707f(0xc4)] = ![], _0x1c2f46[_0x43707f(0xb6)] = ![], _0x1c2f46[_0x43707f(0xb8)] = _0x1c2f46[_0x43707f(0xc0)] ? !![] : ![];
-      }), this[_0x57624a(0xba)] = this[_0x57624a(0xba)][_0x57624a(0xbd)](dataList), this[_0x57624a(0xc1)](function () {
-        var _0x326c11 = _0x57624a;
-        _this3[_0x326c11(0xbb)](), _this3[_0x326c11(0xbe)] = !![];
-      });
-    },
-    /* 重新加载 */refreshSquare: function refreshSquare(dataList, index) {
-      var _this4 = this;
-      function _0x4df3() {
-        var _0x483d5f = ['showToast', '800538ftqeha', '1285039OicPYK', '928947huUNjn', '48YeaErO', '55103445jLuJvu', 'totalPlayList', 'initVod', '2051KYEmBJ', '475180rQcAVO', 'refreshOpen', 'refreshShow', '1157670umBKNa', '46392mszWYn'];
-        _0x4df3 = function _0x4df3() {
-          return _0x483d5f;
-        };
-        return _0x4df3();
-      }
-      var _0xfa389 = _0x5e2c;
-      (function (_0x219357, _0x133ff7) {
-        var _0x4c7dfb = _0x5e2c,
-          _0x2f17ff = _0x219357();
-        while (!![]) {
-          try {
-            var _0x6605e7 = -parseInt(_0x4c7dfb(0xaa)) / 0x1 + -parseInt(_0x4c7dfb(0xa6)) / 0x2 + -parseInt(_0x4c7dfb(0x9d)) / 0x3 + -parseInt(_0x4c7dfb(0x9e)) / 0x4 * (parseInt(_0x4c7dfb(0xa3)) / 0x5) + -parseInt(_0x4c7dfb(0xa9)) / 0x6 + parseInt(_0x4c7dfb(0xa2)) / 0x7 * (-parseInt(_0x4c7dfb(0xa7)) / 0x8) + parseInt(_0x4c7dfb(0x9f)) / 0x9;
-            if (_0x6605e7 === _0x133ff7) break;else _0x2f17ff['push'](_0x2f17ff['shift']());
-          } catch (_0x29449f) {
-            _0x2f17ff['push'](_0x2f17ff['shift']());
-          }
-        }
-      })(_0x4df3, 0xee4f8);
-      var playIndex = index ? index : 0x0;
-      function _0x5e2c(_0x4f5ac7, _0x4e2391) {
-        var _0x4df386 = _0x4df3();
-        return _0x5e2c = function _0x5e2c(_0x5e2c0c, _0x49aa34) {
-          _0x5e2c0c = _0x5e2c0c - 0x9d;
-          var _0x27e9ed = _0x4df386[_0x5e2c0c];
-          return _0x27e9ed;
-        }, _0x5e2c(_0x4f5ac7, _0x4e2391);
-      }
-      this['resetData'](), this[_0xfa389(0xa5)] = ![], this[_0xfa389(0xa4)] = ![], this['vodList'] = [], this[_0xfa389(0xa0)] = [], setTimeout(function () {
-        var _0xa52bef = _0xfa389;
-        _this4[_0xa52bef(0xa1)](dataList, playIndex), uni[_0xa52bef(0xa8)]({
-          'title': '刷新成功',
-          'icon': 'none'
-        });
-      }, 0x32);
-    },
-    /* onShow播放视频 */showPlay: function showPlay() {
-      if (this.vodIndex != null && this.contentShow && !this.beforeVodInfo.vodPaly) {
-        this.videoPlay(this.vodIndex);
-      }
-    },
-    /* onHide暂停视频 */hidePause: function hidePause() {
-      if (this.vodIndex != null && this.contentShow && this.beforeVodInfo.vodPaly) {
-        this.videoPause(this.vodIndex);
-      }
-      this.brightSlider = false; //隐藏光亮的进度条
-    },
-    /* 点击暂停、播放视频 */playSpot: function playSpot(index) {
-      if (this.beforeVodInfo.vodPaly) {
-        //暂停
-        this.videoPause(index);
-        this.beforeVodInfo.pauseShow = true; //显示暂停图标
-      } else {
-        //播放
-        this.videoPlay(index);
-        this.beforeVodInfo.pauseShow = false; //关闭暂停图标
-      }
-    },
-    /* 播放视频 */videoPlay: function videoPlay(index) {
-      var _this5 = this;
-      // console.log('播放视频myVideo============>' + index)
-      var _0x3b1a6f = _0x32ff;
-      function _0x32ff(_0x2de257, _0x510101) {
-        var _0x348416 = _0x3484();
-        return _0x32ff = function _0x32ff(_0x32ffac, _0x401dd1) {
-          _0x32ffac = _0x32ffac - 0x86;
-          var _0x32352e = _0x348416[_0x32ffac];
-          return _0x32352e;
-        }, _0x32ff(_0x2de257, _0x510101);
-      }
-      function _0x3484() {
-        var _0x45be57 = ['$nextTick', '4534537zvIIKb', '6YciMvB', 'beforeVodInfo', 'vodPaly', 'moveOpacity', 'myVideo', '62596CHsVdD', '95zccWoq', 'brightSlider', '4199576pKOeOG', 'openSpot', 'createVideoContext', 'play', 'getVodInfo', '2993190EVoYnG', '9DZmUjm', '11sUYawS', '215398XXcuGR', '28834608QMhrEf', '4991560LWmHgK'];
-        _0x3484 = function _0x3484() {
-          return _0x45be57;
-        };
-        return _0x3484();
-      }
-      (function (_0x9fa0e4, _0x578eb1) {
-        var _0x1fdda0 = _0x32ff,
-          _0x468d9f = _0x9fa0e4();
-        while (!![]) {
-          try {
-            var _0x110fd2 = -parseInt(_0x1fdda0(0x86)) / 0x1 * (parseInt(_0x1fdda0(0x87)) / 0x2) + -parseInt(_0x1fdda0(0x99)) / 0x3 + parseInt(_0x1fdda0(0x91)) / 0x4 * (-parseInt(_0x1fdda0(0x92)) / 0x5) + parseInt(_0x1fdda0(0x8c)) / 0x6 * (parseInt(_0x1fdda0(0x8b)) / 0x7) + parseInt(_0x1fdda0(0x94)) / 0x8 * (parseInt(_0x1fdda0(0x9a)) / 0x9) + -parseInt(_0x1fdda0(0x89)) / 0xa + parseInt(_0x1fdda0(0x88)) / 0xb;
-            if (_0x110fd2 === _0x578eb1) break;else _0x468d9f['push'](_0x468d9f['shift']());
-          } catch (_0x4d1381) {
-            _0x468d9f['push'](_0x468d9f['shift']());
-          }
-        }
-      })(_0x3484, 0xc7038), this[_0x3b1a6f(0x95)] = !![], this[_0x3b1a6f(0x98)](), this['showShade'] = ![], this[_0x3b1a6f(0x8d)][_0x3b1a6f(0x8e)] = !![], this[_0x3b1a6f(0x8d)]['pauseShow'] = ![], this[_0x3b1a6f(0x93)] = ![], this[_0x3b1a6f(0x8a)](function () {
-        var _0x48df7f = _0x3b1a6f;
-        _this5[_0x48df7f(0x8f)] = ![], uni[_0x48df7f(0x96)](_0x48df7f(0x90) + index, _this5)[_0x48df7f(0x97)]();
-      });
-    },
-    /* 暂停视频 */videoPause: function videoPause(index) {
-      var _this6 = this;
-      // console.log('暂停视频myVideo============>' + index)
-      var _0x4e3151 = _0x3363;
-      (function (_0x3382e1, _0x2820dc) {
-        var _0x7fcd87 = _0x3363,
-          _0x23195d = _0x3382e1();
-        while (!![]) {
-          try {
-            var _0x4378f7 = parseInt(_0x7fcd87(0x9d)) / 0x1 + parseInt(_0x7fcd87(0x99)) / 0x2 + parseInt(_0x7fcd87(0xa3)) / 0x3 + -parseInt(_0x7fcd87(0xa4)) / 0x4 + -parseInt(_0x7fcd87(0x9a)) / 0x5 * (-parseInt(_0x7fcd87(0x9c)) / 0x6) + parseInt(_0x7fcd87(0xa0)) / 0x7 + -parseInt(_0x7fcd87(0x9f)) / 0x8;
-            if (_0x4378f7 === _0x2820dc) break;else _0x23195d['push'](_0x23195d['shift']());
-          } catch (_0x518c6b) {
-            _0x23195d['push'](_0x23195d['shift']());
-          }
-        }
-      })(_0x8e55, 0x9ae10), this['getVodInfo'](), this[_0x4e3151(0xa1)]['vodPaly'] = ![];
-      this[_0x4e3151(0x9b)] == index && this['beforeVodInfo'][_0x4e3151(0xa2)] && (this[_0x4e3151(0x98)] = !![]);
-      function _0x3363(_0x1884d0, _0x4ea235) {
-        var _0x8e5562 = _0x8e55();
-        return _0x3363 = function _0x3363(_0x3363fe, _0x1bd5d4) {
-          _0x3363fe = _0x3363fe - 0x97;
-          var _0x5eb19d = _0x8e5562[_0x3363fe];
-          return _0x5eb19d;
-        }, _0x3363(_0x1884d0, _0x4ea235);
-      }
-      this['$nextTick'](function () {
-        var _0x4c9851 = _0x4e3151;
-        uni['createVideoContext'](_0x4c9851(0x97) + index, _this6)[_0x4c9851(0x9e)]();
-      });
-      function _0x8e55() {
-        var _0x182b3e = ['5095440YsEWQr', 'beforeVodInfo', 'sliderShow', '2551146CicWgH', '1883824qwtVzp', 'myVideo', 'brightSlider', '1433750YfDkwB', '5VPqmLa', 'vodIndex', '5597538hfnNKY', '429637HlxrLc', 'pause', '20419176olCZUP'];
-        _0x8e55 = function _0x8e55() {
-          return _0x182b3e;
-        };
-        return _0x8e55();
-      }
-    },
-    changeSwiper: function changeSwiper(ev) {
-      var _0x10c9e5 = _0xcbd5;
-      (function (_0x1a5519, _0x356f25) {
-        var _0x3d879c = _0xcbd5,
-          _0x57ae63 = _0x1a5519();
-        while (!![]) {
-          try {
-            var _0x470d3c = parseInt(_0x3d879c(0x13c)) / 0x1 * (-parseInt(_0x3d879c(0x132)) / 0x2) + -parseInt(_0x3d879c(0x143)) / 0x3 * (parseInt(_0x3d879c(0x134)) / 0x4) + -parseInt(_0x3d879c(0x131)) / 0x5 * (parseInt(_0x3d879c(0x13b)) / 0x6) + -parseInt(_0x3d879c(0x13d)) / 0x7 + -parseInt(_0x3d879c(0x145)) / 0x8 * (parseInt(_0x3d879c(0x148)) / 0x9) + -parseInt(_0x3d879c(0x139)) / 0xa * (-parseInt(_0x3d879c(0x147)) / 0xb) + parseInt(_0x3d879c(0x14a)) / 0xc * (parseInt(_0x3d879c(0x144)) / 0xd);
-            if (_0x470d3c === _0x356f25) break;else _0x57ae63['push'](_0x57ae63['shift']());
-          } catch (_0x15953c) {
-            _0x57ae63['push'](_0x57ae63['shift']());
-          }
-        }
-      })(_0x1c88, 0x85501);
-      var curIndex = ev[_0x10c9e5(0x146)][_0x10c9e5(0x13e)],
-        videoIndex = this['vodList'][curIndex][_0x10c9e5(0x133)];
-      function _0xcbd5(_0x22dc0b, _0x38303d) {
-        var _0x1c887f = _0x1c88();
-        return _0xcbd5 = function _0xcbd5(_0xcbd508, _0x3088e2) {
-          _0xcbd508 = _0xcbd508 - 0x131;
-          var _0x2c829c = _0x1c887f[_0xcbd508];
-          return _0x2c829c;
-        }, _0xcbd5(_0x22dc0b, _0x38303d);
-      }
-      function _0x1c88() {
-        var _0x4beb3d = ['23268lXhKQe', '5RykXBR', '482194OynPOO', 'videoIndex', '77816TEJZgE', 'openSpot', 'length', 'totalPlayList', 'getVodSliceList', '6354850sKlBtg', 'vodCurIndex', '4555644cyyTfG', '2RjMauJ', '1395387IsBByj', 'current', 'changeIndex', 'getVodInfo', 'showShade', 'shadeNum', '15VfOetw', '13039arZQwD', '392NuTLGd', 'detail', '11BlFOiH', '91134BoNIcI', 'autoplayVideo'];
-        _0x1c88 = function _0x1c88() {
-          return _0x4beb3d;
-        };
-        return _0x1c88();
-      }
-      this['moveOpacity'] = !![], this[_0x10c9e5(0x142)]++, this[_0x10c9e5(0x135)] = ![], this[_0x10c9e5(0x149)] = !![];
-      var vodTotal = this['totalPlayList'][_0x10c9e5(0x136)] % 0x3;
-      (videoIndex == 0x0 || videoIndex + 0x1 == this[_0x10c9e5(0x137)][_0x10c9e5(0x136)] - vodTotal) && this[_0x10c9e5(0x142)] > 0x1 && (this[_0x10c9e5(0x141)] = !![]);
-      this[_0x10c9e5(0x13f)] = curIndex, this[_0x10c9e5(0x13a)] = videoIndex, this[_0x10c9e5(0x138)](), this[_0x10c9e5(0x140)]();
-    },
-    /* 要播放视频的下标 */swiperVod: function swiperVod(ev) {
-      var _this7 = this;
-      var _0x3c2994 = _0x1799;
-      (function (_0x179881, _0x2d183c) {
-        var _0x45b7dc = _0x1799,
-          _0x6e3251 = _0x179881();
-        while (!![]) {
-          try {
-            var _0x357714 = -parseInt(_0x45b7dc(0x74)) / 0x1 * (parseInt(_0x45b7dc(0x79)) / 0x2) + -parseInt(_0x45b7dc(0x84)) / 0x3 * (parseInt(_0x45b7dc(0x75)) / 0x4) + -parseInt(_0x45b7dc(0x71)) / 0x5 + parseInt(_0x45b7dc(0x82)) / 0x6 * (parseInt(_0x45b7dc(0x6b)) / 0x7) + -parseInt(_0x45b7dc(0x70)) / 0x8 + parseInt(_0x45b7dc(0x83)) / 0x9 + -parseInt(_0x45b7dc(0x67)) / 0xa * (-parseInt(_0x45b7dc(0x7e)) / 0xb);
-            if (_0x357714 === _0x2d183c) break;else _0x6e3251['push'](_0x6e3251['shift']());
-          } catch (_0x309c60) {
-            _0x6e3251['push'](_0x6e3251['shift']());
-          }
-        }
-      })(_0x444e, 0xe4855);
-      var curIndex = ev[_0x3c2994(0x77)]['current'];
-      if (this[_0x3c2994(0x7f)]) return;
-      this[_0x3c2994(0x85)](), this[_0x3c2994(0x88)] = ![], this[_0x3c2994(0x73)] = 0x0, this[_0x3c2994(0x6e)] = ![], this[_0x3c2994(0x86)][_0x3c2994(0x81)](function (_0x23721c) {
-        var _0x520224 = _0x3c2994;
-        if (_0x23721c[_0x520224(0x6f)] % 0x3 == 0x0) _this7['vodList'][0x0] = _0x23721c;else {
-          if (_0x23721c['videoIndex'] % 0x3 == 0x1) _this7[_0x520224(0x68)][0x1] = _0x23721c;else _0x23721c[_0x520224(0x6f)] % 0x3 == 0x2 && (_this7[_0x520224(0x68)][0x2] = _0x23721c);
-        }
-      });
-      function _0x1799(_0x546793, _0x5e67eb) {
-        var _0x444e08 = _0x444e();
-        return _0x1799 = function _0x1799(_0x179925, _0x24d190) {
-          _0x179925 = _0x179925 - 0x67;
-          var _0x4e8bc1 = _0x444e08[_0x179925];
-          return _0x4e8bc1;
-        }, _0x1799(_0x546793, _0x5e67eb);
-      }
-      var endNum = this[_0x3c2994(0x72)]['length'] - this[_0x3c2994(0x72)][_0x3c2994(0x6d)] % 0x3;
-      function _0x444e() {
-        var _0x113726 = ['filter', '2001390DvtyUR', '10795671qkcJWN', '822teWfUg', 'resetData', 'finalList', 'totalvod', 'moveOpacity', '55440EcWXLp', 'vodList', 'lodData', 'swiperPlay', '35VnGzXg', 'beginLoad', 'length', 'showShade', 'videoIndex', '3182072NURNUM', '1304400nUOGmy', 'totalPlayList', 'shadeNum', '1864706MUDSdp', '12724wFhJRu', 'vodCurIndex', 'detail', 'changeIndex', '2JqKFod', 'push', 'vodIndex', 'circular', 'loadTime', '2904qRQxnZ', 'openSpot', 'loadShow'];
-        _0x444e = function _0x444e() {
-          return _0x113726;
-        };
-        return _0x444e();
-      }
-      if (this[_0x3c2994(0x76)] == 0x0 || this[_0x3c2994(0x76)] + 0x1 >= endNum) {
-        this[_0x3c2994(0x7c)] = ![];
-        var appendNum = this[_0x3c2994(0x87)] - this['totalvod'] % 0x3;
-        if (this[_0x3c2994(0x76)] != 0x0 && this['vodList'][_0x3c2994(0x6d)] == 0x3 && this[_0x3c2994(0x76)] + 0x1 >= appendNum && this[_0x3c2994(0x87)] > 0x0) {
-          var arrList = this[_0x3c2994(0x72)]['slice'](this['vodCurIndex'] + 0x1, this[_0x3c2994(0x72)]['length']);
-          arrList[_0x3c2994(0x81)](function (_0x3a553f) {
-            var _0x38e493 = _0x3c2994;
-            _this7['vodList'][_0x38e493(0x7a)](_0x3a553f);
-          });
-        }
-      } else {
-        this[_0x3c2994(0x7c)] = !![];
-        var loadNum = this['beginLoad'] - this[_0x3c2994(0x6c)] % 0x3;
-        if (this[_0x3c2994(0x6c)] > 0x0 && this[_0x3c2994(0x76)] + 0x1 >= loadNum && this['vodCurIndex'] + 0x1 <= this[_0x3c2994(0x6c)]) {} else this['vodList'][_0x3c2994(0x6d)] > 0x3 && (this[_0x3c2994(0x68)][_0x3c2994(0x6d)] = 0x3), this[_0x3c2994(0x6c)] = 0x0;
-      }
-      this[_0x3c2994(0x87)] > 0x0 && (this[_0x3c2994(0x80)] = this['totalPlayList']['length'] >= this[_0x3c2994(0x87)] ? ![] : !![]);
-      this[_0x3c2994(0x7b)] = this[_0x3c2994(0x78)], this[_0x3c2994(0x6a)](this[_0x3c2994(0x7b)]);
-      this[_0x3c2994(0x76)] + 0x1 >= this[_0x3c2994(0x72)][_0x3c2994(0x6d)] - this[_0x3c2994(0x72)][_0x3c2994(0x6d)] % 0x3 && (clearTimeout(this[_0x3c2994(0x7d)]), this['loadTime'] = setTimeout(function () {
-        var _0x35699f = _0x3c2994;
-        _this7['$emit'](_0x35699f(0x69));
-      }, 0x12c));
-    },
-    /* 获取当前视频播放对象 */getVodInfo: function getVodInfo() {
-      var _this8 = this;
-      this.vodList.filter(function (item) {
-        if (_this8.vodCurIndex == item.videoIndex) {
-          _this8.beforeVodInfo = item;
-        }
-      });
-    },
-    /* 截取要播放的视频列表 */getVodSliceList: function getVodSliceList() {
-      var _this9 = this;
-      var _0x40962e = _0x1422;
-      (function (_0xc5cb20, _0x5d0273) {
-        var _0x29c85a = _0x1422,
-          _0x475164 = _0xc5cb20();
-        while (!![]) {
-          try {
-            var _0x440837 = parseInt(_0x29c85a(0x168)) / 0x1 * (-parseInt(_0x29c85a(0x164)) / 0x2) + -parseInt(_0x29c85a(0x160)) / 0x3 + -parseInt(_0x29c85a(0x161)) / 0x4 * (-parseInt(_0x29c85a(0x162)) / 0x5) + parseInt(_0x29c85a(0x170)) / 0x6 + -parseInt(_0x29c85a(0x16c)) / 0x7 + -parseInt(_0x29c85a(0x16f)) / 0x8 * (-parseInt(_0x29c85a(0x166)) / 0x9) + parseInt(_0x29c85a(0x16e)) / 0xa * (parseInt(_0x29c85a(0x16a)) / 0xb);
-            if (_0x440837 === _0x5d0273) break;else _0x475164['push'](_0x475164['shift']());
-          } catch (_0x27f83b) {
-            _0x475164['push'](_0x475164['shift']());
-          }
-        }
-      })(_0x2339, 0x48551);
-      function _0x2339() {
-        var _0x48f83e = ['66076XGeTSH', '70rcskRX', 'videoIndex', '208pvRsPH', 'stringify', '63711kGRDOX', 'vodList', '146NyiBhT', 'totalPlayList', '44cHHMjj', 'slice', '2691521XfcQsi', 'filter', '783110qFqvGP', '88gFlJXi', '442098BIiyQQ', 'changeIndex', '306HhPfCT'];
-        _0x2339 = function _0x2339() {
-          return _0x48f83e;
-        };
-        return _0x2339();
-      }
-      var videoIndex = this['vodList'][this[_0x40962e(0x171)]]['videoIndex'],
-        starIdx = videoIndex - 0x1 < 0x0 ? 0x0 : videoIndex - 0x1,
-        endIdx = videoIndex + 0x2,
-        resultList = JSON['parse'](JSON[_0x40962e(0x165)](this[_0x40962e(0x169)][_0x40962e(0x16b)](starIdx, endIdx)));
-      function _0x1422(_0x55e24c, _0x2085ec) {
-        var _0x2339a5 = _0x2339();
-        return _0x1422 = function _0x1422(_0x142292, _0x5ba452) {
-          _0x142292 = _0x142292 - 0x160;
-          var _0x3ee022 = _0x2339a5[_0x142292];
-          return _0x3ee022;
-        }, _0x1422(_0x55e24c, _0x2085ec);
-      }
-      resultList[_0x40962e(0x16d)](function (_0x4577bd) {
-        var _0x20f122 = _0x40962e;
-        if (_0x4577bd['videoIndex'] % 0x3 == 0x0) _this9[_0x20f122(0x167)][0x0][_0x20f122(0x163)] = _0x4577bd[_0x20f122(0x163)];else {
-          if (_0x4577bd[_0x20f122(0x163)] % 0x3 == 0x1) _this9['vodList'][0x1]['videoIndex'] = _0x4577bd[_0x20f122(0x163)];else _0x4577bd[_0x20f122(0x163)] % 0x3 == 0x2 && (_this9['vodList'][0x2]['videoIndex'] = _0x4577bd['videoIndex']);
-        }
-      }), this['finalList'] = resultList;
-    },
-    /* swiper播放视频 */swiperPlay: function swiperPlay(newIndex, oldIndex) {
-      var _0x1c930b = _0x10aa;
-      function _0x50d3() {
-        var _0x1c8b18 = ['9306816qEWqDD', '12rKJLSj', '2923906YguVWQ', '1483889sUgiXp', '1387239RPcZDl', 'failTime', 'videoPlay', '1080GTLIDZ', '91RZQlBT', '150496uXBOku', '1826155FRCUVp', 'myVideo', 'vodPaly', 'shakePlay', 'playOpen', 'repeatTime', '81891DNXhwg'];
-        _0x50d3 = function _0x50d3() {
-          return _0x1c8b18;
-        };
-        return _0x50d3();
-      }
-      (function (_0x34b0d8, _0x4e8949) {
-        var _0x41dc8a = _0x10aa,
-          _0x1e8988 = _0x34b0d8();
-        while (!![]) {
-          try {
-            var _0x357595 = parseInt(_0x41dc8a(0xa7)) / 0x1 + -parseInt(_0x41dc8a(0xa6)) / 0x2 + -parseInt(_0x41dc8a(0xa8)) / 0x3 + -parseInt(_0x41dc8a(0xa5)) / 0x4 * (-parseInt(_0x41dc8a(0x9d)) / 0x5) + parseInt(_0x41dc8a(0xa4)) / 0x6 + -parseInt(_0x41dc8a(0x9b)) / 0x7 * (parseInt(_0x41dc8a(0x9c)) / 0x8) + -parseInt(_0x41dc8a(0xa3)) / 0x9 * (parseInt(_0x41dc8a(0x9a)) / 0xa);
-            if (_0x357595 === _0x4e8949) break;else _0x1e8988['push'](_0x1e8988['shift']());
-          } catch (_0xbe7eb7) {
-            _0x1e8988['push'](_0x1e8988['shift']());
-          }
-        }
-      })(_0x50d3, 0xef0a0), this[_0x1c930b(0xa1)] = ![], clearInterval(this[_0x1c930b(0xa9)]), clearInterval(this[_0x1c930b(0xa2)]);
-      function _0x10aa(_0x1c5696, _0x59899b) {
-        var _0x50d3be = _0x50d3();
-        return _0x10aa = function _0x10aa(_0x10aafb, _0x148327) {
-          _0x10aafb = _0x10aafb - 0x9a;
-          var _0x1a2975 = _0x50d3be[_0x10aafb];
-          return _0x1a2975;
-        }, _0x10aa(_0x1c5696, _0x59899b);
-      }
-      uni['createVideoContext'](_0x1c930b(0x9e) + newIndex, this) && (this[_0x1c930b(0xa0)] = ![], this['beforeVodInfo'][_0x1c930b(0x9f)] = !![], this[_0x1c930b(0xaa)](newIndex));
-    },
-    /* 当开始/继续播放时 */startPlay: function startPlay(index) {
-      function _0x4656(_0x477cb9, _0x40efbf) {
-        var _0x406fa4 = _0x406f();
-        return _0x4656 = function _0x4656(_0x46560d, _0x5a1143) {
-          _0x46560d = _0x46560d - 0x1e8;
-          var _0x2d24bc = _0x406fa4[_0x46560d];
-          return _0x2d24bc;
-        }, _0x4656(_0x477cb9, _0x40efbf);
-      }
-      function _0x406f() {
-        var _0x15574a = ['failTime', 'coverOpacity', '337546IynjkC', '117064zrSWyS', 'vodIndex', '469SKDSDL', 'rotateImgShow', '36RwpDau', '102728RsclwA', '145QbINEo', 'palyCartoon', '132CjUZEa', '115zipqDs', '1344522OxZuIl', '44748OFrTAn', 'playOpen', '18FtNGPl', 'errNum', 'beforeVodInfo', '4209710EzFbSD', 'repeatTime'];
-        _0x406f = function _0x406f() {
-          return _0x15574a;
-        };
-        return _0x406f();
-      }
-      var _0x28f3e1 = _0x4656;
-      (function (_0x3ca37f, _0x3770dd) {
-        var _0x37ae9a = _0x4656,
-          _0x4df606 = _0x3ca37f();
-        while (!![]) {
-          try {
-            var _0x505a61 = -parseInt(_0x37ae9a(0x1f0)) / 0x1 * (-parseInt(_0x37ae9a(0x1ee)) / 0x2) + -parseInt(_0x37ae9a(0x1f4)) / 0x3 + parseInt(_0x37ae9a(0x1ea)) / 0x4 * (parseInt(_0x37ae9a(0x1f3)) / 0x5) + parseInt(_0x37ae9a(0x1f5)) / 0x6 + -parseInt(_0x37ae9a(0x1ec)) / 0x7 * (parseInt(_0x37ae9a(0x1ef)) / 0x8) + -parseInt(_0x37ae9a(0x1f7)) / 0x9 * (-parseInt(_0x37ae9a(0x1fa)) / 0xa) + -parseInt(_0x37ae9a(0x1e9)) / 0xb * (-parseInt(_0x37ae9a(0x1f2)) / 0xc);
-            if (_0x505a61 === _0x3770dd) break;else _0x4df606['push'](_0x4df606['shift']());
-          } catch (_0x1e0677) {
-            _0x4df606['push'](_0x4df606['shift']());
-          }
-        }
-      })(_0x406f, 0x874a9);
-      this[_0x28f3e1(0x1eb)] == index && (this[_0x28f3e1(0x1f9)][_0x28f3e1(0x1e8)] = ![], this[_0x28f3e1(0x1f6)] = ![], this[_0x28f3e1(0x1f8)] = 0x0, this[_0x28f3e1(0x1f9)][_0x28f3e1(0x1ed)] && (this[_0x28f3e1(0x1f1)] = !![]), clearInterval(this[_0x28f3e1(0x1fc)]), clearInterval(this[_0x28f3e1(0x1fb)]));
-    },
-    /* 视频出现缓冲 */bufferVod: function bufferVod(index) {
-      // console.log('缓冲视频================》'+index)
-      function _0xc289(_0xb05cf7, _0x5eb797) {
-        var _0x43b1a3 = _0x43b1();
-        return _0xc289 = function _0xc289(_0xc28984, _0x47f104) {
-          _0xc28984 = _0xc28984 - 0xd4;
-          var _0xaa598e = _0x43b1a3[_0xc28984];
-          return _0xaa598e;
-        }, _0xc289(_0xb05cf7, _0x5eb797);
-      }
-      var _0x5de3d5 = _0xc289;
-      function _0x43b1() {
-        var _0x42c215 = ['278993BUEiYp', '70nKmpcS', 'length', '140gpQMJe', 'vodList', 'vodPaly', '194786cepaPJ', '836ASMELE', 'vodIndex', 'changeIndex', 'beforeVodInfo', '145322pqgeVE', '2469672ZZmZIv', '76736sJwIDM', '130dkqDVV', '9NOhhxc', '868254VzrZhJ', 'scheduleLoad'];
-        _0x43b1 = function _0x43b1() {
-          return _0x42c215;
-        };
-        return _0x43b1();
-      }
-      (function (_0x184746, _0x1b7340) {
-        var _0x1e545d = _0xc289,
-          _0x1730ae = _0x184746();
-        while (!![]) {
-          try {
-            var _0x57b32b = -parseInt(_0x1e545d(0xe2)) / 0x1 + parseInt(_0x1e545d(0xd5)) / 0x2 * (-parseInt(_0x1e545d(0xd9)) / 0x3) + parseInt(_0x1e545d(0xe3)) / 0x4 * (-parseInt(_0x1e545d(0xd8)) / 0x5) + -parseInt(_0x1e545d(0xda)) / 0x6 + parseInt(_0x1e545d(0xdd)) / 0x7 * (parseInt(_0x1e545d(0xd7)) / 0x8) + parseInt(_0x1e545d(0xd6)) / 0x9 + -parseInt(_0x1e545d(0xdf)) / 0xa * (-parseInt(_0x1e545d(0xdc)) / 0xb);
-            if (_0x57b32b === _0x1b7340) break;else _0x1730ae['push'](_0x1730ae['shift']());
-          } catch (_0x1e9eb9) {
-            _0x1730ae['push'](_0x1730ae['shift']());
-          }
-        }
-      })(_0x43b1, 0x27ac2);
-      this[_0x5de3d5(0xe0)][_0x5de3d5(0xde)] > 0x0 && this[_0x5de3d5(0xe5)] == this[_0x5de3d5(0xe4)] && !this['bufferShow'] && this[_0x5de3d5(0xd4)][_0x5de3d5(0xe1)] && (this['playOpen'] = !![], this[_0x5de3d5(0xdb)]());
-    },
-    /* 视频播放失败 */errVod: function errVod(index) {
-      var _this10 = this;
-      // console.log('视频播放失败================》'+index)
-      function _0x338a(_0x1e0df4, _0x5d8f4e) {
-        var _0xa9fae5 = _0xa9fa();
-        return _0x338a = function _0x338a(_0x338a83, _0x3e4055) {
-          _0x338a83 = _0x338a83 - 0x165;
-          var _0x1701d5 = _0xa9fae5[_0x338a83];
-          return _0x1701d5;
-        }, _0x338a(_0x1e0df4, _0x5d8f4e);
-      }
-      var _0xed706a = _0x338a;
-      function _0xa9fa() {
-        var _0x5c0839 = ['1809564zAvhzh', 'errNum', '7QPvUCv', '115662Fvejcf', 'beforeVodInfo', '120669GLCqEx', '199338NHRBDn', 'vodPaly', 'playErrTime', 'scheduleLoad', 'changeIndex', '5rNQGtz', 'bufferShow', 'palyCartoon', '10206yOWyUt', 'vodList', '174504ZnmzxP', '9330bxnYRK', '2622240FUkQND'];
-        _0xa9fa = function _0xa9fa() {
-          return _0x5c0839;
-        };
-        return _0xa9fa();
-      }
-      (function (_0x1ce60a, _0x4fec91) {
-        var _0x1dff82 = _0x338a,
-          _0x15c30e = _0x1ce60a();
-        while (!![]) {
-          try {
-            var _0x3a1d7b = -parseInt(_0x1dff82(0x170)) / 0x1 + parseInt(_0x1dff82(0x16a)) / 0x2 + -parseInt(_0x1dff82(0x172)) / 0x3 + parseInt(_0x1dff82(0x16d)) / 0x4 * (-parseInt(_0x1dff82(0x165)) / 0x5) + -parseInt(_0x1dff82(0x173)) / 0x6 * (-parseInt(_0x1dff82(0x16f)) / 0x7) + -parseInt(_0x1dff82(0x16c)) / 0x8 + parseInt(_0x1dff82(0x168)) / 0x9 * (parseInt(_0x1dff82(0x16b)) / 0xa);
-            if (_0x3a1d7b === _0x4fec91) break;else _0x15c30e['push'](_0x15c30e['shift']());
-          } catch (_0x4f20b8) {
-            _0x15c30e['push'](_0x15c30e['shift']());
-          }
-        }
-      })(_0xa9fa, 0x3b309), clearTimeout(this['playErrTime']), this[_0xed706a(0x175)] = setTimeout(function () {
-        var _0x249301 = _0xed706a;
-        _this10[_0x249301(0x169)]['length'] > 0x0 && _this10[_0x249301(0x177)] == _this10['vodIndex'] && !_this10[_0x249301(0x166)] && _this10[_0x249301(0x171)][_0x249301(0x174)] && (_this10['playOpen'] = !![], _this10[_0x249301(0x167)] = ![], _this10[_0x249301(0x16e)] = 0x1, _this10[_0x249301(0x176)]());
-      }, 0x12c);
-    },
-    /* 播放进度变化时触发 */timeupdateVod: function timeupdateVod(ev, index) {
-      var _0x178ade = _0x323a;
-      function _0x323a(_0x145a64, _0x49875a) {
-        var _0x19db16 = _0x19db();
-        return _0x323a = function _0x323a(_0x323afe, _0xc6ad29) {
-          _0x323afe = _0x323afe - 0x119;
-          var _0x1eca29 = _0x19db16[_0x323afe];
-          return _0x1eca29;
-        }, _0x323a(_0x145a64, _0x49875a);
-      }
-      (function (_0x1646c8, _0x31d9ac) {
-        var _0x1e06d6 = _0x323a,
-          _0x2cfa94 = _0x1646c8();
-        while (!![]) {
-          try {
-            var _0x2ade23 = parseInt(_0x1e06d6(0x125)) / 0x1 * (parseInt(_0x1e06d6(0x12e)) / 0x2) + -parseInt(_0x1e06d6(0x119)) / 0x3 + -parseInt(_0x1e06d6(0x120)) / 0x4 + parseInt(_0x1e06d6(0x127)) / 0x5 + -parseInt(_0x1e06d6(0x11d)) / 0x6 + -parseInt(_0x1e06d6(0x131)) / 0x7 + parseInt(_0x1e06d6(0x11b)) / 0x8 * (parseInt(_0x1e06d6(0x130)) / 0x9);
-            if (_0x2ade23 === _0x31d9ac) break;else _0x2cfa94['push'](_0x2cfa94['shift']());
-          } catch (_0x15f4ee) {
-            _0x2cfa94['push'](_0x2cfa94['shift']());
-          }
-        }
-      })(_0x19db, 0xeedf4);
-      if (this[_0x178ade(0x12d)] != index) return ![];
-      !this[_0x178ade(0x122)] && (this['videoTime'] = ev[_0x178ade(0x12f)][_0x178ade(0x124)], this[_0x178ade(0x128)] = ev[_0x178ade(0x12f)][_0x178ade(0x11e)], this[_0x178ade(0x12a)] = ev[_0x178ade(0x12f)][_0x178ade(0x11e)] / ev['detail']['duration'] * this[_0x178ade(0x123)]);
-      function _0x19db() {
-        var _0x23c428 = ['detail', '36oYSLyH', '10325462WhKmtC', '5101488gvUGyY', 'length', '8743856SbMDyT', 'bufferNum', '11205822SZsRPH', 'currentTime', 'vodList', '4714680CKchvw', 'beforeVodInfo', 'sliderDrag', 'screenWidth', 'duration', '28MMYsLE', 'bufferShow', '8567285pivyGi', 'sliderTime', 'repeatTime', 'sliderProgress', 'bufferTime', 'errNum', 'vodIndex', '79636IKsaxY'];
-        _0x19db = function _0x19db() {
-          return _0x23c428;
-        };
-        return _0x19db();
-      }
-      this[_0x178ade(0x11f)][_0x178ade(0x11a)] > 0x0 && (this[_0x178ade(0x11c)] = ev[_0x178ade(0x12f)]['currentTime'], this[_0x178ade(0x126)] = ![], this[_0x178ade(0x121)]['loadingShow'] = ![], this[_0x178ade(0x12c)] = 0x1, clearTimeout(this[_0x178ade(0x12b)]), clearInterval(this['failTime']), clearInterval(this[_0x178ade(0x129)]));
-    },
-    /* 显示进度加载动画 */scheduleLoad: function scheduleLoad() {
-      var _this11 = this;
-      var _0x3a6682 = _0x3031;
-      (function (_0x29ff12, _0x2e3163) {
-        var _0x15bc2 = _0x3031,
-          _0x51cd6f = _0x29ff12();
-        while (!![]) {
-          try {
-            var _0x2cee27 = parseInt(_0x15bc2(0x7c)) / 0x1 + parseInt(_0x15bc2(0x75)) / 0x2 + -parseInt(_0x15bc2(0x74)) / 0x3 + -parseInt(_0x15bc2(0x73)) / 0x4 + parseInt(_0x15bc2(0x6f)) / 0x5 * (parseInt(_0x15bc2(0x72)) / 0x6) + parseInt(_0x15bc2(0x7a)) / 0x7 + -parseInt(_0x15bc2(0x77)) / 0x8;
-            if (_0x2cee27 === _0x2e3163) break;else _0x51cd6f['push'](_0x51cd6f['shift']());
-          } catch (_0xb153a3) {
-            _0x51cd6f['push'](_0x51cd6f['shift']());
-          }
-        }
-      })(_0x3e9e, 0x74f44);
-      function _0x3031(_0x2f0f93, _0x10d533) {
-        var _0x3e9e88 = _0x3e9e();
-        return _0x3031 = function _0x3031(_0x30313a, _0x22ad30) {
-          _0x30313a = _0x30313a - 0x6f;
-          var _0x2bdc2d = _0x3e9e88[_0x30313a];
-          return _0x2bdc2d;
-        }, _0x3031(_0x2f0f93, _0x10d533);
-      }
-      !this[_0x3a6682(0x7b)] && (this[_0x3a6682(0x7b)] = !![], this[_0x3a6682(0x76)] = setTimeout(function () {
-        var _0x24aad3 = _0x3a6682;
-        _this11['beforeVodInfo'][_0x24aad3(0x78)] = !![], _this11[_0x24aad3(0x71)] && (_this11[_0x24aad3(0x79)] = setInterval(function () {
-          var _0x333dc4 = _0x24aad3;
-          _this11[_0x333dc4(0x70)]();
-        }, 0x1f4));
-      }, 0x5dc));
-      function _0x3e9e() {
-        var _0x3d1978 = ['3164357hoNCio', 'bufferShow', '94159tJtEYv', '1232935OfSuna', 'vodLoad', 'playOpen', '12bozBvy', '3140476PHPizr', '501186bMLjUk', '1534918FWmNTC', 'bufferTime', '3004944XQfwSF', 'loadingShow', 'repeatTime'];
-        _0x3e9e = function _0x3e9e() {
-          return _0x3d1978;
-        };
-        return _0x3e9e();
-      }
-    },
-    /* 重新播放视频 */vodLoad: function vodLoad() {
-      var _this12 = this;
-      /* 视频播放失败，重新播放视频 */
-      function _0x1ef4() {
-        var _0xd6c637 = ['7abmEtg', '879312PhsWGC', '30bLyYhN', '6674680sYAGfA', '822476RlzhPB', '7731tCGhmT', 'loadingShow', '500yDqYhE', '2908702HjplhH', '29997737qBzXbv', '3079749xCWCSN', 'beforeVodInfo', 'bufferShow', '1Gajcbt', 'vodLoad', 'playOpen', 'repeatTime'];
-        _0x1ef4 = function _0x1ef4() {
-          return _0xd6c637;
-        };
-        return _0x1ef4();
-      }
-      var _0x539090 = _0x5142;
-      function _0x5142(_0x6eb7c0, _0x31a49d) {
-        var _0x1ef4b8 = _0x1ef4();
-        return _0x5142 = function _0x5142(_0x514228, _0x3ed3a0) {
-          _0x514228 = _0x514228 - 0x1b1;
-          var _0x4d8d7e = _0x1ef4b8[_0x514228];
-          return _0x4d8d7e;
-        }, _0x5142(_0x6eb7c0, _0x31a49d);
-      }
-      (function (_0xe3056f, _0x3dc6e9) {
-        var _0x523ca7 = _0x5142,
-          _0x5de733 = _0xe3056f();
-        while (!![]) {
-          try {
-            var _0x52d8aa = -parseInt(_0x523ca7(0x1b8)) / 0x1 * (parseInt(_0x523ca7(0x1b3)) / 0x2) + -parseInt(_0x523ca7(0x1b5)) / 0x3 + -parseInt(_0x523ca7(0x1c0)) / 0x4 * (-parseInt(_0x523ca7(0x1be)) / 0x5) + parseInt(_0x523ca7(0x1bd)) / 0x6 + parseInt(_0x523ca7(0x1bc)) / 0x7 * (-parseInt(_0x523ca7(0x1bf)) / 0x8) + parseInt(_0x523ca7(0x1c1)) / 0x9 * (-parseInt(_0x523ca7(0x1b2)) / 0xa) + parseInt(_0x523ca7(0x1b4)) / 0xb;
-            if (_0x52d8aa === _0x3dc6e9) break;else _0x5de733['push'](_0x5de733['shift']());
-          } catch (_0x386fdb) {
-            _0x5de733['push'](_0x5de733['shift']());
-          }
-        }
-      })(_0x1ef4, 0xb6e3a);
-      !this[_0x539090(0x1b7)] && (this[_0x539090(0x1b7)] = !![], this['bufferTime'] = setTimeout(function () {
-        var _0x158553 = _0x539090;
-        _this12[_0x158553(0x1b6)][_0x158553(0x1b1)] = !![], _this12[_0x158553(0x1ba)] && (_this12[_0x158553(0x1bb)] = setInterval(function () {
-          var _0xc7435 = _0x158553;
-          _this12[_0xc7435(0x1b9)]();
-        }, 0x1f4));
-      }, 0x5dc));
-    },
-    /* 视频播放结束 */endedVod: function endedVod(index) {
-      // console.log('视频播放结束'+index)
-      function _0x421d() {
-        var _0x49d747 = ['10McJknZ', '331896EQzCoB', '70aKsuNA', '233276QOXXun', 'nextPlay', 'currentIndex', '4348683bNvavp', '311758mUaxOI', '8803795lBJPWn', '24332460blRGIp', '630856HodWsw', 'vodIndex', '7Oqiice', '105ZYLdwW', '36zirtIk'];
-        _0x421d = function _0x421d() {
-          return _0x49d747;
-        };
-        return _0x421d();
-      }
-      var _0x4db5a3 = _0x3493;
-      (function (_0x2ea5e2, _0x22e45b) {
-        var _0x4a0b94 = _0x3493,
-          _0x5620ac = _0x2ea5e2();
-        while (!![]) {
-          try {
-            var _0x1a90ac = -parseInt(_0x4a0b94(0x13d)) / 0x1 * (parseInt(_0x4a0b94(0x138)) / 0x2) + -parseInt(_0x4a0b94(0x13f)) / 0x3 * (-parseInt(_0x4a0b94(0x134)) / 0x4) + parseInt(_0x4a0b94(0x133)) / 0x5 * (parseInt(_0x4a0b94(0x132)) / 0x6) + -parseInt(_0x4a0b94(0x13e)) / 0x7 * (-parseInt(_0x4a0b94(0x13b)) / 0x8) + -parseInt(_0x4a0b94(0x137)) / 0x9 * (-parseInt(_0x4a0b94(0x131)) / 0xa) + parseInt(_0x4a0b94(0x139)) / 0xb + -parseInt(_0x4a0b94(0x13a)) / 0xc;
-            if (_0x1a90ac === _0x22e45b) break;else _0x5620ac['push'](_0x5620ac['shift']());
-          } catch (_0x5c8b6c) {
-            _0x5620ac['push'](_0x5620ac['shift']());
-          }
-        }
-      })(_0x421d, 0xc8a15);
-      function _0x3493(_0x49c92f, _0x2ceeb6) {
-        var _0x421dae = _0x421d();
-        return _0x3493 = function _0x3493(_0x34938a, _0x53dd8b) {
-          _0x34938a = _0x34938a - 0x131;
-          var _0x5917e4 = _0x421dae[_0x34938a];
-          return _0x5917e4;
-        }, _0x3493(_0x49c92f, _0x2ceeb6);
-      }
-      this[_0x4db5a3(0x13c)] == index && this[_0x4db5a3(0x135)] && (this['vodIndex'] < 0x2 ? this['vodIndex'] += 0x1 : this[_0x4db5a3(0x13c)] = 0x0, this[_0x4db5a3(0x136)] = this[_0x4db5a3(0x13c)]);
-    },
-    // 根据秒获取时间
-    formatSeconds: function formatSeconds(a) {
-      var hh = parseInt(a / 3600);
-      var mm = parseInt((a - hh * 3600) / 60);
-      if (mm < 10) mm = "0" + mm;
-      var ss = parseInt((a - hh * 3600) % 60);
-      if (ss < 10) ss = "0" + ss;
-      if (hh < 10) hh = hh == 0 ? '' : "0".concat(hh, ":");
-      var length = hh + mm + ":" + ss;
-      if (a >= 0) {
-        return length;
-      } else {
-        return "00:00";
-      }
-    },
-    /* 进度条滑动 */touchmoveSlider: function touchmoveSlider(event) {
-      var objclientX = event.changedTouches[0].clientX;
-      var _0x581424 = _0x5f52;
-      (function (_0x3d0f5e, _0x45f965) {
-        var _0x5189f8 = _0x5f52,
-          _0x45da4b = _0x3d0f5e();
-        while (!![]) {
-          try {
-            var _0x150889 = parseInt(_0x5189f8(0x186)) / 0x1 * (-parseInt(_0x5189f8(0x187)) / 0x2) + parseInt(_0x5189f8(0x184)) / 0x3 * (-parseInt(_0x5189f8(0x174)) / 0x4) + -parseInt(_0x5189f8(0x17a)) / 0x5 + parseInt(_0x5189f8(0x17b)) / 0x6 * (-parseInt(_0x5189f8(0x17d)) / 0x7) + -parseInt(_0x5189f8(0x183)) / 0x8 * (-parseInt(_0x5189f8(0x181)) / 0x9) + parseInt(_0x5189f8(0x175)) / 0xa * (parseInt(_0x5189f8(0x178)) / 0xb) + -parseInt(_0x5189f8(0x185)) / 0xc * (-parseInt(_0x5189f8(0x177)) / 0xd);
-            if (_0x150889 === _0x45f965) break;else _0x45da4b['push'](_0x45da4b['shift']());
-          } catch (_0x58322b) {
-            _0x45da4b['push'](_0x45da4b['shift']());
-          }
-        }
-      })(_0x3805, 0xddb25), this[_0x581424(0x17e)] = !![];
-      function _0x3805() {
-        var _0x358d14 = ['sliderDrag', 'sliderProgress', 'brightSlider', '12501594mFFaKo', 'screenWidth', '8mKlRPk', '3lhxnWf', '7203528CExMHN', '2171XTloZU', '746WVZulW', '5156564CTvnOo', '5956730grJhoy', 'videoTime', '65sgLQmQ', '11EWlcvX', 'endTime', '4221830IvOPvj', '300PWlvMu', 'sliderEndTime', '158879yQjocQ'];
-        _0x3805 = function _0x3805() {
-          return _0x358d14;
-        };
-        return _0x3805();
-      }
-      function _0x5f52(_0x5e8bf0, _0x1e2b18) {
-        var _0x3805e5 = _0x3805();
-        return _0x5f52 = function _0x5f52(_0x5f523c, _0x16f0cc) {
-          _0x5f523c = _0x5f523c - 0x174;
-          var _0x2be695 = _0x3805e5[_0x5f523c];
-          return _0x2be695;
-        }, _0x5f52(_0x5e8bf0, _0x1e2b18);
-      }
-      if (objclientX >= 0x0 && objclientX <= this[_0x581424(0x182)] - 0x2) {
-        this[_0x581424(0x17c)] != null && clearTimeout(this[_0x581424(0x17c)]);
-        this[_0x581424(0x180)] = !![], this[_0x581424(0x17f)] = objclientX;
-        var num = this[_0x581424(0x17f)] / (this[_0x581424(0x182)] - 0x2);
-        this['sliderTime'] = num * this[_0x581424(0x176)], this[_0x581424(0x179)] = num * this[_0x581424(0x176)];
-      }
-    },
-    /* 进度条滑动结束 */touchendSlider: function touchendSlider() {
-      var _this13 = this;
-      var _0x2ce612 = _0x283f;
-      function _0x283f(_0x48a855, _0x1a8e25) {
-        var _0x288595 = _0x2885();
-        return _0x283f = function _0x283f(_0x283f80, _0xec62e5) {
-          _0x283f80 = _0x283f80 - 0x1ae;
-          var _0x2596a9 = _0x288595[_0x283f80];
-          return _0x2596a9;
-        }, _0x283f(_0x48a855, _0x1a8e25);
-      }
-      (function (_0x33fe38, _0x5a1a3d) {
-        var _0x302ad9 = _0x283f,
-          _0xd7d14c = _0x33fe38();
-        while (!![]) {
-          try {
-            var _0x1ef407 = parseInt(_0x302ad9(0x1b6)) / 0x1 * (-parseInt(_0x302ad9(0x1c2)) / 0x2) + parseInt(_0x302ad9(0x1b5)) / 0x3 + -parseInt(_0x302ad9(0x1b7)) / 0x4 + parseInt(_0x302ad9(0x1b8)) / 0x5 * (-parseInt(_0x302ad9(0x1c0)) / 0x6) + parseInt(_0x302ad9(0x1ae)) / 0x7 * (-parseInt(_0x302ad9(0x1b2)) / 0x8) + -parseInt(_0x302ad9(0x1bf)) / 0x9 + parseInt(_0x302ad9(0x1bb)) / 0xa * (parseInt(_0x302ad9(0x1af)) / 0xb);
-            if (_0x1ef407 === _0x5a1a3d) break;else _0xd7d14c['push'](_0xd7d14c['shift']());
-          } catch (_0x419f45) {
-            _0xd7d14c['push'](_0xd7d14c['shift']());
-          }
-        }
-      })(_0x2885, 0x8e387), this[_0x2ce612(0x1be)] = ![];
-      var videoCtx = uni[_0x2ce612(0x1b3)](_0x2ce612(0x1b1) + this[_0x2ce612(0x1ba)], this);
-      videoCtx[_0x2ce612(0x1b4)](this[_0x2ce612(0x1b0)]), videoCtx['play'](), this[_0x2ce612(0x1bd)][_0x2ce612(0x1c1)] = !![], this[_0x2ce612(0x1bd)][_0x2ce612(0x1bc)] = ![], this[_0x2ce612(0x1b9)] = setTimeout(function () {
-        _this13['brightSlider'] = ![];
-      }, 0x7d0);
-      function _0x2885() {
-        var _0x503fe8 = ['sliderDrag', '1719423qIfSeW', '396FXrNUc', 'vodPaly', '2fBXKOH', '985579KHTyMS', '68640epbajj', 'endTime', 'myVideo', '56CvPnVo', 'createVideoContext', 'seek', '2864517hlxnug', '1146994nySCYV', '1594840qFjLQb', '29495ktWLwT', 'sliderEndTime', 'vodIndex', '4390jaKvuq', 'pauseShow', 'beforeVodInfo'];
-        _0x2885 = function _0x2885() {
-          return _0x503fe8;
-        };
-        return _0x2885();
-      }
-    },
-    /* 触碰的坐标 */vodViewStart: function vodViewStart(e) {
-      this.touchClientY = e.changedTouches[0].clientY;
-    },
-    /* 上下滑动的坐标 */vodViewMove: function vodViewMove(e) {
-      this.moveClientY = e.changedTouches[0].clientY - this.touchClientY;
+/***/ }),
 
-      /* 是否透明进度条 */
-      function _0x40f1(_0x4eb715, _0x6b6356) {
-        var _0x27a74d = _0x27a7();
-        return _0x40f1 = function _0x40f1(_0x40f105, _0x4d7a09) {
-          _0x40f105 = _0x40f105 - 0xd5;
-          var _0x4c5055 = _0x27a74d[_0x40f105];
-          return _0x4c5055;
-        }, _0x40f1(_0x4eb715, _0x6b6356);
+/***/ 6:
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 7:
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
+  if (null != _i) {
+    var _s,
+      _e,
+      _x,
+      _r,
+      _arr = [],
+      _n = !0,
+      _d = !1;
+    try {
+      if (_x = (_i = _i.call(arr)).next, 0 === i) {
+        if (Object(_i) !== _i) return;
+        _n = !1;
+      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) {
+        ;
       }
-      var _0x2a8213 = _0x40f1;
-      (function (_0x5eb343, _0xdefeca) {
-        var _0x15a24f = _0x40f1,
-          _0x3fb0cd = _0x5eb343();
-        while (!![]) {
-          try {
-            var _0xbedce5 = parseInt(_0x15a24f(0xdc)) / 0x1 + parseInt(_0x15a24f(0xe1)) / 0x2 * (parseInt(_0x15a24f(0xd8)) / 0x3) + parseInt(_0x15a24f(0xdb)) / 0x4 + -parseInt(_0x15a24f(0xd9)) / 0x5 + -parseInt(_0x15a24f(0xd5)) / 0x6 + parseInt(_0x15a24f(0xe4)) / 0x7 * (parseInt(_0x15a24f(0xda)) / 0x8) + -parseInt(_0x15a24f(0xdd)) / 0x9;
-            if (_0xbedce5 === _0xdefeca) break;else _0x3fb0cd['push'](_0x3fb0cd['shift']());
-          } catch (_0x375404) {
-            _0x3fb0cd['push'](_0x3fb0cd['shift']());
-          }
-        }
-      })(_0x27a7, 0xe518d);
-      this[_0x2a8213(0xe2)] > 0x0 || this['moveClientY'] < 0x0 ? this[_0x2a8213(0xd7)] = !![] : this[_0x2a8213(0xd7)] = ![];
-      function _0x27a7() {
-        var _0xd51b72 = ['5640956PkUwCI', '1521371yzXBQQ', '3073878aHlkod', 'refreshOpen', 'vodCurIndex', 'refreshOpacity', '18YeEcJQ', 'moveClientY', 'refreshShow', '7BzVbNI', '6938346WRDRqf', 'loadOpen', 'moveOpacity', '287733AtSfQN', '8712705wSEaIg', '3072368hisuvy'];
-        _0x27a7 = function _0x27a7() {
-          return _0xd51b72;
-        };
-        return _0x27a7();
+    } catch (err) {
+      _d = !0, _e = err;
+    } finally {
+      try {
+        if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return;
+      } finally {
+        if (_d) throw _e;
       }
-      this[_0x2a8213(0xd6)] && this[_0x2a8213(0xdf)] == 0x0 && !this[_0x2a8213(0xde)] && (this['moveClientY'] > 0xa ? (this[_0x2a8213(0xe3)] = !![], this[_0x2a8213(0xe2)] > 0xa && this[_0x2a8213(0xe2)] <= 0x3c && this[_0x2a8213(0xe3)] && (this[_0x2a8213(0xe0)] = this[_0x2a8213(0xe2)] / 0x3c, this['refreshclientY'] = this[_0x2a8213(0xe2)] / 0x2)) : this[_0x2a8213(0xe3)] = ![]);
-    },
-    /* 滑动结束的坐标 */vodViewEnd: function vodViewEnd(e) {
-      var _this14 = this;
-      this.moveClientY = e.changedTouches[0].clientY - this.touchClientY;
-      var _0x299d2f = _0x2f89;
-      (function (_0x22a353, _0x213735) {
-        var _0x429289 = _0x2f89,
-          _0x39f035 = _0x22a353();
-        while (!![]) {
-          try {
-            var _0x4446dc = parseInt(_0x429289(0x124)) / 0x1 + -parseInt(_0x429289(0x127)) / 0x2 * (parseInt(_0x429289(0x11c)) / 0x3) + parseInt(_0x429289(0x125)) / 0x4 * (-parseInt(_0x429289(0x12a)) / 0x5) + parseInt(_0x429289(0x121)) / 0x6 * (-parseInt(_0x429289(0x12b)) / 0x7) + -parseInt(_0x429289(0x11b)) / 0x8 + parseInt(_0x429289(0x123)) / 0x9 * (parseInt(_0x429289(0x11f)) / 0xa) + parseInt(_0x429289(0x122)) / 0xb;
-            if (_0x4446dc === _0x213735) break;else _0x39f035['push'](_0x39f035['shift']());
-          } catch (_0x1ad049) {
-            _0x39f035['push'](_0x39f035['shift']());
-          }
-        }
-      })(_0x3154, 0x5d469), this[_0x299d2f(0x12d)] = ![];
-      function _0x2f89(_0x15d384, _0x1fc3d2) {
-        var _0x31547d = _0x3154();
-        return _0x2f89 = function _0x2f89(_0x2f89ec, _0x552f10) {
-          _0x2f89ec = _0x2f89ec - 0x11b;
-          var _0x38c114 = _0x31547d[_0x2f89ec];
-          return _0x38c114;
-        }, _0x2f89(_0x15d384, _0x1fc3d2);
-      }
-      if (this[_0x299d2f(0x11e)]) {
-        if (this[_0x299d2f(0x11d)] == 0x0 && this['refreshShow']) {
-          if (this[_0x299d2f(0x128)] > 0x1 && this[_0x299d2f(0x128)] < 0x3c && !this[_0x299d2f(0x126)]) this['refreshOpacity'] = 0x0, this['refreshclientY'] = 0x0, setTimeout(function () {
-            var _0x1a0f87 = _0x299d2f;
-            _this14[_0x1a0f87(0x120)] = ![];
-          }, 0x12c);else {
-            if (this[_0x299d2f(0x126)]) return;
-            this[_0x299d2f(0x126)] = !![], this[_0x299d2f(0x12c)](_0x299d2f(0x129));
-          }
-        }
-      }
-      function _0x3154() {
-        var _0x3f898d = ['$emit', 'moveOpacity', '5226992ktRzKl', '3BuDqrU', 'vodCurIndex', 'loadOpen', '1790LzTuCX', 'refreshShow', '6TIrBwu', '6682610EhAcsG', '31923ZpzRgh', '675770FmNCiZ', '90004vNDYRH', 'refreshOpen', '1312672vGgNpK', 'moveClientY', 'refreshData', '15srgBjG', '1112461kMKIZZ'];
-        _0x3154 = function _0x3154() {
-          return _0x3f898d;
-        };
-        return _0x3154();
-      }
-    },
-    /* 重置状态数据 */resetData: function resetData() {
-      function _0x4904() {
-        var _0x5d98fb = ['endTime', '5700BIfnpb', '1178ByyIVo', '3398515mdcJtH', '54uqPFhI', '4939WovzXE', 'sliderTime', 'sliderEndTime', '9atYYdo', 'sliderDrag', '3327880psYGSo', '4eJUmpm', '2112027ojpbLv', '493892AfOULO', 'bufferNum', 'sliderProgress', 'brightSlider', '647tVxcmF', 'videoTime', '395904boLfSI'];
-        _0x4904 = function _0x4904() {
-          return _0x5d98fb;
-        };
-        return _0x4904();
-      }
-      function _0x11c2(_0x3dfc3f, _0x3de4f5) {
-        var _0x4904bc = _0x4904();
-        return _0x11c2 = function _0x11c2(_0x11c232, _0x40a050) {
-          _0x11c232 = _0x11c232 - 0x172;
-          var _0x599c82 = _0x4904bc[_0x11c232];
-          return _0x599c82;
-        }, _0x11c2(_0x3dfc3f, _0x3de4f5);
-      }
-      var _0x5f0a5b = _0x11c2;
-      (function (_0x27e985, _0x2e7d95) {
-        var _0x13bccf = _0x11c2,
-          _0x36543a = _0x27e985();
-        while (!![]) {
-          try {
-            var _0x258698 = -parseInt(_0x13bccf(0x174)) / 0x1 * (-parseInt(_0x13bccf(0x179)) / 0x2) + -parseInt(_0x13bccf(0x183)) / 0x3 * (parseInt(_0x13bccf(0x182)) / 0x4) + parseInt(_0x13bccf(0x17a)) / 0x5 + -parseInt(_0x13bccf(0x17b)) / 0x6 * (parseInt(_0x13bccf(0x184)) / 0x7) + parseInt(_0x13bccf(0x181)) / 0x8 * (parseInt(_0x13bccf(0x17f)) / 0x9) + -parseInt(_0x13bccf(0x178)) / 0xa * (-parseInt(_0x13bccf(0x17c)) / 0xb) + -parseInt(_0x13bccf(0x176)) / 0xc;
-            if (_0x258698 === _0x2e7d95) break;else _0x36543a['push'](_0x36543a['shift']());
-          } catch (_0x5b4298) {
-            _0x36543a['push'](_0x36543a['shift']());
-          }
-        }
-      })(_0x4904, 0x580f8), this[_0x5f0a5b(0x172)] = 0x0, this[_0x5f0a5b(0x17d)] = 0x0, this[_0x5f0a5b(0x175)] = 0x0, this[_0x5f0a5b(0x177)] = 0x0, this[_0x5f0a5b(0x185)] = null, this['bufferShow'] = ![], this[_0x5f0a5b(0x180)] = ![], this[_0x5f0a5b(0x173)] = ![], this[_0x5f0a5b(0x17e)] = null;
-    },
-    /* 点赞关注操作 */handleInfo: function handleInfo(obj) {
-      var _this15 = this;
-      this.totalPlayList.filter(function (item, index) {
-        if (item.videoIndex == obj.videoIndex) {
-          _this15.$set(_this15.totalPlayList, index, obj);
-        }
-      });
-      this.vodList.filter(function (item, index) {
-        if (item.videoIndex == obj.videoIndex) {
-          _this15.$set(_this15.vodList, index, obj);
-        }
-      });
     }
+    return _arr;
   }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+}
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 8:
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 9:
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+  return arr2;
+}
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ })
-]]);
+
+}]);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

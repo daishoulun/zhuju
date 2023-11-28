@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "账号安全",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "verify-code": "/components/verify-code",
+    "log-off-modal": "/components/log-off-modal"
+  }
+}

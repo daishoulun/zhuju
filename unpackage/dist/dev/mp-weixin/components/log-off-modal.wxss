@@ -1,0 +1,48 @@
+@charset "UTF-8";
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.log-off-modal .footer.data-v-1854b95b {
+  display: flex;
+  justify-content: space-between;
+}
+.log-off-modal .footer .btn.data-v-1854b95b {
+  width: 280rpx;
+  height: 84rpx;
+  border-radius: 42rpx;
+  flex: 1;
+  text-align: center;
+  line-height: 84rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: #201F2C;
+  overflow: hidden;
+}
+.log-off-modal .footer .cancel-btn.data-v-1854b95b {
+  background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+  margin-right: 12rpx;
+}
+.log-off-modal .footer .confirm-btn.data-v-1854b95b {
+  position: relative;
+  background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+}
+.log-off-modal .footer .confirm-btn.data-v-1854b95b:after {
+  position: absolute;
+  content: '确定';
+  top: 50%;
+  left: 50%;
+  width: 270rpx;
+  height: 80rpx;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 40rpx;
+  background: #fff;
+}
+
