@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/start-page/start-page",
     "pages/index/index",
     "pages/list/list",
     "pages/person-center/person-center",
@@ -13,7 +14,9 @@
     "pages/account-safe/account-safe",
     "pages/system-setting/system-setting",
     "pages/protocol-policy/protocol-policy",
-    "pages/select-city/select-city"
+    "pages/select-city/select-city",
+    "pages/login/login",
+    "pages/login-form/login-form"
   ],
   "subPackages": [],
   "window": {

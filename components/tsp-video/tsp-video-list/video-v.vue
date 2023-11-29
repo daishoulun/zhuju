@@ -36,7 +36,7 @@
 						<!-- 底部标题、右侧操作栏 -->
 						<view>
 							<videoMenu :ref="'menuRef'+index" :vodIndex="vodIndex" :vodCurIndex="vodCurIndex" :item="item" :discussNum="totalPlayList.length" :index="index"
-							 :sliderDrag="sliderDrag" :moveOpacity="moveOpacity" :palyCartoon="palyCartoon" @handleInfo="handleInfo"></videoMenu>
+							 :sliderDrag="sliderDrag" :moveOpacity="moveOpacity" :palyCartoon="palyCartoon" @click-action="val => $emit('click-action', val)" @handleInfo="handleInfo"></videoMenu>
 						</view>
 					</view>
 					<!-- 底层图标 -->

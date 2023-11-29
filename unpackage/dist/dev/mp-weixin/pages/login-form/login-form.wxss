@@ -1,0 +1,99 @@
+@charset "UTF-8";
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.login-form {
+  height: calc(100vh - 88rpx);
+  background: #181818;
+  padding: 72rpx;
+  box-sizing: border-box;
+}
+.login-form .hi {
+  width: 56rpx;
+  height: 44rpx;
+}
+.login-form .tip {
+  font-size: 52rpx;
+  color: #DCAEF4;
+  margin-bottom: 56rpx;
+}
+.login-form .input-con {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 132rpx;
+  padding: 0 28rpx;
+  background: #2B2B2B;
+  border-radius: 28rpx;
+  font-size: 36rpx;
+  color: #FFFFFF;
+  box-sizing: border-box;
+}
+.login-form .input-con .label {
+  width: 64rpx;
+  margin-right: 50rpx;
+}
+.login-form .input-con input {
+  flex: 1;
+}
+.login-form .code-input {
+  position: relative;
+  margin: 24rpx 0 124rpx;
+}
+.login-form .code-input .send-code {
+  position: absolute;
+  top: 50%;
+  right: 28rpx;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #DCAEF4;
+}
+.login-form  .input-placeholder {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #5C5C5C;
+}
+.login-form .policy {
+  text-align: center;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #777777;
+  margin-bottom: 26rpx;
+}
+.login-form .policy text {
+  color: #fff;
+}
+.login-form .policy  .uni-checkbox-input {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 50%;
+  border-color: #FFFFFF;
+  background: rgba(216, 216, 216, 0.3);
+  margin-right: 10rpx;
+}
+.login-form .policy  .uni-checkbox-input::before {
+  font-size: 24rpx;
+  color: #fff;
+}
+.login-form .btn {
+  height: 120rpx;
+  line-height: 120rpx;
+  background: #5C5C5C;
+  border-radius: 60rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #201F2C;
+}
+.login-form .btn.canLogin {
+  background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+}
+

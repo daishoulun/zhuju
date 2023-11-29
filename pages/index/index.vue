@@ -7,9 +7,12 @@
        :class="active === item.key ? 'active' : ''"
        @click="handleTabbar(item.key)">{{ item.label }}</text>
     </view>
-    <tw-videov ref="videoGroup" @lodData="loadingData" @refreshData="refreshData" :autoplay="autoplay"></tw-videov>
+    <tw-videov ref="videoGroup" @lodData="loadingData" @refreshData="refreshData" :autoplay="autoplay"
+      @click-action="handleToolBar"
+    ></tw-videov>
     <UserAgreement v-if="userAgreementModalVisible" @close="userAgreementModalVisible = flase"></UserAgreement>
     <LoginModal v-if="loginModalVisible" @close="loginModalVisible = flase"></LoginModal>
+    <CommentPopup v-if="commentPopupVisible" ref="commentList" @close="commentPopupVisible = false"></CommentPopup>
   </view>
 </template>
 
@@ -18,14 +21,17 @@ import twVideov from '@/components/tsp-video/tsp-video-list/video-v.vue'
 import vodData from '@/static/vodData.js' //假数据
 import UserAgreement from '@/components/user-agreement/user-agreement.vue'
 import LoginModal from '@/components/login-modal.vue'
+import CommentPopup from '@/components/comment-popup.vue'
 export default{
   components:{
     twVideov,
+    CommentPopup,
     UserAgreement,
     LoginModal
   },
   data(){
     return {
+      commentPopupVisible: false,
       userAgreementModalVisible: false,
       loginModalVisible: false,
       active: 'recommend',
@@ -57,6 +63,15 @@ export default{
     }
   },
   methods:{
+    handleToolBar(val) {
+      console.log(val)
+      if(val === 3) {
+        this.commentPopupVisible = true
+        this.$nextTick(() => {
+          this.$refs.commentList.open()
+        })
+      }
+    },
     handleTabbar(val) {
       this.active = val
     },

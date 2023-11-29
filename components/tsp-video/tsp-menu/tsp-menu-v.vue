@@ -12,12 +12,6 @@
         <image src="/static/location.png" mode=""></image>
         <text>Club·Puff · 3km</text>
       </view>
-			<!-- <view style="width: 300rpx;">
-				<view style="height: 80rpx;transform: scale(0.85);margin-left: -32rpx;margin-bottom: -20rpx;">
-					<uninoticebar :single="true" text="卧槽无情的原声-卧槽" scrollable="true" background-color="transparent"
-					 color="#fff" :speed="30"></uninoticebar>
-				</view>
-			</view> -->
 		</view>
 		<!-- 右侧操作栏 -->
 		<view class="menuBox">
@@ -64,11 +58,7 @@
 </template>
 
 <script>
-	// import uninoticebar from '../uni-notice-bar/uni-notice-bar.vue'
 	export default{
-		components:{
-			// uninoticebar
-		},
 		data(){
 			return {
 				fabulousShow:false,
@@ -153,7 +143,7 @@
 						console.log('点击点赞')
 					break;
 					case 3 :
-						console.log('点击3评论')
+            this.$emit('click-action', index)
 					break;
 					case 4 :
 						console.log('点击4转发')

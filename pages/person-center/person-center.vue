@@ -38,7 +38,7 @@
           <text>双鱼座</text>
           <text>双鱼座</text>
         </view>
-        <view v-else class="login-btn">点击登录</view>
+        <view v-else class="login-btn" @click="handleLogin">点击登录</view>
         <view class="user-desc">杭州本地人，想吃冰淇淋杭州本地人，想吃冰淇淋杭州本地人，想吃冰淇淋</view>
         <button type="default" class="edit-btn" @click="handleEdit">编辑资料</button>  
        <!-- <button type="default" class="edit-btn">关注</button>  
@@ -89,6 +89,11 @@
       },
       handleSetting() {
         this.$refs.accountSet.showDrawer()
+      },
+      handleLogin() {
+        uni.navigateTo({
+          url: '/pages/login/login'
+        })
       }
     }
 	}

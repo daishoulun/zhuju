@@ -2,6 +2,7 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "tw-videov": "/components/tsp-video/tsp-video-list/video-v",
+    "comment-popup": "/components/comment-popup",
     "user-agreement": "/components/user-agreement/user-agreement",
     "login-modal": "/components/login-modal"
   }

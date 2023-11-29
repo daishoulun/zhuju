@@ -1,0 +1,51 @@
+@charset "UTF-8";
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.comment-pop.data-v-3fd4df93 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: red;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.3);
+}
+.comment-pop .comment-list-wrap.data-v-3fd4df93 {
+  position: relative;
+  height: 70vh;
+  border-radius: 48rpx 48rpx 0rpx 0rpx;
+  overflow-y: auto;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+  padding-top: 88rpx;
+}
+.comment-pop .comment-list-wrap .comment-header.data-v-3fd4df93 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  background: #181818;
+}
+.comment-pop .comment-list-wrap .comment-header .close.data-v-3fd4df93 {
+  position: absolute;
+  right: 32rpx;
+  top: 50%;
+  width: 24rpx;
+  height: 24rpx;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
