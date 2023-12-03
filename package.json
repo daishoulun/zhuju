@@ -1,0 +1,20 @@
+{
+    "id": "xiaogang-crop",
+    "name": "小程序图片裁剪",
+    "displayName": "小程序图片裁剪",
+    "version": "1.2",
+    "description": "基于离屏canvas做图片裁剪，并转化base64格式为临时路径输出",
+    "keywords": [
+        "裁剪",
+        "图片",
+        "canvas",
+        "比例",
+        "小程序组件"
+    ],
+    "dcloudext": {
+        "category": [
+            "前端组件",
+            "通用组件"
+        ]
+    }
+}

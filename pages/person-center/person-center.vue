@@ -8,41 +8,41 @@
     <view class="person-main">
       <view class="user-header">
         <view class="avatar">
-          <image src="../../static/user-header.png"></image>
+          <image :src="avatar"></image>
         </view>
         <view class="user-data">
           <view class="data-item" @click="handleLike('like')">
-            <text class="num">0</text>
+            <text class="num">{{ profileInfo.followNum }}</text>
             <text class="name">关注</text>
           </view>
           <view class="data-item" @click="handleLike('fans')">
-            <text class="num">6728</text>
+            <text class="num">{{ profileInfo.fansNum }}</text>
             <text class="name">粉丝</text>
           </view>
           <view class="data-item" @click="handleLike('firend')">
-            <text class="num">45</text>
+            <text class="num">{{ profileInfo.friendNum }}</text>
             <text class="name">好友</text>
           </view>
           <view class="data-item">
-            <text class="num">14.8w</text>
+            <text class="num">{{ profileInfo.likeNum }}</text>
             <text class="name">获赞</text>
           </view>
         </view>
       </view>
       <view class="user-info">
-        <view v-if="isLogin" class="user-name">想吃冰激凌</view>
+        <view v-if="isLogin" class="user-name">{{ userInfo.nickName }}</view>
         <view v-if="isLogin" class="user-tag">
           <text class="sex">
-            <image src="../../static/sex-women.png" mode=""></image>
+            <image :src="sex" mode=""></image>
+            {{ profileInfo.age }}岁
           </text>
-          <text>双鱼座</text>
-          <text>双鱼座</text>
+          <text v-for="item in (profileInfo.tags || [])">
+            {{ item }}
+          </text>
         </view>
         <view v-else class="login-btn" @click="handleLogin">点击登录</view>
-        <view class="user-desc">杭州本地人，想吃冰淇淋杭州本地人，想吃冰淇淋杭州本地人，想吃冰淇淋</view>
-        <button type="default" class="edit-btn" @click="handleEdit">编辑资料</button>  
-       <!-- <button type="default" class="edit-btn">关注</button>  
-        <button type="default" class="edit-btn">已关注</button>  -->
+        <view class="user-desc">{{ userInfo.intro }}</view>
+        <button type="default" class="edit-btn" @click="handleEdit">编辑资料</button>
       </view>
       <view class="tabbar">
         <text :class="active === 'active' ? 'active' : ''" @click="handleTabbar('active')">活动</text>
@@ -51,7 +51,7 @@
       <view class="active-wrap">
         <ActiveList v-if="active === 'active'"></ActiveList>
         <DynamicsList v-else-if="active === 'dynamics'"></DynamicsList>
-      </view>  
+      </view>
     </view>
     <AccountSetting ref="accountSet"></AccountSetting>
 	</view>
@@ -61,6 +61,7 @@
   import ActiveList from '@/components/active-list/active-list'
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
   import AccountSetting from '@/components/account-setting.vue'
+  import { fetchUserInfo, getProfile } from '@/api/person-center.js'
 	export default {
     components: {
       ActiveList,
@@ -70,10 +71,54 @@
 		data() {
 			return {
         isLogin: false,
-				active: 'active'
+				active: 'active',
+        userInfo: {
+          avatar: '',
+          birthday: '',
+          gender: '',
+          intro: ''
+        },
+        profileInfo: {}
 			};
 		},
+    computed: {
+      avatar() {
+        if (this.isLogin) {
+          return this.userInfo.avatar
+        } else {
+          return '../../static/user-header.png'
+        }
+      },
+      sex() {
+        if (this.userInfo.gender === 1) {
+          return '../../static/sex-women.png'
+        } else {
+          return '../../static/sex-man.png'
+        }
+      }
+    },
+    onLoad() {
+      const userId = uni.getStorageSync('userId')
+      if (userId) {
+        this.getUserInfo(userId)
+        this.getProfile(userId)
+        this.isLogin = true
+      } else {
+        this.isLogin = false
+      }
+    },
     methods: {
+      getUserInfo(userId) {
+        fetchUserInfo({ userId }).then(res => {
+          this.userInfo = res.data || {}
+          uni.setStorageSync('userInfo', JSON.stringify(this.userInfo))
+        })
+      },
+      getProfile(userId) {
+        getProfile({ userId }).then(res => {
+          this.profileInfo = res.data || {}
+        })
+      },
       handleTabbar(val) {
         this.active = val
       },
@@ -101,6 +146,7 @@
 
 <style lang="scss" scoped>
 .person-center {
+  width: 100%;
   height: calc(100vh - 100rpx);
   position: relative;
   box-sizing: border-box;
@@ -120,13 +166,12 @@
   }
   .person-main {
     position: relative;
-    width: 750rpx;
+    width: 100%;
     border-radius: 68rpx 68rpx 0rpx 0rpx;
     background: $bg-color-black;
     padding: 32rpx 32rpx;
     box-sizing: border-box;
-    // transform: translateY(-102rpx);
-    top: -102rpx;
+    margin-top: -102rpx;
     .avatar {
       position: absolute;
       top: -88rpx;
@@ -158,6 +203,13 @@
       }
     }
     .user-info {
+      .user-name {
+        margin-top: 48rpx;
+        font-size: 36rpx;
+        font-weight: 500;
+        color: #FFFFFF;
+        margin-bottom: 28rpx;
+      }
       .user-tag {
         text {
           background: $bg-color-main;
@@ -171,6 +223,7 @@
           image {
             width: $img-size-mini;
             height: $img-size-mini;
+            margin-right: 4rpx;
           }
         }
       }

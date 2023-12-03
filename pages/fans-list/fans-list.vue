@@ -20,12 +20,15 @@
         <input type="text" placeholder="搜索粉丝">
       </view>
       <view class="list">
-        <view class="list-item">
+        <view
+          class="list-item"
+          v-for="item in list"
+        >
           <view class="avatar">
-            <image src="/static/logo.png" mode=""></image>
+            <image :src="item.avatar" mode=""></image>
           </view>
           <view class="content">
-            <view class="name">张三</view>
+            <view class="name">{{ item.nickName }}</view>
             <view class="info">21岁双鱼座</view>
           </view>
           <view class="rig-con">
@@ -38,6 +41,9 @@
 </template>
 
 <script>
+  import { fetchFansList, fetchFollowList, fetchFirendList, createFollow, cancelFollow } from '@/api/fans-list.js'
+  
+  
   export default {
     data() {
       return {
@@ -46,16 +52,52 @@
           { value: 'like', name: '关注' },
           { value: 'fans', name: '粉丝' },
           { value: 'firend', name: '朋友' }
-        ]
+        ],
+        listQuery: {
+          current: 1,
+          keyword: '',
+          pageSize: 20,
+          userId: ''
+        },
+        list: []
       };
     },
     onLoad(opt) {
-      console.log(opt)
       this.type = opt.type
+      this.listQuery.userId = uni.getStorageSync('userId')
+      this.getList()
     },
     methods: {
+      getList() {
+        if (this.type === 'like') {
+          this.getFollowList()
+        } else if (this.type === 'fans') {
+          this.getFansList()
+        } else {
+          this.getFirendList()
+        }
+      },
+      getFollowList() {
+        fetchFollowList(this.listQuery).then(res => {
+          this.list = res.data.list || []
+          this.total = res.data.totalNum
+        })
+      },
+      getFansList() {
+        fetchFansList(this.listQuery).then(res => {
+          this.list = res.data.list || []
+          this.total = res.data.totalNum
+        })
+      },
+      getFirendList() {
+        fetchFirendList(this.listQuery).then(res => {
+          this.list = res.data.list || []
+          this.total = res.data.totalNum
+        })
+      },
       handleTabbar(val) {
         this.type = val
+        this.getList()
       },
       handleBack() {
         uni.navigateBack()

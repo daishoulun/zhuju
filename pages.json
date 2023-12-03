@@ -146,6 +146,30 @@
         "navigationBarTitleText" : "",
         "enablePullDownRefresh" : false
       }
+    },
+    {
+      "path" : "pages/activity-detail/activity-detail",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "enablePullDownRefresh" : false
+      }
+    },
+    {
+      "path" : "pages/image-crop/image-crop",
+      "style" : 
+      {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh" : false
+      }
+    },
+    {
+      "path" : "pages/nick-name/nick-name",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "enablePullDownRefresh" : false
+      }
     }
 	],
 	"globalStyle": {

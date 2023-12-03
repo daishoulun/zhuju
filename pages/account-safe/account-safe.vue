@@ -4,9 +4,9 @@
       <view class="title">手机号</view>
       <view class="con">
         <view class="phone">
-          <text>{{ phone | phoneFilter }}</text>
+          <text>{{ userInfo.phone | phoneFilter }}</text>
         </view>
-        <view class="btn" @click="isChangePhone = !isChangePhone">更换号码</view>
+        <view class="btn" @click="type = '2'">更换号码</view>
       </view>
       <view class="log-off" @click="handleLogOff">注销账号</view>
     </view>
@@ -16,18 +16,18 @@
         <view class="tip">输入新的手机号码</view>
         <view class="input-con">
           <view class="label">+86</view>
-          <input type="text">
+          <input type="text" v-model="newPhone">
         </view>
-        <view class="send-code" @click="handleSendCode">获取短信验证码</view>
+        <view class="send-code" @click="handleSendCode">{{ codeText }}</view>
       </view>
     </template>
     <view v-else class="verify-code">
       <view class="phone-info">
         <view>已发送至</view>
-        <view>{{ phone }}</view>
+        <view>{{ newPhone }}</view>
       </view>
-      <VerifyCode></VerifyCode>
-      <view class="btn">重新发送（{{count}}s）</view>
+      <VerifyCode @change="handleUpdatePhone"></VerifyCode>
+      <view class="btn">重新发送<text v-if="num > 0">（{{num}}s）</text></view>
     </view>
     <LogOffModal v-if="logOffModalVisible" @close="logOffModalVisible = false" @confirm="handleLogOff"></LogOffModal>
   </view>
@@ -36,32 +36,86 @@
 <script>
   import VerifyCode from '@/components/verify-code.vue'
   import LogOffModal from '@/components/log-off-modal.vue'
+  import { fetchUserInfo } from '@/api/person-center.js'
+  import { getCode, updatePhone } from '@/api/account-safe.js'
   export default {
     components: {
       VerifyCode,
       LogOffModal
     },
     filters: {
-      phoneFilter(val) {
+      phoneFilter(val = '') {
         return val.slice(0, 3) + '****' + val.slice(-4)
       }
     },
     data() {
       return {
+        isChangePhone: false,
         logOffModalVisible: false,
         type: '1',
-        phone: '13315150000',
-        count: 60
+        codeText: '获取短信验证码',
+        userInfo: {},
+        num: 0,
+        newPhone: ''
       };
     },
+    onShow() {
+      this.getUserInfo()
+    },
     methods: {
-      handleSendCode() {
-        this.type = '3'
+      getUserInfo(userId) {
+        fetchUserInfo({ userId: uni.getStorageSync('userId') }).then(res => {
+          this.userInfo = res.data || {}
+          uni.setStorageSync('userInfo', JSON.stringify(this.userInfo))
+        })
+      },
+      async handleSendCode() {
+        const phoneReg = /^1\d{10,}/
+        if (this.num > 0) {
+          return
+        }
+        if (!this.newPhone) {
+          this.$showToast('请输入手机号')
+          return
+        }
+        if (!phoneReg.test(this.newPhone)) {
+          this.$showToast('手机号格式不正确')
+          return
+        }
+        const res = await getCode({ phone: this.newPhone })
+        if (res.code === 0) {
+          this.num = 60
+          this.type = '3'
+          this.codeText = this.num + 's'
+          let timer = setInterval(() => {
+            this.num--
+            this.codeText = this.num + 's'
+            if (this.num <= 0) {
+              this.codeText = '重新获取'
+              clearInterval(timer)
+            }
+          }, 1000)
+          this.$showToast('发送成功')
+        } else {
+          this.$showToast(res.msg)
+        }
       },
       handleLogOff() {
         this.logOffModalVisible = true
       },
-      handleLogOff() {}
+      handleUpdatePhone(val) {
+        updatePhone({ code: val, phone: this.newPhone }).then(res => {
+          if (res.code === 0) {
+            this.$showToast('修改成功')
+            this.type = '1'
+            this.getUserInfo()
+            this.newPhone = ''
+            this.codeText = '获取短信验证码'
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      }
     }
   }
 </script>
@@ -138,6 +192,7 @@
       font-size: 36rpx;
       color: #FFFFFF;
       margin-bottom: 240rpx;
+      box-sizing: border-box;
       .label {
         width: 64rpx;
         margin-right: 50rpx;

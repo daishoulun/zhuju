@@ -1,29 +1,29 @@
 <template>
   <view class="update-info">
     <view class="header-image">
-      <image class="header" :src="$avatar"></image>
+      <image class="header" :src="userForm.avatar || '/static/user-header.png'"></image>
       <image class="camera" src="../../static/camera.png" @click="handlePic"></image>
     </view>
     <view class="user-form">
-      <FormItem v-model="userForm.nickName" label="昵称"></FormItem>
+      <FormItem label="昵称">
+        <view class="uni-input" @click="handleNickName">{{ userForm.nickName }}</view>
+      </FormItem>
       <FormItem label="简介">
         <text class="self-desc" @click="handleSelfIntro">介绍一下你自己</text>
       </FormItem>
-      <FormItem label="性别">
-        <picker @change="selectSex" :value="userForm.sexInd" :range="sexList">
-          <view class="uni-input">{{ sexList[userForm.sexInd] }}</view>
-        </picker>
+      <FormItem label="性别" :has-arrow="false">
+        <view class="uni-input">{{ userForm.gender === 1 ? '女' : '男' }}</view>
       </FormItem>
       <FormItem label="生日">
-        <picker mode="date" :value="userForm.date" :start="startDate" :end="endDate" @change="selectDate">
-          <view class="uni-input">{{ userForm.date }}</view>
+        <picker mode="date" :value="userForm.birthday" :start="startDate" :end="endDate" @change="selectDate">
+          <view class="uni-input">{{ userForm.birthday }}</view>
         </picker>
       </FormItem>
       <FormItem label="地区">
         <view class="uni-input" @click="updateCity">杭州</view>
       </FormItem>
       <FormItem class="home-bg" label="主页背景" :hasArrow="false">
-        <view class="uni-input">更改主页背景</view>
+        <view class="uni-input" @click="handelBg">更改主页背景</view>
       </FormItem>
     </view>
   </view>
@@ -32,6 +32,7 @@
 <script>
   import { mapState, mapActions, mapMutations } from 'vuex'
   import FormItem from '@/components/form-item.vue'
+  import { fetchUserInfo, getProfile } from '@/api/person-center.js'
   export default {
     components: {
       FormItem
@@ -43,17 +44,14 @@
       return {
         sexList: ['男', '女'],
         userForm: {
-          nickName: '张三',
+          avatar: '',
+          nickName: '',
           sexInd: 0,
           date: currentDate
         }
       };
     },
     computed: {
-      ...mapState({
-        $avatar: 'avatar',
-        userInfo: 'userInfo'
-      }),
       startDate() {
         return this.getDate('start');
       },
@@ -61,10 +59,19 @@
         return this.getDate('end');
       }
     },
+    onShow() {
+      const userId= uni.getStorageSync('userId')
+      if (userId) {
+        this.getUserInfo(userId)
+      }
+    },
     methods: {
-      ...mapMutations({
-        $SET_USER_IMG: 'SET_USER_IMG'
-      }),
+      getUserInfo(userId) {
+        fetchUserInfo({ userId }).then(res => {
+          this.userForm = res.data || {}
+          uni.setStorageSync('userInfo', JSON.stringify(this.userForm))
+        })
+      },
       selectSex(e) {
         this.userForm.sexInd = e.detail.value
       },
@@ -72,19 +79,28 @@
         this.userForm.date = e.detail.value
       },
       handlePic() {
-        // uni.chooseImage({
-        //   count: 1,
-        //   success: (res) => {
-        //     this.$SET_USER_IMG(res.tempFilePaths[0])
-        //   }
-        // })
         uni.navigateTo({
           url: '/pages/set-avatar/set-avatar'
+        })
+      },
+      handelBg() {
+        uni.chooseImage({
+          count: 1,
+          success: (res) => {
+            uni.navigateTo({
+              url: '/pages/image-crop/image-crop?imageUrl=' + res.tempFilePaths[0]
+            })
+          }
         })
       },
       updateCity() {
         uni.navigateTo({
           url: '/pages/select-city/select-city'
+        })
+      },
+      handleNickName() {
+        uni.navigateTo({
+          url: '/pages/nick-name/nick-name'
         })
       },
       handleSelfIntro() {

@@ -10,6 +10,7 @@
 </template>
 
 <script>
+  import { fastLogin } from '@/api/login.js'
   export default {
     data() {
       return {
@@ -17,7 +18,17 @@
       };
     },
     methods: {
-      handleQuickLogin() {},
+      handleQuickLogin() {
+        fastLogin().then(res => {
+          if (res.code === 0) {
+            uni.switchTab({
+              url: '/pages/index/index'
+            })
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
       handleCodeLogin() {
         uni.navigateTo({
           url: '/pages/login-form/login-form'

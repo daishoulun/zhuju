@@ -4,20 +4,48 @@
       <textarea class="textarea" v-model="introduction" :maxlength="300" placeholder="描述一下自己" />
       <text class="count">{{ count }}</text>
     </view>
-    <view class="btn">确定</view>
+    <view class="btn" @click="handleConfirm">确定</view>
   </view>
 </template>
 
 <script>
+  import { editInfo } from '@/api/person-center.js'
   export default {
     data() {
       return {
+        userInfo: {},
         introduction: ''
       };
     },
     computed: {
       count() {
         return `${this.introduction.length}/300`
+      }
+    },
+    onShow() {
+      const userInfo = uni.getStorageSync('userInfo')
+      this.userInfo = JSON.parse(userInfo)
+      this.introduction = this.userInfo.intro || ''
+    },
+    methods: {
+      handleConfirm() {
+        if (!this.introduction) {
+          this.$showToast('请输入个人简介')
+          return
+        }
+        editInfo({
+          userId: this.userInfo.userId,
+          intro: this.introduction
+        }).then(res => {
+          if (res.code === 0) {
+            this.$showToast('修改成功')
+            setTimeout(() => {
+              uni.navigateBack()
+            }, 300)
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
       }
     }
   }

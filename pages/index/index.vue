@@ -22,6 +22,12 @@ import vodData from '@/static/vodData.js' //假数据
 import UserAgreement from '@/components/user-agreement/user-agreement.vue'
 import LoginModal from '@/components/login-modal.vue'
 import CommentPopup from '@/components/comment-popup.vue'
+import {
+  fetchRecommendList,
+  fetchFollowList,
+  fetchMomentList
+} from '@/api/index.js'
+const bmap = require('../../static/bmap-wx.min.js'); 
 export default{
   components:{
     twVideov,
@@ -41,7 +47,13 @@ export default{
         { key: 'dymanics', label: '动态' },
       ],
       autoplay:true,
-      videoData: vodData
+      videoData: vodData,
+      listQuery: {
+        lon: '',
+        lat: '',
+        current: 1,
+        pageSize: 10
+      },
     }
   },
   onLoad() {
@@ -49,12 +61,20 @@ export default{
     this.autoplay = false
     // #endif
     this.initVod()
+    uni.getLocation({
+      type: 'wgs84',
+      success: res => {
+        this.listQuery.lon = res.longitude
+        this.listQuery.lat = res.latitude
+      }
+    })
   },
   onShow() {
     /* 播放视频 */
     if(this.$refs.videoGroup){
       this.$refs.videoGroup.showPlay()
     }
+    this.getRecommendList()
   },
   onHide() {
     /* 暂停视频 */
@@ -63,6 +83,20 @@ export default{
     }
   },
   methods:{
+    async getRecommendList() {
+      const res = await fetchRecommendList(this.listQuery)
+      if (res.code === 0) {
+        
+      } else {
+        this.$showToast(res.msg)
+      }
+    },
+    async getFollowList() {
+      const res = await fetchFollowList(this.listQuery)
+    },
+    async getTrendsList() {
+      const res = await fetchMomentList(this.listQuery)
+    },
     handleToolBar(val) {
       console.log(val)
       if(val === 3) {
@@ -74,6 +108,14 @@ export default{
     },
     handleTabbar(val) {
       this.active = val
+      console.log(val)
+      if (val === 'recommend') {
+        this.getRecommendList()
+      } else if (val === 'follow') {
+        this.getFollowList()
+      } else {
+        this.getTrendsList()
+      }
     },
     startData(){
       let list = []
@@ -85,7 +127,7 @@ export default{
                 /** 参数数据自行拼接  */
                 vodUrl:this.videoData[i].src,
                 coverImg:this.videoData[i].coverImg, //视频封面
-                coverShow:false, //是否显示视频封面，vue 小程序端不播放会显示视频，可以不用显示封面，App不播放不会显示视频，就需要封面了
+                coverShow:true, //是否显示视频封面，vue 小程序端不播放会显示视频，可以不用显示封面，App不播放不会显示视频，就需要封面了
                 object_fit:this.videoData[i].object_fit, //视频的显示类型
                 sliderShow:true, //是否显示进度条
                 rotateImgShow:true, //是否显示旋转头像

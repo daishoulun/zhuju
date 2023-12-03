@@ -39,6 +39,12 @@
     },
     methods: {
       oninput(index) {
+        console.log(this.inputList)
+        const codes = this.inputList.map(item => item.value).join('')
+        if (codes.length === 6) {
+          this.$emit('change', codes)
+          return
+        }
         this.inputList[index].focus = false
         if (this.inputList[index].value.length > 0) {
           if (index < 5) {

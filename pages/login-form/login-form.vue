@@ -22,6 +22,8 @@
 
 <script>
   import UserAgreement from '@/components/user-agreement/user-agreement.vue'
+  import { login, getCode } from '@/api/login.js'
+  const phoneReg = /^1\d{10,}$/
   export default {
     components: { UserAgreement },
     data() {
@@ -46,44 +48,71 @@
     },
     methods: {
       handleLogin() {
+        if (!this.checked) {
+          this.$showToast('请阅读并同意《隐私权政策》')
+          return
+        }
         if (!this.form.phone) {
-          uni.showToast({
-            title: '请输入手机号',
-            icon: 'none'
-          })
+          this.$showToast('请输入手机号')
+          return
+        }
+        if (!phoneReg.test(this.form.phone)) {
+          this.$showToast('手机号格式不正确')
           return
         }
         if (!this.form.code) {
-          uni.showToast({
-            title: '请输入验证码',
-            icon: 'none'
-          })
+          this.$showToast('请输入验证码')
+          return
         }
-        uni.switchTab({
-          url: '/pages/index/index'
+        login(this.form).then(res => {
+          if (res.code === 0) {
+            uni.setStorageSync('T-token', res.data.token)
+            uni.setStorageSync('userId', res.data.userId)
+            if (res.data.registered) {
+              uni.switchTab({
+                url: '/pages/index/index'
+              })
+            } else {
+              uni.navigateTo({
+                url: '/pages/set-avatar/set-avatar'
+              })
+            }
+          } else {
+            this.$showToast(res.msg)
+          }
+        }).catch(error => {
+          console.log(error)
         })
       },
-      handleCode() {
+      async handleCode() {
         if (this.num > 0) {
           return
         }
         if (!this.form.phone) {
-          uni.showToast({
-            title: '请输入手机号',
-            icon: 'none'
-          })
+          this.$showToast('请输入手机号')
           return
         }
-        this.num = 60
-        this.codeText = this.num + 's'
-        let timer = setInterval(() => {
-          this.num--
+        if (!phoneReg.test(this.form.phone)) {
+          this.$showToast('手机号格式不正确')
+          return
+        }
+        const res = await getCode({ phone: this.form.phone })
+        if (res.code === 0) {
+          this.num = 60
           this.codeText = this.num + 's'
-          if (this.num <= 0) {
-            this.codeText = '重新获取'
-            clearInterval(timer)
-          }
-        }, 100)
+          let timer = setInterval(() => {
+            this.num--
+            this.codeText = this.num + 's'
+            if (this.num <= 0) {
+              this.codeText = '重新获取'
+              clearInterval(timer)
+            }
+          }, 1000)
+          this.$showToast('发送成功')
+          this.form.code = res.data.code
+        } else {
+          this.$showToast(res.msg)
+        }
       },
       handlePolicy(val) {
         this.checked = !this.checked
