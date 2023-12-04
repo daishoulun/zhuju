@@ -32,23 +32,21 @@
 <script>
   import { mapState, mapActions, mapMutations } from 'vuex'
   import FormItem from '@/components/form-item.vue'
-  import { fetchUserInfo, getProfile } from '@/api/person-center.js'
+  import { fetchUserInfo, getProfile, editInfo } from '@/api/person-center.js'
   export default {
     components: {
       FormItem
     },
     data() {
-      const currentDate = this.getDate({
-        format: true
-      })
       return {
         sexList: ['男', '女'],
         userForm: {
           avatar: '',
           nickName: '',
           sexInd: 0,
-          date: currentDate
-        }
+          birthday: ''
+        },
+        userId: ''
       };
     },
     computed: {
@@ -60,14 +58,14 @@
       }
     },
     onShow() {
-      const userId= uni.getStorageSync('userId')
-      if (userId) {
-        this.getUserInfo(userId)
+      this.userId= uni.getStorageSync('userId')
+      if (this.userId) {
+        this.getUserInfo()
       }
     },
     methods: {
-      getUserInfo(userId) {
-        fetchUserInfo({ userId }).then(res => {
+      getUserInfo() {
+        fetchUserInfo({ userId: this.userId }).then(res => {
           this.userForm = res.data || {}
           uni.setStorageSync('userInfo', JSON.stringify(this.userForm))
         })
@@ -76,7 +74,17 @@
         this.userForm.sexInd = e.detail.value
       },
       selectDate: function(e) {
-        this.userForm.date = e.detail.value
+        editInfo({
+          birthday: e.detail.value,
+          userId: this.userForm.userId
+        }).then(res => {
+          if (res.code === 0) {
+            this.$showToast('修改成功')
+            this.getUserInfo()
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
       },
       handlePic() {
         uni.navigateTo({

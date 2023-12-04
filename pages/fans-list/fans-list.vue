@@ -17,12 +17,13 @@
     <view class="fans-main">
       <view class="search-bar">
         <image class="search-icon" src="/static/search.png"></image>
-        <input type="text" placeholder="搜索粉丝">
+        <input type="text" confirm-type="search" placeholder="搜索粉丝" @input="searchList" />
       </view>
       <view class="list">
         <view
           class="list-item"
           v-for="item in list"
+          :key="item.id"
         >
           <view class="avatar">
             <image :src="item.avatar" mode=""></image>
@@ -32,7 +33,8 @@
             <view class="info">21岁双鱼座</view>
           </view>
           <view class="rig-con">
-            <button class="btn">回关</button>
+            <button v-if="type === 'fans'" class="btn" @click="handleLike(item)">回关</button>
+            <button v-if="type === 'like'" class="btn already-attion-btn" @click="handleCancelLike(item)">已关注</button>
           </view>
         </view>
       </view>
@@ -59,16 +61,22 @@
           pageSize: 20,
           userId: ''
         },
-        list: []
+        list: [],
+        total: 0,
+        loading: false,
+        timer: null
       };
     },
-    onLoad(opt) {
+    async onLoad(opt) {
       this.type = opt.type
       this.listQuery.userId = uni.getStorageSync('userId')
       this.getList()
     },
     methods: {
       getList() {
+        uni.showLoading({
+        	title: '加载中'
+        });
         if (this.type === 'like') {
           this.getFollowList()
         } else if (this.type === 'fans') {
@@ -77,40 +85,112 @@
           this.getFirendList()
         }
       },
+      searchList() {
+        if (this.timer) {
+          clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(() => {
+          this.listQuery.current = 1
+          this.getList()
+        }, 500)
+      },
       getFollowList() {
         fetchFollowList(this.listQuery).then(res => {
-          this.list = res.data.list || []
           this.total = res.data.totalNum
+          if (this.listQuery.current === 1) {
+            this.list = res.data.list || []
+          } else {
+            this.list = this.list.concat(res.data.list || [])
+          }
+        }).finally(() => {
+          this.loading = false
+          uni.stopPullDownRefresh()
+          uni.hideLoading();
         })
       },
       getFansList() {
         fetchFansList(this.listQuery).then(res => {
-          this.list = res.data.list || []
           this.total = res.data.totalNum
+          if (this.listQuery.current === 1) {
+            this.list = res.data.list || []
+          } else {
+            this.list = this.list.concat(res.data.list || [])
+          }
+        }).finally(() => {
+          this.loading = false
+          uni.stopPullDownRefresh()
+          uni.hideLoading();
         })
       },
       getFirendList() {
         fetchFirendList(this.listQuery).then(res => {
-          this.list = res.data.list || []
           this.total = res.data.totalNum
+          if (this.listQuery.current === 1) {
+            this.list = res.data.list || []
+          } else {
+            this.list = this.list.concat(res.data.list || [])
+          }
+        }).finally(() => {
+          this.loading = false
+          uni.stopPullDownRefresh()
+          uni.hideLoading();
         })
       },
       handleTabbar(val) {
         this.type = val
+        this.listQuery.current = 1
         this.getList()
+      },
+      handleLike(item) {
+        createFollow({ userId: item.userId }).then(res => {
+          if (res.code === 0) {
+            this.$showToast('关注成功')
+            this.listQuery.current = 1
+            this.getList()
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
+      handleCancelLike() {
+        cancelFollow({ userId: item.userId }).then(res => {
+          if (res.code === 0) {
+            this.$showToast('取关成功')
+            this.listQuery.current = 1
+            this.getList()
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
       },
       handleBack() {
         uni.navigateBack()
       }
-    }
+    },
+    onPullDownRefresh() {
+      this.listQuery.current = 1
+      this.getList()
+    },
+    onReachBottom() {
+      if (this.loading) {
+        return
+      }
+      this.loading = true
+      if (this.total > this.list.length) {
+        this.listQuery.current++
+        this.getList()
+      } else {
+        this.loading = false
+        this.$showToast('没有更多数据了')
+      }
+    },
   }
 </script>
 
 <style lang="scss" scoped>
 .fans-list {
-  height: 100vh;
+  min-height: 100vh;
   background: #181818;
-  overflow-y: auto;
   .tabbar {
     position: relative;
     height: 88rpx;
@@ -159,6 +239,8 @@
         font-size: 24rpx;
         font-weight: 400;
         padding-left: 54rpx;
+        box-sizing: border-box;
+        color: #ffffff;
       }
     }
     .list {

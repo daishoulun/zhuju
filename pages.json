@@ -25,7 +25,7 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false,
+				"enablePullDownRefresh" : true,
         "navigationStyle": "custom"
 			}
 		},
@@ -92,8 +92,10 @@
       {
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white",
+        "onReachBottomDistance": 50,
         "navigationBarTitleText" : "",
-        "enablePullDownRefresh" : false
+        "backgroundColor": "#181818",
+        "enablePullDownRefresh" : true
       }
     },
     {

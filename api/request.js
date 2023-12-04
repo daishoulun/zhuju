@@ -12,7 +12,6 @@ const request = (opt) => {
     uni.request({
       ...opt,
       success(res) {
-        console.log(res)
         if (res.data.code === 1001) {
           uni.showToast({
             title: '登录信息已过期'

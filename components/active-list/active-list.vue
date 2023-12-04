@@ -1,21 +1,21 @@
 <template>
   <view class="active-list">
-    <view class="active-item">
-      <view class="active-con">
+    <view v-for="item in list" :key="item.activityId" class="active-item">
+      <view class="active-con" :style="{ backgroundImage: 'url(' + item.cover + ')'}">
         <text class="status-tag">
-          进行中
+          {{ item.activityStatusInfo }}
         </text>
       </view>
       <view class="active-footer">
-        <view class="title">今晚有人一起约酒吗？</view>
+        <view class="title">{{ item.activitySubject }}</view>
         <view class="info-bar">
           <view class="user-info">
-            <image src="/static/logo.png" mode=""></image>
-            <text class="name">张三</text>
+            <image :src="item.avatar" mode=""></image>
+            <text class="name">{{ item.nickName }}</text>
           </view>
           <view class="forward">
             <image src="/static/forward-arrow.png"></image>
-            <text class="num">88</text>
+            <text class="num">{{ item.shareNum }}</text>
           </view>
         </view>
       </view>
@@ -26,6 +26,24 @@
 <script>
   export default {
     name:"active-list",
+    props: {
+      list: {
+        type: Array,
+        default: () => []
+      }
+    },
+    // filters: {
+    //   stateFilter(val) {
+    //     const map = {
+    //       0: '未付款',
+    //       10: '未开始',
+    //       20: '进行中',
+    //       30: '活动结束',
+    //       40: '活动取消'
+    //     }
+    //     return map[val]
+    //   }
+    // },
     data() {
       return {
         
@@ -38,18 +56,27 @@
 .active-list {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   .active-item {
     position: relative;
-    width: 338rpx;
+    width: 332rpx;
     border-radius: 16rpx;
     margin-right: 10px;
     overflow: hidden;
+    margin-bottom: 20rpx;
     &:nth-of-type(2n) {
       margin-right: 0;
+    }
+    &:last-of-type,
+    &:nth-last-of-type(2) {
+      margin-bottom: 0;
     }
     .active-con {
       height: 408rpx;
       background: #D8D8D8;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
     }
     .status-tag {
       position: absolute;

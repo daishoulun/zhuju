@@ -32,13 +32,12 @@
       <view class="user-info">
         <view v-if="isLogin" class="user-name">{{ userInfo.nickName }}</view>
         <view v-if="isLogin" class="user-tag">
-          <text class="sex">
-            <image :src="sex" mode=""></image>
-            {{ profileInfo.age }}岁
-          </text>
-          <text v-for="item in (profileInfo.tags || [])">
-            {{ item }}
-          </text>
+          <view v-for="(item, index) in (profileInfo.tags || [])" v-if="index !== 1" class="user-item">
+            <image v-if="index === 0" :src="sex" mode=""></image>
+            <text v-if="index === 0">{{ profileInfo.tags[1] }}岁</text>
+            <text v-else>{{ item }}</text>
+          </view>
+          <!-- <text class="user-item" v-for="item in (profileInfo.tags || [])">{{ item }}</text> -->
         </view>
         <view v-else class="login-btn" @click="handleLogin">点击登录</view>
         <view class="user-desc">{{ userInfo.intro }}</view>
@@ -49,8 +48,8 @@
         <text :class="active === 'dynamics' ? 'active' : ''" @click="handleTabbar('dynamics')">动态</text>
       </view>
       <view class="active-wrap">
-        <ActiveList v-if="active === 'active'"></ActiveList>
-        <DynamicsList v-else-if="active === 'dynamics'"></DynamicsList>
+        <ActiveList v-if="active === 'active'" :list="list"></ActiveList>
+        <DynamicsList v-else-if="active === 'dynamics'" :list="list"></DynamicsList>
       </view>
     </view>
     <AccountSetting ref="accountSet"></AccountSetting>
@@ -61,7 +60,7 @@
   import ActiveList from '@/components/active-list/active-list'
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
   import AccountSetting from '@/components/account-setting.vue'
-  import { fetchUserInfo, getProfile } from '@/api/person-center.js'
+  import { fetchUserInfo, getProfile, getActivityList, getMomentList } from '@/api/person-center.js'
 	export default {
     components: {
       ActiveList,
@@ -78,7 +77,15 @@
           gender: '',
           intro: ''
         },
-        profileInfo: {}
+        listQuery: {
+          current: 1,
+          pageSize: 10,
+          userId: ''
+        },
+        profileInfo: {},
+        total: 0,
+        list: [],
+        loading: false
 			};
 		},
     computed: {
@@ -100,8 +107,10 @@
     onLoad() {
       const userId = uni.getStorageSync('userId')
       if (userId) {
+        this.listQuery.userId = userId
         this.getUserInfo(userId)
         this.getProfile(userId)
+        this.getList()
         this.isLogin = true
       } else {
         this.isLogin = false
@@ -119,8 +128,116 @@
           this.profileInfo = res.data || {}
         })
       },
+      getList() {
+        uni.showLoading({
+        	title: '加载中'
+        });
+        if (this.active === 'active') {
+          this.getActivity()
+        } else {
+          this.getMomentList()
+        }
+      },
+      getActivity() {
+        getActivityList(this.listQuery).then(res => {
+          if (res.code === 0) {
+            this.total = res.data.total
+            if (this.listQuery.current === 1) {
+              this.list = res.data.list || []
+            } else {
+              this.list = this.list.concat(res.data.list || [])
+            }
+            // this.list.push({
+            //   cover: '/static/cover.jpg',
+            //   activityId: 1,
+            //   activityStatusInfo: '未开始',
+            //   activitySubject: 'PP',
+            //   avatar: '/static/logo.png',
+            //   nickName: '宁儿',
+            //   shareNum: 82
+            // },{
+            //   cover: '/static/logo.png',
+            //   activityId: 2,
+            //   activityStatusInfo: '未开始',
+            //   activitySubject: 'PP',
+            //   avatar: '/static/logo.png',
+            //   nickName: '宁儿',
+            //   shareNum: 82
+            // },{
+            //   cover: '/static/cover.jpg',
+            //   activityId: 3,
+            //   activityStatusInfo: '未开始',
+            //   activitySubject: 'PP',
+            //   avatar: '/static/logo.png',
+            //   nickName: '宁儿',
+            //   shareNum: 82
+            // },{
+            //   cover: '/static/logo.png',
+            //   activityId: 4,
+            //   activityStatusInfo: '未开始',
+            //   activitySubject: 'PP',
+            //   avatar: '/static/logo.png',
+            //   nickName: '宁儿',
+            //   shareNum: 82
+            // },{
+            //   cover: '/static/cover.jpg',
+            //   activityId: 5,
+            //   activityStatusInfo: '未开始',
+            //   activitySubject: 'PP',
+            //   avatar: '/static/logo.png',
+            //   nickName: '宁儿',
+            //   shareNum: 82
+            // },{
+            //   cover: '/static/logo.png',
+            //   activityId: 6,
+            //   activityStatusInfo: '未开始',
+            //   activitySubject: 'PP',
+            //   avatar: '/static/logo.png',
+            //   nickName: '宁儿',
+            //   shareNum: 82
+            // })
+          } else {
+            this.$showToast(res.msg)
+          }
+        }).finally(() => {
+          this.loading = false
+          uni.stopPullDownRefresh()
+          uni.hideLoading();
+        })
+      },
+      getMomentList() {
+        getMomentList(this.listQuery).then(res => {
+          if (res.code === 0) {
+            this.total = res.data.total
+            if (this.listQuery.current === 1) {
+              this.list = res.data.list || []
+            } else {
+              this.list = this.list.concat(res.data.list || [])
+            }
+            this.list.push({
+              cover: '/static/cover.jpg',
+              momentId: 1,
+              liked: true,
+              likeCount: 111,
+            },{
+              cover: '/static/cover.jpg',
+              momentId: 2,
+              liked: false,
+              likeCount: 111,
+            })
+          } else {
+            this.$showToast(res.msg)
+          }
+        }).finally(() => {
+          this.loading = false
+          uni.stopPullDownRefresh()
+          uni.hideLoading();
+        })
+      },
       handleTabbar(val) {
         this.active = val
+        this.listQuery.current = 1
+        this.getList()
       },
       handleEdit() {
         uni.navigateTo({
@@ -140,14 +257,31 @@
           url: '/pages/login/login'
         })
       }
-    }
-	}
+    },
+    onPullDownRefresh() {
+      this.listQuery.current = 1
+      this.getList()
+    },
+    onReachBottom() {
+      if (this.loading) {
+        return
+      }
+      this.loading = true
+      if (this.total > this.list.length) {
+        this.listQuery.current++
+        this.getList()
+      } else {
+        this.loading = false
+        this.$showToast('没有更多数据了')
+      }
+    },
+  }
 </script>
 
 <style lang="scss" scoped>
 .person-center {
   width: 100%;
-  height: calc(100vh - 100rpx);
+  min-height: calc(100vh - 100rpx);
   position: relative;
   box-sizing: border-box;
   background: #181818;
@@ -211,7 +345,8 @@
         margin-bottom: 28rpx;
       }
       .user-tag {
-        text {
+        display: flex;
+        .user-item {
           background: $bg-color-main;
           border-radius: $border-radius-lg;
           font-size: $font-size-mini;
@@ -220,11 +355,11 @@
           line-height: 28rpx;
           padding: $padding-mini $padding-base;
           margin-right: $margin-sm;
-          image {
-            width: $img-size-mini;
-            height: $img-size-mini;
-            margin-right: 4rpx;
-          }
+        }
+        image {
+          width: $img-size-mini;
+          height: $img-size-mini;
+          margin-right: 4rpx;
         }
       }
       .login-btn {

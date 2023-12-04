@@ -23,3 +23,20 @@ export const editInfo = data => {
     data
   })
 }
+// 获取我参与的活动
+export const getActivityList = data => {
+    return request({
+      url: '/activity/list',
+      method: 'POST',
+      data
+    })
+}
+
+// 获取个人动态
+export const getMomentList = data => {
+  return request({
+    url: '/moment/list',
+    method: 'POST',
+    data
+  })
+}

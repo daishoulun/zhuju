@@ -1,15 +1,9 @@
 <template>
   <view class="dynamics-list">
-    <view class="dynamics-item">
+    <view v-for="item in list" :key="item.momentId" class="dynamics-item">
       <view class="like">
-        <image class="like-icon" :src="linkCon"></image>
-        100
-      </view>
-    </view>
-    <view class="dynamics-item">
-      <view class="like">
-        <image class="like-icon" :src="linkCon"></image>
-        100
+        <image class="like-icon" :src="item.liked ? '../../static/like-active.png' : '../../static/like.png'"></image>
+        {{ item.likeCount }}
       </view>
     </view>
   </view>
@@ -18,20 +12,16 @@
 <script>
   export default {
     name:"dynamics-list",
+    props: {
+      list: {
+        type: Array,
+        default: () => []
+      },
+    },
     data() {
       return {
-        isLike: true
       };
     },
-    computed: {
-      linkCon() {
-        if (this.isLike) {
-          return '../../static/like-active.png'
-        } else {
-          return '../../static/like.png'
-        }
-      }
-    }
   }
 </script>
 
