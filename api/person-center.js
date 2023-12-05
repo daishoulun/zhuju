@@ -40,3 +40,20 @@ export const getMomentList = data => {
     data
   })
 }
+
+// 取消点赞
+export const cancelLike = data => {
+  return request({
+    url: '/moment/like/cancel',
+    method: 'POST',
+    data
+  })
+}
+// 点赞
+export const createLike = data => {
+  return request({
+    url: '/moment/like/create',
+    method: 'POST',
+    data
+  })
+}

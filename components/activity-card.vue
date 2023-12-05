@@ -1,21 +1,21 @@
 <template>
-  <view class="activity-card">
+  <view class="activity-card" @click="handleClick">
     <view class="activity-cover">
-      <image src="/static/cover.jpg"></image>
+      <image :src="activityData.cover || ''" mode="aspectFill"></image>
     </view>
     <view class="activity-con">
-      <view class="title">跳海 酒局聚乐会</view>
-      <view class="time">12月10日 22:00-24:00备份</view>
-      <view class="btn-state">进行中</view>
+      <view class="title">{{ activityData.activitySubject }}</view>
+      <view class="time">{{ activityData.startTime }} - {{ activityData.endTime }}</view>
+      <view class="btn-state">{{ activityData.activityStatusInfo }}</view>
     </view>
     <view class="activity-footer">
       <view class="local">
         <image src="/static/location.png" mode=""></image>
-        <text>皇后商务会所</text>
+        <text>{{ activityData.location }}</text>
       </view>
-      <view>
+      <view v-if="activityData.activityStatus === 10">
         <text class="label">距离开始时间：</text>
-        <text class="time">06分43秒</text>
+        <text class="time">{{ disBeginTime }}</text>
       </view>
     </view>
   </view>
@@ -24,10 +24,39 @@
 <script>
   export default {
     name:"activity-card",
+    props: {
+      activityData: {
+        type: Object,
+        default: () => {}
+      }
+    },
     data() {
       return {
         
       };
+    },
+    computed: {
+      disBeginTime() {
+        const now = Date.now()
+        const beginTime = new Date(this.activityData.startTime).getTime()
+        const dis = beginTime - now
+        const seconds = dis / 1000
+        const mins = seconds / 60
+        const hours = mins / 60
+        const days = hours / 24
+        const arr = [
+          { value: Math.floor(days), label: '天' },
+          { value: Math.floor(hours % 24), label: '时' },
+          { value: Math.floor(mins % 60), label: '分' },
+          { value: Math.floor(seconds % 60), label: '秒' },
+        ]
+        return arr.filter(item => item.value > 0).map(item => item.value + item.label).join('')
+      }
+    },
+    methods: {
+      handleClick() {
+        this.$emit('click-card', this.activityData)
+      }
     }
   }
 </script>

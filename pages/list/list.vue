@@ -1,17 +1,19 @@
 <template>
   <view class="activity-list">
-    <uni-swiper-dot class="uni-swiper-dot-box" @clickItem=clickItem :info="info" :current="current" mode="default"
+    <uni-swiper-dot class="uni-swiper-dot-box" @clickItem=clickItem :info="bannerList" :current="current" mode="default"
       :dots-styles="dotsStyles" field="content">
       <swiper class="swiper-box" @change="change" :current="swiperDotIndex">
-        <swiper-item v-for="(item, index) in 3" :key="index">
-          <view class="swiper-item" :class="'swiper-item' + index">
-            <text style="color: #fff; font-size: 32px;">{{index+1}}</text>
+        <swiper-item v-for="(item, index) in bannerList" :key="index">
+          <view class="swiper-item" :class="'swiper-item' + index" :style="{ backgroundImage: 'url(' + item.bannerImgUrl + ')' }" @click="handleBanner(item.bannerJumpUrl)">
           </view>
         </swiper-item>
       </swiper>
     </uni-swiper-dot>
     <view class="activity-main">
-      <ActivityCard v-if="isLogin"></ActivityCard>
+      <view class="activity-list-wrap" v-if="isLogin">
+      <ActivityCard v-for="item in list" :activityData="item" :key="item.activityId" @click-card="handleCard"></ActivityCard>
+        
+      </view>
       <view v-else class="no-login">
         <image src="/static/no-con.png"></image>
         <view class="tip">暂无内容</view>
@@ -23,6 +25,7 @@
 
 <script>
   import ActivityCard from '@/components/activity-card.vue'
+  import { fetchList } from '@/api/list.js'
   export default {
     components: {
       ActivityCard
@@ -43,23 +46,18 @@
           selectedBackgroundColor: '#FFB7FF',
           selectedBorder: '1px #FFB7FF solid'
         },
-        info: [{
-            colorClass: 'uni-bg-red',
-            url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-            content: '内容 A'
-          },
-          {
-            colorClass: 'uni-bg-green',
-            url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-            content: '内容 B'
-          },
-          {
-            colorClass: 'uni-bg-blue',
-            url: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-            content: '内容 C'
-          }
-        ],
+        bannerList: [],
+        listQuery: {
+          current: 1,
+          pageSize: 20
+        },
+        list: [],
+        total: 0,
+        loading: false
       };
+    },
+    onShow() {
+      this.getList()
     },
     methods: {
       change(e) {
@@ -68,7 +66,68 @@
       clickItem(e) {
         this.swiperDotIndex = e
       },
-    }
+      getList() {
+        uni.showLoading({
+        	title: '加载中'
+        });
+        fetchList(this.listQuery).then(res => {
+          if (res.code === 0) {
+            this.bannerList = res.data.banners
+            this.total = res.data.total
+            if (this.listQuery.current === 1) {
+              this.list = res.data.list || []
+            } else {
+              this.list = this.list.concat(res.data.list || [])
+            }
+            this.bannerList.push({
+              bannerImgUrl: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
+              bannerJumpUrl: 'https://uniapp.dcloud.io/static/web-view.html'
+            })
+            this.list.push({
+              activityId: 1,
+              activityStatus: 10,
+              activityStatusInfo: '未开始',
+              activitySubject: '轰趴',
+              cover: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
+              endTime: '2023-12-06 23:00:00',
+              startTime: '2023-12-06 20:00:00',
+              location: ' 皇后酒吧'
+            })
+          }
+        }).finally(() => {
+          this.loading = false
+          uni.stopPullDownRefresh()
+          uni.hideLoading();
+        })
+      },
+      handleBanner(url) {
+        uni.navigateTo({
+          url: '/pages/web-view/web-view?src=' + url
+        })
+      },
+      handleCard(item) {
+        uni.navigateTo({
+          url: '/pages/activity-detail/activity-detail?id=' + item.activityId
+        })
+      }
+    },
+    onPullDownRefresh() {
+      this.listQuery.current = 1
+      this.getList()
+    },
+    onReachBottom() {
+      if (this.loading) {
+        return
+      }
+      this.loading = true
+      if (this.total > this.list.length) {
+        this.listQuery.current++
+        this.getList()
+      } else {
+        this.loading = false
+        this.$showToast('没有更多数据了')
+      }
+    },
   }
 </script>
 
@@ -80,12 +139,14 @@
     padding-top: 26rpx;
     box-sizing: border-box;
     .swiper-box {
-      padding-left: 38rpx;
+      padding: 0 38rpx;
+      overflow: hidden;
       .swiper-item {
         width: 100%;
         height: 279rpx;
         border-radius: 32rpx;
-        background: red;
+        background-size: cover;
+        background-position: center;
       }
     }
     .activity-main {

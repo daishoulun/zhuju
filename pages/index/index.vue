@@ -61,20 +61,20 @@ export default{
     this.autoplay = false
     // #endif
     this.initVod()
-    uni.getLocation({
-      type: 'wgs84',
-      success: res => {
-        this.listQuery.lon = res.longitude
-        this.listQuery.lat = res.latitude
-      }
-    })
   },
   onShow() {
     /* 播放视频 */
     if(this.$refs.videoGroup){
       this.$refs.videoGroup.showPlay()
     }
-    this.getRecommendList()
+    uni.getLocation({
+      type: 'wgs84',
+      success: res => {
+        this.listQuery.lon = res.longitude
+        this.listQuery.lat = res.latitude
+        this.getRecommendList()
+      }
+    })
   },
   onHide() {
     /* 暂停视频 */

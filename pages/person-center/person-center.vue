@@ -48,8 +48,14 @@
         <text :class="active === 'dynamics' ? 'active' : ''" @click="handleTabbar('dynamics')">动态</text>
       </view>
       <view class="active-wrap">
-        <ActiveList v-if="active === 'active'" :list="list"></ActiveList>
-        <DynamicsList v-else-if="active === 'dynamics'" :list="list"></DynamicsList>
+        <template v-if="total > 0">
+          <ActiveList v-if="active === 'active'" :list="list"></ActiveList>
+          <DynamicsList v-else-if="active === 'dynamics'" :list="list" @click-like="handleLike"></DynamicsList>
+        </template>
+        <view v-else class="empty-state">
+          <image src="/static/empty.png" mode=""></image>
+        </view>
+        
       </view>
     </view>
     <AccountSetting ref="accountSet"></AccountSetting>
@@ -60,7 +66,15 @@
   import ActiveList from '@/components/active-list/active-list'
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
   import AccountSetting from '@/components/account-setting.vue'
-  import { fetchUserInfo, getProfile, getActivityList, getMomentList } from '@/api/person-center.js'
+  import { fetchUserInfo, getProfile, getActivityList, getMomentList, createLike, cancelLike } from '@/api/person-center.js'
+  // import PinyinUtils from '@/utils/pinUtils.js'
+  // // 获取拼音
+  // console.log(PinyinUtils.chineseToPinYin('张三'))
+  // // ZHANGSAN
+  // // ===============
+  // // 获取首字母
+  // console.log(PinyinUtils.chineseToPinYinFirst('安庆市'))
+  // ZS
 	export default {
     components: {
       ActiveList,
@@ -147,55 +161,6 @@
             } else {
               this.list = this.list.concat(res.data.list || [])
             }
-            // this.list.push({
-            //   cover: '/static/cover.jpg',
-            //   activityId: 1,
-            //   activityStatusInfo: '未开始',
-            //   activitySubject: 'PP',
-            //   avatar: '/static/logo.png',
-            //   nickName: '宁儿',
-            //   shareNum: 82
-            // },{
-            //   cover: '/static/logo.png',
-            //   activityId: 2,
-            //   activityStatusInfo: '未开始',
-            //   activitySubject: 'PP',
-            //   avatar: '/static/logo.png',
-            //   nickName: '宁儿',
-            //   shareNum: 82
-            // },{
-            //   cover: '/static/cover.jpg',
-            //   activityId: 3,
-            //   activityStatusInfo: '未开始',
-            //   activitySubject: 'PP',
-            //   avatar: '/static/logo.png',
-            //   nickName: '宁儿',
-            //   shareNum: 82
-            // },{
-            //   cover: '/static/logo.png',
-            //   activityId: 4,
-            //   activityStatusInfo: '未开始',
-            //   activitySubject: 'PP',
-            //   avatar: '/static/logo.png',
-            //   nickName: '宁儿',
-            //   shareNum: 82
-            // },{
-            //   cover: '/static/cover.jpg',
-            //   activityId: 5,
-            //   activityStatusInfo: '未开始',
-            //   activitySubject: 'PP',
-            //   avatar: '/static/logo.png',
-            //   nickName: '宁儿',
-            //   shareNum: 82
-            // },{
-            //   cover: '/static/logo.png',
-            //   activityId: 6,
-            //   activityStatusInfo: '未开始',
-            //   activitySubject: 'PP',
-            //   avatar: '/static/logo.png',
-            //   nickName: '宁儿',
-            //   shareNum: 82
-            // })
           } else {
             this.$showToast(res.msg)
           }
@@ -214,17 +179,6 @@
             } else {
               this.list = this.list.concat(res.data.list || [])
             }
-            this.list.push({
-              cover: '/static/cover.jpg',
-              momentId: 1,
-              liked: true,
-              likeCount: 111,
-            },{
-              cover: '/static/cover.jpg',
-              momentId: 2,
-              liked: false,
-              likeCount: 111,
-            })
           } else {
             this.$showToast(res.msg)
           }
@@ -256,6 +210,33 @@
         uni.navigateTo({
           url: '/pages/login/login'
         })
+      },
+      handleLike(item) {
+        if (item.liked) {
+          this.cancelLike(item.momentId)
+        } else {
+          this.createLike(item.momentId)
+        }
+      },
+      createLike(momentId) {
+        createLike({ momentId }).then(res => {
+          if (res.code === 0) {
+            this.listQuery.current = 1
+            this.getList()
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
+      cancelLike(momentId) {
+        cancelLike({ momentId }).then(res => {
+          if (res.code === 0) {
+            this.listQuery.current = 1
+            this.getList()
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
       }
     },
     onPullDownRefresh() {
@@ -272,7 +253,7 @@
         this.getList()
       } else {
         this.loading = false
-        this.$showToast('没有更多数据了')
+        // this.$showToast('没有更多数据了')
       }
     },
   }
@@ -306,6 +287,14 @@
     padding: 32rpx 32rpx;
     box-sizing: border-box;
     margin-top: -102rpx;
+    .empty-state {
+      text-align: center;
+      margin-top: 86rpx;
+      image {
+        width: 204rpx;
+        height: 204rpx;
+      }
+    }
     .avatar {
       position: absolute;
       top: -88rpx;

@@ -2,7 +2,7 @@
   <view class="dynamics-list">
     <view v-for="item in list" :key="item.momentId" class="dynamics-item">
       <view class="like">
-        <image class="like-icon" :src="item.liked ? '../../static/like-active.png' : '../../static/like.png'"></image>
+        <image class="like-icon" :src="item.liked ? '../../static/like-active.png' : '../../static/like.png'" @click="handleLike(item)"></image>
         {{ item.likeCount }}
       </view>
     </view>
@@ -22,6 +22,11 @@
       return {
       };
     },
+    methods: {
+      handleLike(item) {
+        this.$emit('click-like', item)
+      }
+    }
   }
 </script>
 

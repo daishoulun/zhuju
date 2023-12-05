@@ -1,19 +1,19 @@
 <template>
   <view class="activity-detail">
-    <view class="bg"></view>
+    <view class="bg" :style="{ backgroundImage: 'url(' + activityDetail.cover + ')' }"></view>
     <view class="activity-content">
       <view class="base-info">
-        <view class="title">Club·Puff 7号聚会</view>
-        <view class="time">7月17日 20:30-23:00</view>
-        <view class="desc">今晚在我的毕业派对上一起嗨，快来加入吧，有没有要来的赶紧报名啦，过期不候哦，详细的内容今晚在我的毕业派对上一起嗨，快来加入吧今晚在我的毕业派对上一起嗨… </view>
+        <view class="title">{{ activityDetail.activitySubject }}</view>
+        <view class="time">{{ activityDetail.startTime }} - {{ activityDetail.endTime }}</view>
+        <view class="desc">{{ activityDetail.dsc }}</view>
       </view>
       <view class="other-info">
         <view class="site-info">
           <view class="title">场地服务费</view>
           <view class="info">
             <view class="price-info">
-              <text class="price">1000元/人、3小时</text>
-              <text class="">男士付</text>
+              <text class="price">{{ activityDetail.unitPrice }}</text>
+              <text class="">{{ activityDetail.payerType | payerTypeFilter }}</text>
             </view>
             <text>费用明细</text>
           </view>
@@ -25,25 +25,25 @@
               <image src="/static/logo.png"></image>
             </view>
             <view class="loc-info">
-              <view class="name">Club·Puff泡福俱乐部</view>
-              <view class="no"> T 708</view>
+              <view class="name">{{ activityDetail.location }}</view>
+              <view class="no">{{ activityDetail.rongRoomId }}</view>
             </view>
           </view>
         </view>
         <view class="partake-info">
-          <view class="title">参与人 <text class="partake-num">已参与6人，剩余6人待参与</text></view>
+          <view class="title">参与人 <text class="partake-num">已参与{{ activityDetail.hasJoin }}人，剩余{{ activityDetail.noJoin }}人待参与</text></view>
           <view class="pritake-detail">
             <view
               class="pritake-item"
-              v-for="item in list"
+              v-for="item in activityDetail.list || []"
               :key="item.key"
             >
-              <view v-if="item.isZcr === 1" class="host">主持人</view>
+              <view v-if="item.emcee === 1" class="host">主持人</view>
               <view class="avatar">
-                <image class="img-head" :src="item.logo"></image>
+                <image class="img-head" :src="item.avatar"></image>
                 <image class="sex" :src="item.sex === '1' ? '/static/man.png' : '/static/women.png'"></image>
               </view>
-              <view class="name">{{ item.name }}</view>
+              <view class="name">{{ item.nickName }}</view>
             </view>
           </view>
         </view>
@@ -56,47 +56,42 @@
 </template>
 
 <script>
+  import { fetchDetail } from '@/api/activity-detail.js'
   export default {
+    filters: {
+      payerTypeFilter(val) {
+        const map = {
+          1: '男士付',
+          2: '女士付',
+          3: '我付款'
+        }
+        return map[val]
+      }
+    },
     data() {
       return {
-        list: [{
-          id: 0,
-          name: '小蒲日记',
-          logo: '/static/logo.png',
-          sex: '1',
-          isZcr: 1
-        },{
-          id: 1,
-          name: '小蒲日记',
-          logo: '/static/logo.png',
-          sex: '1',
-          isZcr: 0
-        },{
-          id: 3,
-          name: '小蒲日记',
-          logo: '/static/logo.png',
-          sex: '1',
-          isZcr: 0
-        },{
-          id: 4,
-          name: '小蒲日记',
-          logo: '/static/logo.png',
-          sex: '1',
-          isZcr: 0
-        },{
-          id: 5,
-          name: '小蒲日记',
-          logo: '/static/logo.png',
-          sex: '2',
-          isZcr: 0
-        },{
-          id: 6,
-          name: '小蒲日记',
-          logo: '/static/logo.png',
-          sex: '1',
-          isZcr: 0
-        }]
+        activityDetail: {},
       };
+    },
+    onLoad(opt) {
+      this.getDetail(opt.id)
+    },
+    methods: {
+      getDetail(id) {
+        fetchDetail({ activityId: id }).then(res => {
+          this.activityDetail = res?.data || {
+            activitySubject: 'hongpa',
+            startTime: '12-25 7:00',
+            endTime: '12-31 20:00',
+            unitPrice: '1000元',
+            payerType: 1,
+            dsc: '好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心'
+          }
+          this.activityDetail.noJoin = this.activityDetail.femaleRemainNum || 0 + this.activityDetail.maleRemainNum || 0
+          this.activityDetail.hasJoin = this.activityDetail.totalPeopleNum - this.activityDetail.noJoin
+          this.activityDetail.cover = 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg'
+        })
+      }
     }
   }
 </script>
@@ -112,10 +107,11 @@
     margin-bottom: 28rpx;
   }
   .bg {
-    height: 552rpx;
+    height: 904rpx;
+    background-size: cover;
   }
   .activity-content {
-    margin-top: -154rpx;
+    margin-top: -506rpx;
   }
   .base-info {
     width: 100%;
