@@ -59,6 +59,11 @@
         "usingComponents" : true,
         "unipush" : {
             "enable" : false
+        },
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "根据位置推荐内容"
+            }
         }
     },
     "mp-alipay" : {

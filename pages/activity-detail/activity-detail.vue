@@ -47,7 +47,7 @@
             </view>
           </view>
         </view>
-        <view class="tip">还有 07:48:20 就要开始了，请尽快加入哦～</view>
+        <view class="tip">还有 {{ disBeginTime }} 就要开始了，请尽快加入哦～</view>
         <view class="join">立即加入</view>
       </view>
     </view>
@@ -73,6 +73,25 @@
         activityDetail: {},
       };
     },
+    computed: {
+      disBeginTime() {
+        const now = Date.now()
+        console.log(this.activityDetail)
+        const beginTime = new Date(this.activityDetail.startTime).getTime()
+        const dis = beginTime - now
+        const seconds = dis / 1000
+        const mins = seconds / 60
+        const hours = mins / 60
+        const days = hours / 24
+        const arr = [
+          { value: Math.floor(days), label: '天' },
+          { value: Math.floor(hours % 24), label: '时' },
+          { value: Math.floor(mins % 60), label: '分' },
+          { value: Math.floor(seconds % 60), label: '秒' },
+        ]
+        return arr.filter(item => item.value > 0).map(item => item.value + item.label).join('')
+      }
+    },
     onLoad(opt) {
       this.getDetail(opt.id)
     },
@@ -81,13 +100,16 @@
         fetchDetail({ activityId: id }).then(res => {
           this.activityDetail = res?.data || {
             activitySubject: 'hongpa',
-            startTime: '12-25 7:00',
+            startTime: '2023-12-25 07:00',
             endTime: '12-31 20:00',
             unitPrice: '1000元',
             payerType: 1,
-            dsc: '好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心'
+            dsc: '好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心',
+            femaleRemainNum: 3,
+            maleRemainNum: 5,
+            totalPeopleNum: 20
           }
-          this.activityDetail.noJoin = this.activityDetail.femaleRemainNum || 0 + this.activityDetail.maleRemainNum || 0
+          this.activityDetail.noJoin = this.activityDetail.femaleRemainNum + this.activityDetail.maleRemainNum || 0
           this.activityDetail.hasJoin = this.activityDetail.totalPeopleNum - this.activityDetail.noJoin
           this.activityDetail.cover = 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg'
         })
@@ -107,10 +129,14 @@
     margin-bottom: 28rpx;
   }
   .bg {
+    position: relative;
     height: 904rpx;
     background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(10px);
   }
   .activity-content {
+    position: relative;
     margin-top: -506rpx;
   }
   .base-info {
@@ -118,9 +144,9 @@
     height: 352rpx;
     padding: 50rpx 32rpx 0;
     box-sizing: border-box;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #181818 100%, #181818 100%);
     border-radius: 40rpx 40rpx 0rpx 0rpx;
     backdrop-filter: blur(4px);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #181818 100%, #181818 100%);
     .title {
       font-size: 36rpx;
       font-weight: 500;
