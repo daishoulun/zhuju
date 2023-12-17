@@ -21,9 +21,9 @@
         <view class="location">
           <view class="title">地点</view>
           <view class="location-detail">
-            <view class="logo">
+            <!-- <view class="logo">
               <image src="/static/logo.png"></image>
-            </view>
+            </view> -->
             <view class="loc-info">
               <view class="name">{{ activityDetail.location }}</view>
               <view class="no">{{ activityDetail.rongRoomId }}</view>
@@ -47,8 +47,8 @@
             </view>
           </view>
         </view>
-        <view class="tip">还有 {{ disBeginTime }} 就要开始了，请尽快加入哦～</view>
-        <view class="join">立即加入</view>
+        <view v-if="![20, 30, 40].includes(activityDetail.activityStatus)" class="tip">还有 {{ disBeginTime }} 就要开始了，请尽快加入哦～</view>
+        <view v-for="item in activityDetail.buttonList" :key="item" :class="['btn', 'btn-' + item ]">{{ item | btnTextFilter }}</view>
       </view>
     </view>
     <view class="placeholder"></view>
@@ -66,6 +66,21 @@
           3: '我付款'
         }
         return map[val]
+      },
+      btnTextFilter(val) {
+        const map = {
+          1: '修改活动',
+          2: '取消活动',
+          3: '立即加入',
+          4: '进入房间',
+          5: '活动已结束',
+          6: '退出活动',
+          7: '成员已满，无法加入',
+          8: '活动进行中，无法加入',
+          9: '活动已取消',
+          90: '请下载煮桔APP进入房间'
+        }
+        return map[val]
       }
     },
     data() {
@@ -76,7 +91,6 @@
     computed: {
       disBeginTime() {
         const now = Date.now()
-        console.log(this.activityDetail)
         const beginTime = new Date(this.activityDetail.startTime).getTime()
         const dis = beginTime - now
         const seconds = dis / 1000
@@ -98,20 +112,9 @@
     methods: {
       getDetail(id) {
         fetchDetail({ activityId: id }).then(res => {
-          this.activityDetail = res?.data || {
-            activitySubject: 'hongpa',
-            startTime: '2023-12-25 07:00',
-            endTime: '12-31 20:00',
-            unitPrice: '1000元',
-            payerType: 1,
-            dsc: '好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心好开心',
-            femaleRemainNum: 3,
-            maleRemainNum: 5,
-            totalPeopleNum: 20
-          }
+          this.activityDetail = res?.data || {}
           this.activityDetail.noJoin = this.activityDetail.femaleRemainNum + this.activityDetail.maleRemainNum || 0
           this.activityDetail.hasJoin = this.activityDetail.totalPeopleNum - this.activityDetail.noJoin
-          this.activityDetail.cover = 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg'
         })
       }
     }
@@ -296,7 +299,7 @@
     text-align: center;
     margin: 30rpx 0 16rpx;
   }
-  .join {
+  .btn {
     height: 120rpx;
     background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
     border-radius: 60rpx;
@@ -305,6 +308,12 @@
     color: #201F2C;
     text-align: center;
     line-height: 120rpx;
+    &.btn-5,
+    &.btn-7,
+    &.btn-8,
+    &.btn-9 {
+      background: #262626;
+    }
   }
 }
 </style>

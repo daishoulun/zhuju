@@ -7,9 +7,10 @@
        :class="active === item.key ? 'active' : ''"
        @click="handleTabbar(item.key)">{{ item.label }}</text>
     </view>
-    <tw-videov ref="videoGroup" @lodData="loadingData" @refreshData="refreshData" :autoplay="autoplay"
+<!--    <tw-videov ref="videoGroup" @lodData="loadingData" @refreshData="refreshData" :autoplay="autoplay"
       @click-action="handleToolBar"
-    ></tw-videov>
+    ></tw-videov> -->
+    <videos-list :list="vodList" :params="listQuery"></videos-list>
     <UserAgreement v-if="userAgreementModalVisible" @close="userAgreementModalVisible = flase"></UserAgreement>
     <LoginModal v-if="loginModalVisible" @close="loginModalVisible = flase"></LoginModal>
     <CommentPopup v-if="commentPopupVisible" ref="commentList" @close="commentPopupVisible = false"></CommentPopup>
@@ -17,20 +18,20 @@
 </template>
 
 <script>
-import twVideov from '@/components/tsp-video/tsp-video-list/video-v.vue'
-import vodData from '@/static/vodData.js' //假数据
+// import twVideov from '@/components/tsp-video/tsp-video-list/video-v.vue'
 import UserAgreement from '@/components/user-agreement/user-agreement.vue'
 import LoginModal from '@/components/login-modal.vue'
 import CommentPopup from '@/components/comment-popup.vue'
+import VideosList from '@/components/videos-list/index.vue'
 import {
   fetchRecommendList,
   fetchFollowList,
   fetchMomentList
 } from '@/api/index.js'
-const bmap = require('../../static/bmap-wx.min.js'); 
 export default{
   components:{
-    twVideov,
+    // twVideov,
+    VideosList,
     CommentPopup,
     UserAgreement,
     LoginModal
@@ -46,35 +47,26 @@ export default{
         { key: 'follow', label: '关注' },
         { key: 'dymanics', label: '动态' },
       ],
-      autoplay:true,
-      videoData: vodData,
       listQuery: {
         lon: '',
         lat: '',
         current: 1,
         pageSize: 10
       },
+      vodList: []
     }
   },
   onLoad() {
-    // #ifdef H5
-    this.autoplay = false
-    // #endif
-    this.initVod()
-  },
-  onShow() {
-    /* 播放视频 */
-    if(this.$refs.videoGroup){
-      this.$refs.videoGroup.showPlay()
-    }
-    uni.getLocation({
-      type: 'wgs84',
-      success: res => {
-        this.listQuery.lon = res.longitude
-        this.listQuery.lat = res.latitude
-        this.getRecommendList()
-      }
-    })
+        this.listQuery.lon = 116.4
+        this.listQuery.lat = 39.9
+    // uni.getLocation({
+      // type: 'wgs84',
+      // success: res => {
+        // this.listQuery.lon = res.longitude
+        // this.listQuery.lat = res.latitude
+        this.getList()
+      // }
+    // })
   },
   onHide() {
     /* 暂停视频 */
@@ -83,19 +75,57 @@ export default{
     }
   },
   methods:{
+    getList() {
+      if (this.active === 'recommend') {
+        this.getRecommendList()
+      } else if (this.active === 'follow') {
+        this.getFollowList()
+      } else {
+        this.getTrendsList()
+      }
+    },
+    formatVideoData(list) {
+      return list.map(item => {
+        // type 类型 1：活动，2：动态
+        item.videoUrl = item.type === 1 ?  item.activity.activityFileUrl : item.moment.momentUrls
+        if (item.type === 1) {
+          // activityFileType 封面类型 1：图片，2：视频
+          if (item.activity.activityFileType === 1) {
+            item.mediaType = 'img'
+            item.imgList = [item.activity.cover]
+          } else {
+            item.mediaType = 'video'
+          }
+        } else if (item.type === 2) {
+          item.mediaType = 'text'
+          item.content = item.moment.content
+        }
+        return item
+      })
+    },
     async getRecommendList() {
       const res = await fetchRecommendList(this.listQuery)
       if (res.code === 0) {
-        
+        this.vodList = this.formatVideoData(res.data.list)
       } else {
         this.$showToast(res.msg)
       }
     },
     async getFollowList() {
       const res = await fetchFollowList(this.listQuery)
+      if (res.code === 0) {
+        this.initVod(res.data.list || [])
+      } else {
+        this.$showToast(res.msg)
+      }
     },
     async getTrendsList() {
       const res = await fetchMomentList(this.listQuery)
+      if (res.code === 0) {
+        this.initVod(res.data.list || [])
+      } else {
+        this.$showToast(res.msg)
+      }
     },
     handleToolBar(val) {
       console.log(val)
@@ -143,12 +173,12 @@ export default{
     },
     /* 初始加载视频数据 */
     initVod(){
-      this.startData().then((res)=>{
-        if(res.length > 0){
-          /* 调用视频的初始方法 */
-          this.$refs.videoGroup.initVod(res,0); //0是播放的下标（默认播放下标是0）
-        }
-      })
+      // this.startData().then((res)=>{
+      //   if(res.length > 0){
+      //     /* 调用视频的初始方法 */
+      //     // this.$refs.videoGroup.initVod(res,0); //0是播放的下标（默认播放下标是0）
+      //   }
+      // })
     },
     /* 下拉刷新 */
     refreshData(){
@@ -156,7 +186,7 @@ export default{
         if(res.length > 0){
           /* 调用视频的重新加载方法 */
           setTimeout(()=>{
-            this.$refs.videoGroup.refreshSquare(res,0); //0是播放的下标（默认播放下标是0）
+            // this.$refs.videoGroup.refreshSquare(res,0); //0是播放的下标（默认播放下标是0）
           },2000)
         }
       })

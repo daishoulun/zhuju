@@ -1,5 +1,5 @@
 <template>
-  <view class="login-page">
+  <view class="login-page" style="background-image: url('/static/start-bg.png');">
     <image src="/static/logo.png"></image>
     <view class="name">煮桔</view>
     <view class="btn-box">
@@ -42,7 +42,6 @@
 .login-page {
   width: 100%;
   height: 100vh;
-  background-image: url('/static/start-bg.png');
   background-size: cover;
   text-align: center;
   image {

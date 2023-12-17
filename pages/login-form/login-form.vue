@@ -12,7 +12,7 @@
         <text class="send-code" @click="handleCode">{{ codeText }}</text>
       </view>
       <view class="policy">
-        <checkbox @click="handlePolicy" /> 我已阅读并同意<text @click="handleViewPolicy">《隐私权政策》</text>
+        <checkbox :value="value" @click="handlePolicy" /> 我已阅读并同意<text @click="handleViewPolicy" style="border-radius: 50%;">《隐私权政策》</text>
       </view>
       <button class="btn" :class="{ canLogin: isCanLogin }" @click="handleLogin">登录</button>
     </view>
@@ -34,6 +34,7 @@
           phone: '',
           code: ''
         },
+        value: '',
         codeText: '发送验证码',
         num: 0
       };
@@ -128,7 +129,8 @@
 
 <style lang="scss">
 .login-form {
-  height: calc(100vh - 88rpx);
+  height: 100vh;
+  box-sizing: border-box;
   background: #181818;
   padding: 72rpx;
   box-sizing: border-box;
@@ -187,18 +189,6 @@
     text {
       color: #fff;
     }
-    ::v-deep .uni-checkbox-input {
-      width: 24rpx;
-      height: 24rpx;
-      border-radius: 50%;
-      border-color: #FFFFFF;
-      background: rgba(216,216,216,0.3);
-      margin-right: 10rpx;
-      &::before {
-        font-size: 24rpx;
-        color: #fff;
-      }
-    }
   }
   .btn {
     height: 120rpx;
@@ -213,4 +203,16 @@
     }
   }
 }
+.wx-checkbox-input {
+  width: 28rpx !important;
+  height: 28rpx !important;
+  border-radius: 50%!important;
+  font-size: 24rpx!important;
+}
+.wx-checkbox-input.wx-checkbox-input-checked{
+  border-color:#FFFFFF !important;
+  background:rgba(216,216,216,0.3) !important;
+  color: #fff!important;
+}
+
 </style>
