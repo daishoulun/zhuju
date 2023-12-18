@@ -81,6 +81,7 @@
       "path" : "pages/person-detail/person-detail",
       "style" : 
       {
+        "navigationStyle": "custom",
         "navigationBarTextStyle": "white",
         "navigationBarTitleText" : "",
         "enablePullDownRefresh" : false
@@ -175,6 +176,14 @@
     },
     {
       "path" : "pages/web-view/web-view",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "enablePullDownRefresh" : false
+      }
+    },
+    {
+      "path" : "pages/dynamics-list/dynamics-list",
       "style" : 
       {
         "navigationBarTitleText" : "",

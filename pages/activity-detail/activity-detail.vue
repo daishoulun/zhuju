@@ -1,8 +1,21 @@
 <template>
   <view class="activity-detail">
-    <view class="bg" :style="{ backgroundImage: 'url(' + activityDetail.cover + ')' }"></view>
+    <view v-if="activityDetail.activityFileType === 2" class="bg" @click="handleVideo">
+      <video
+        id="activityDetailVideo"
+        :src="activityDetail.activityFileUrl"
+        :controls="false"
+        :show-center-play-btn="false"
+        object-fit="cover"
+        autoplay
+        @play="videoPlay"
+        @pause="videoPause"
+        @ended="videoEnded"
+      ></video>
+    </view>
+    <view v-else-if="coverUrl" class="bg" :style="{ backgroundImage: 'url(' + coverUrl + ')' }"></view>
     <view class="activity-content">
-      <view class="base-info">
+      <view class="base-info"  @click="handleVideo">
         <view class="title">{{ activityDetail.activitySubject }}</view>
         <view class="time">{{ activityDetail.startTime }} - {{ activityDetail.endTime }}</view>
         <view class="desc">{{ activityDetail.dsc }}</view>
@@ -40,7 +53,7 @@
             >
               <view v-if="item.emcee === 1" class="host">主持人</view>
               <view class="avatar">
-                <image class="img-head" :src="item.avatar"></image>
+                <image class="img-head" :src="item.avatar" mode="aspectFill"></image>
                 <image class="sex" :src="item.sex === '1' ? '/static/man.png' : '/static/women.png'"></image>
               </view>
               <view class="name">{{ item.nickName }}</view>
@@ -48,7 +61,7 @@
           </view>
         </view>
         <view v-if="![20, 30, 40].includes(activityDetail.activityStatus)" class="tip">还有 {{ disBeginTime }} 就要开始了，请尽快加入哦～</view>
-        <view v-for="item in activityDetail.buttonList" :key="item" :class="['btn', 'btn-' + item ]">{{ item | btnTextFilter }}</view>
+        <view v-for="item in activityDetail.buttonList" :key="item" :class="['btn', 'btn-' + item ]" @click="handleBtn(item)">{{ item | btnTextFilter }}</view>
       </view>
     </view>
     <view class="placeholder"></view>
@@ -56,7 +69,7 @@
 </template>
 
 <script>
-  import { fetchDetail } from '@/api/activity-detail.js'
+  import { fetchDetail, joinActivity, activityPay, queryPayResult } from '@/api/activity-detail.js'
   export default {
     filters: {
       payerTypeFilter(val) {
@@ -86,9 +99,13 @@
     data() {
       return {
         activityDetail: {},
+        isPlay: false,
       };
     },
     computed: {
+      coverUrl() {
+        return this.activityDetail.cover || this.activityDetail.activityFileUrl
+      },
       disBeginTime() {
         const now = Date.now()
         const beginTime = new Date(this.activityDetail.startTime).getTime()
@@ -116,14 +133,109 @@
           this.activityDetail.noJoin = this.activityDetail.femaleRemainNum + this.activityDetail.maleRemainNum || 0
           this.activityDetail.hasJoin = this.activityDetail.totalPeopleNum - this.activityDetail.noJoin
         })
+      },
+      videoPlay() {
+        this.isPlay = true
+      },
+      videoPause() {
+        this.isPlay = false
+      },
+      videoEnded() {
+        this.isPlay = false
+      },
+      handleVideo() {
+        if (this.activityDetail.activityFileType === 2) {
+          const videoContext = uni.createVideoContext('activityDetailVideo', this)
+          if (this.isPlay) {
+            videoContext.pause()
+          } else {
+            videoContext.play()
+          }
+        }
+      },
+      handleBtn(type) {
+        switch(type) {
+          case 3:
+          this.handleJoinActivity()
+        }
+      },
+      handleJoinActivity() {
+        joinActivity({ activityId: this.activityDetail.activityId }).then(res => {
+          if (res.data.needPay) {
+            this.handlePay(res.data.orderNo)
+          }
+          if (res.code === 0) {
+            this.$showToast('加入成功')
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
+      handlePay(orderNo) {
+        activityPay({
+          orderNo,
+          payType: 2
+        }).then(res => {
+          if (res.code === 0) {
+            const {
+              appid,
+              noncestr,
+              packageValue,
+              paySign,
+              signType,
+              timestamp
+            } = res.data.wechatMiniSign || {}
+            uni.requestPayment({
+              provider: 'wxpay',
+            	timeStamp,
+            	nonceStr,
+            	package: packageValue,
+            	signType,
+            	paySign,
+            	success: function (res) {
+            		console.log('success:' + JSON.stringify(res));
+                this.checkPayResult(orderNo)
+            	},
+            	fail: function (err) {
+            		console.log('fail:' + JSON.stringify(err));
+            	}
+            });
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
+      checkPayResult(orderNo) {
+        queryPayResult({ orderNo }).thjen(res => {
+          if (res.code === 0) {
+            const msg = {
+              0: '待支付',
+              1: '已支付',
+              2: '支付中',
+              3: '已过期',
+              '-1': '支付失败'
+            }
+            if (res.data.payStatus !== 1) {
+              this.$showToast(msg[res.data.payStatus])
+              setTimeout(() => {
+                this.checkPayResult(orderNo)
+              }, 1500)
+            } else {
+              this.$showToast(res.msg)
+            }
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
       }
+      
     }
   }
 </script>
 
 <style lang="scss" scoped>
 .activity-detail {
-  height: calc(100vh - 88rpx);
+  height: 100vh;
   overflow: auto;
   .title {
     font-size: 32rpx;
@@ -137,6 +249,10 @@
     background-size: cover;
     background-position: center;
     backdrop-filter: blur(10px);
+    #activityDetailVideo {
+      width: 100%;
+      height: 100%;
+    }
   }
   .activity-content {
     position: relative;

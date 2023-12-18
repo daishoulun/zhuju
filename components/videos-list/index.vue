@@ -4,28 +4,48 @@
       <swiper
         class="swiper-wrap"
         vertical
+        @change="swiperChange"
       >
         <swiper-item
           class="video-box"
-          v-for="item in list"
-          :key="item.id"
+          v-for="(item, index) in list"
+          :key="item.indexId"
+          @click="handleClick(item)"
         >
-          <video v-if="item.mediaType === 'video'" class="video" :src="item.videoUrl" controls></video>
-          <swiper
-            v-else-if="item.mediaType === 'img'"
-            class="swiper-wrap"
-            circular
-          >
-            <swiper-item
-              class="video-box"
-              v-for="img in item.imgList"
-              :key="img"
+          <template v-if="currentIndex === index">
+            <video
+              v-if="item.mediaType === 'video'"
+              class="video"
+              :id="'myVideo' + item.indexId"
+              :src="item.videoUrl"
+              :controls="false"
+              :show-center-play-btn="false"
+              object-fit="fill"
+              autoplay
+              @play="videoPlay"
+              @pause="videoPause"
+              @ended="videoEnded"
+            ></video>
+            <swiper
+              v-else-if="item.mediaType === 'img'"
+              class="swiper-wrap"
+              circular
             >
-              <image class="img" :src="img" mode="widthFix"></image>
-            </swiper-item>
-          </swiper>
-          <text v-else>{{ item.con }}</text>
-          <menu-list :item="item" :params="params"></menu-list>
+              <swiper-item
+                class="video-box"
+                v-for="img in item.imgList"
+                :key="img"
+              >
+                <image class="img" :src="img" mode="widthFix"></image>
+              </swiper-item>
+            </swiper>
+            <text v-else>{{ item.con }}</text>
+            <menu-list
+              :item="item"
+              :params="params"
+              @click-transfer="val => $emit('click-transfer', val)"
+            ></menu-list>
+          </template>
         </swiper-item>
       </swiper>
     </view>
@@ -50,14 +70,35 @@
       }
     },
     data() {
-      return {}
-    },
-    watch: {
-      list(val) {
-        console.log('va', val)
+      return {
+        isPlay: false, // 视频是否正在播放
+        currentIndex: 0
       }
     },
     methods: {
+      swiperChange(e) {
+        this.currentIndex = e.detail.current
+        this.isPlay = false
+      },
+      videoPlay() {
+        this.isPlay = true
+      },
+      videoPause() {
+        this.isPlay = false
+      },
+      videoEnded() {
+        this.isPlay = false
+      },
+      handleClick(item) {
+        if (item.mediaType === 'video') {
+          const videoContext = uni.createVideoContext('myVideo' + item.indexId, this)
+          if (this.isPlay) {
+            videoContext.pause()
+          } else {
+            videoContext.play()
+          }
+        }
+      }
     }
   }
 </script>

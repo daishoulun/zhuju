@@ -8,7 +8,7 @@
 		<view class="footTitle" :class="[vodIndex == index?(sliderDrag?'vodMenu-bright1':(moveOpacity?'vodMenu-bright2':'vodMenu-bright0')):'']">
 			<view class="v-title-wrap">
         <text class="foot-name">{{ item.location }}</text>
-        <text class="detail" @click="handleDetail">详情</text>
+        <text class="detail" @click.stop="handleDetail">详情</text>
         <image class="arrow-r" src="/static/arrow-r.png"></image>
       </view>
 			<view v-if="item.activity" class="foot-cont">{{ item.activity.startTime }} - {{ item.activity.endTime }}</view>
@@ -22,29 +22,29 @@
 			<view class="vodMenu" :class="[vodIndex == index?(sliderDrag?'vodMenu-bright1':(moveOpacity?'vodMenu-bright2':'vodMenu-bright0')):'']">
 				<!-- 头像 -->
 				<view class="menu-avatar">
-					<image :src="item.avatar" mode="cover" class="avatar-image" @click="JumpBtn(1, item)"></image>
-					<view v-if="activeType === 'dymanics'" class="follow" @click="followBtn(index, item)">
+					<image :src="item.avatar" mode="aspectFill" class="avatar-image" @click.stop="JumpBtn(1, item)"></image>
+					<view v-if="activeType === 'dymanics'" class="follow" @click.stop="followBtn(index, item)">
 						<image src="/static/add-like.png" mode="" class="follow-guanzhu" v-if="!item.followed"></image>
 						<image src="/static/has-like.png" mode="" class="follow-guanzhu guanzhu-gou" v-else></image>
 					</view>
 				</view>
 				<!-- 点赞 -->
-				<view class="fabulous" :class="{ isHidden: activeType !== 'dymanics' }" @click="JumpBtn(2)">
-          <view class="fabulous-image fabulous-taoxin" @click="fabulousBtn(index)">
+				<view class="fabulous" :class="{ isHidden: activeType !== 'dymanics' }" @click.stop="JumpBtn(2)">
+          <view class="fabulous-image fabulous-taoxin" @click.stop="fabulousBtn(index)">
             <image src="/static/heart-active.png" class="fabulous-image" v-if="item.fabulousShow"></image>
             <image src="/static/heart.png" mode="" class="fabulous-image" v-else></image>
           </view>
 					<view class="fabulous-num">{{vodCurIndex}}</view>
 				</view>
 				<!-- 评论 -->
-				<view class="fabulous" :class="{ isHidden: activeType !== 'dymanics' }" style="margin-top: 30rpx;" @click="JumpBtn(3)">
+				<view class="fabulous" :class="{ isHidden: activeType !== 'dymanics' }" style="margin-top: 30rpx;" @click.stop="JumpBtn(3)">
 					<view class="fabulous-image">
 						<image src="/static/comment.png" mode="" class="fabulous-image"></image>
 					</view>
 					<view class="fabulous-num">{{discussNum}}</view>
 				</view>
 				<!-- 转发 -->
-				<view class="fabulous" style="margin-top: 30rpx;" @click="JumpBtn(4)">
+				<view class="fabulous" style="margin-top: 30rpx;" @click.stop="JumpBtn(4)">
 					<view class="fabulous-image">
 						<image src="/static/forward-arrow.png" mode="" class="fabulous-image"></image>
 					</view>
@@ -56,7 +56,6 @@
 </template>
 
 <script>
-  import { fetchCityName } from '@/api/index.js'
 	export default{
 		data(){
 			return {
@@ -112,19 +111,10 @@
         console.log(JSON.stringify(val))
       }
     },
-    mounted() {
-      // bash`GET https://api.map.baidu.com/geocoding/v3/?address=0&location=经度,纬度&output=json&ak=你的API密钥
-
-      fetchCityName({
-        address: 0,
-        location: this.params.lon + ',' + this.params.lat,
-        output: 'json',
-        ak: 'asG49HWyDV9GPHfrXCBEDreNOpGs3OCB'
-      })
-    },
+    mounted() {},
     methods:{
       handleDetail() {
-        http://localhost:8080/#/pages/activity-detail/activity-detail?id=1
+        console.log(this.item)
         uni.navigateTo({
           url: '/pages/activity-detail/activity-detail?id=' + this.item.indexId
         })
@@ -148,7 +138,7 @@
 				switch(index){
 					case 1 :
 						uni.navigateTo({
-							url:'/pages/person-detail/person-detail'
+							url:'/pages/person-detail/person-detail?id=' + this.item.userId
 						})
 					break;
 					case 2 :
@@ -158,7 +148,7 @@
             this.$emit('click-action', index)
 					break;
 					case 4 :
-						console.log('点击4转发')
+          this.$emit('click-transfer')
 					break;
 				}
 			}
@@ -177,7 +167,7 @@
       display: flex;
       align-items: center;
       position: absolute;
-      top: 96rpx;
+      top: 168rpx;
       left: 32rpx;
     	z-index: 8;
       font-size: 32rpx;

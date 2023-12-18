@@ -1,9 +1,9 @@
 <template>
   <view class="dynamics-list">
-    <view v-for="item in list" :key="item.momentId" class="dynamics-item">
+    <view v-for="item in list" :key="item.momentId" class="dynamics-item" :style="{ backgroundImage: 'url(' + setCoverUrl(item) + ')'}">
       <view class="like">
         <image class="like-icon" :src="item.liked ? '../../static/like-active.png' : '../../static/like.png'" @click="handleLike(item)"></image>
-        {{ item.likeCount }}
+        {{ item.likeCount || 0 }}
       </view>
     </view>
   </view>
@@ -25,6 +25,9 @@
     methods: {
       handleLike(item) {
         this.$emit('click-like', item)
+      },
+      setCoverUrl(item) {
+        return item.contentUrlList && item.contentUrlList[0] || ''
       }
     }
   }
@@ -34,6 +37,7 @@
 .dynamics-list {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   .dynamics-item {
     position: relative;
     width: 338rpx;
@@ -42,6 +46,9 @@
     border-radius: 16rpx;
     margin-right: 10rpx;
     margin-bottom: 10rpx;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     &:nth-of-type(2n) {
       margin-right: 0;
     }

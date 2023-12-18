@@ -175,9 +175,9 @@
           if (res.code === 0) {
             this.total = res.data.total
             if (this.listQuery.current === 1) {
-              this.list = res.data.list || []
+              this.list = res.data.momentList || []
             } else {
-              this.list = this.list.concat(res.data.list || [])
+              this.list = this.list.concat(res.data.momentList || [])
             }
           } else {
             this.$showToast(res.msg)
@@ -262,7 +262,7 @@
 <style lang="scss" scoped>
 .person-center {
   width: 100%;
-  min-height: calc(100vh - 100rpx);
+  min-height: 100vh;
   position: relative;
   box-sizing: border-box;
   background: #181818;

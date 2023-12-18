@@ -1,4 +1,5 @@
-const BASE_URL = 'http://120.26.109.150:8080'
+// const BASE_URL = 'http://120.26.109.150:8080'
+const BASE_URL = window ? '/api' : 'http://120.26.109.150:8080'
 const request = (opt) => {
   const token = uni.getStorageSync('T-token');
   const header = opt.header || {}

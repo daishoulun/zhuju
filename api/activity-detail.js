@@ -8,3 +8,28 @@ export const fetchDetail = data => {
     data
   })
 }
+
+export const joinActivity = data => {
+  return request({
+    url: '/user/activity/user/join',
+    method: 'POST',
+    data
+  })
+}
+
+// 支付
+export const activityPay = data => {
+  return request({
+    url: '/pay/activity/join',
+    method: 'POST',
+    data
+  })
+}
+
+export const queryPayResult = data => {
+  return request({
+    url: '/pay/activity/create/query',
+    method: 'POST',
+    data
+  })
+}

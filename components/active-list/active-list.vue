@@ -1,7 +1,7 @@
 <template>
   <view class="active-list">
-    <view v-for="item in list" :key="item.activityId" class="active-item">
-      <view class="active-con" :style="{ backgroundImage: 'url(' + item.cover + ')'}">
+    <view v-for="item in list" :key="item.activityId" class="active-item" @click="handleClick(item.activityId)">
+      <view class="active-con" :style="{ backgroundImage: 'url(' + setCoverUrl(item) + ')'}">
         <text class="status-tag">
           {{ item.activityStatusInfo }}
         </text>
@@ -48,6 +48,16 @@
       return {
         
       };
+    },
+    methods: {
+      setCoverUrl(item) {
+        return item.cover || item.activityFileUrl
+      },
+      handleClick(val) {
+        uni.navigateTo({
+          url: '/pages/activity-detail/activity-detail?id=' + val
+        })
+      }
     }
   }
 </script>
@@ -82,8 +92,8 @@
       position: absolute;
       top: 16rpx;
       left: 12rpx;
-      width: 96rpx;
       height: 40rpx;
+      padding: 0 8rpx;
       border-radius: 20rpx;
       text-align: center;
       line-height: 40rpx;

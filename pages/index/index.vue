@@ -7,22 +7,20 @@
        :class="active === item.key ? 'active' : ''"
        @click="handleTabbar(item.key)">{{ item.label }}</text>
     </view>
-<!--    <tw-videov ref="videoGroup" @lodData="loadingData" @refreshData="refreshData" :autoplay="autoplay"
-      @click-action="handleToolBar"
-    ></tw-videov> -->
-    <videos-list :list="vodList" :params="listQuery"></videos-list>
+    <videos-list :list="vodList" :params="listQuery" @click-transfer="clickTransfer"></videos-list>
     <UserAgreement v-if="userAgreementModalVisible" @close="userAgreementModalVisible = flase"></UserAgreement>
     <LoginModal v-if="loginModalVisible" @close="loginModalVisible = flase"></LoginModal>
     <CommentPopup v-if="commentPopupVisible" ref="commentList" @close="commentPopupVisible = false"></CommentPopup>
+    <TransferModal v-if="transferPopupVisible" ref="transferModal" @close="transferPopupVisible = false"></TransferModal>
   </view>
 </template>
 
 <script>
-// import twVideov from '@/components/tsp-video/tsp-video-list/video-v.vue'
 import UserAgreement from '@/components/user-agreement/user-agreement.vue'
 import LoginModal from '@/components/login-modal.vue'
 import CommentPopup from '@/components/comment-popup.vue'
 import VideosList from '@/components/videos-list/index.vue'
+import TransferModal from '@/components/transfer-modal.vue'
 import {
   fetchRecommendList,
   fetchFollowList,
@@ -34,13 +32,15 @@ export default{
     VideosList,
     CommentPopup,
     UserAgreement,
-    LoginModal
+    LoginModal,
+    TransferModal
   },
   data(){
     return {
       commentPopupVisible: false,
       userAgreementModalVisible: false,
       loginModalVisible: false,
+      transferPopupVisible: false,
       active: 'recommend',
       tabList: [
         { key: 'recommend', label: '推荐' },
@@ -92,7 +92,7 @@ export default{
           // activityFileType 封面类型 1：图片，2：视频
           if (item.activity.activityFileType === 1) {
             item.mediaType = 'img'
-            item.imgList = [item.activity.cover]
+            item.imgList = [item.activity.cover || item.activity.activityFileUrl]
           } else {
             item.mediaType = 'video'
           }
@@ -128,7 +128,6 @@ export default{
       }
     },
     handleToolBar(val) {
-      console.log(val)
       if(val === 3) {
         this.commentPopupVisible = true
         this.$nextTick(() => {
@@ -138,7 +137,6 @@ export default{
     },
     handleTabbar(val) {
       this.active = val
-      console.log(val)
       if (val === 'recommend') {
         this.getRecommendList()
       } else if (val === 'follow') {
@@ -146,39 +144,6 @@ export default{
       } else {
         this.getTrendsList()
       }
-    },
-    startData(){
-      let list = []
-      /* 模拟请求 */
-      return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-          for(let i=0; i < 15; i++){
-              let obj = {
-                /** 参数数据自行拼接  */
-                vodUrl:this.videoData[i].src,
-                coverImg:this.videoData[i].coverImg, //视频封面
-                coverShow:true, //是否显示视频封面，vue 小程序端不播放会显示视频，可以不用显示封面，App不播放不会显示视频，就需要封面了
-                object_fit:this.videoData[i].object_fit, //视频的显示类型
-                sliderShow:true, //是否显示进度条
-                rotateImgShow:true, //是否显示旋转头像
-
-                fabulousShow:false,//是否已经点赞
-                followReally:false //是否已经关注
-              }
-              list.push(obj);
-            }
-            resolve(list)
-        },500)
-      })
-    },
-    /* 初始加载视频数据 */
-    initVod(){
-      // this.startData().then((res)=>{
-      //   if(res.length > 0){
-      //     /* 调用视频的初始方法 */
-      //     // this.$refs.videoGroup.initVod(res,0); //0是播放的下标（默认播放下标是0）
-      //   }
-      // })
     },
     /* 下拉刷新 */
     refreshData(){
@@ -199,6 +164,12 @@ export default{
           this.$refs.videoGroup.lodingData(res);
         }
       })
+    },
+    clickTransfer() {
+      this.transferPopupVisible = true
+      this.$nextTick(() => {
+        this.$refs.transferModal.open()
+      })
     }
   }
 }
@@ -210,7 +181,7 @@ page{
 }
 .home{
   width: 100%;
-  height: calc(100vh - 100rpx);
+  height: 100vh;
   box-sizing: border-box;
 }
 </style>
@@ -219,7 +190,7 @@ page{
     position: relative;
     .tabbar {
       position: absolute;
-      top: 24rpx;
+      top: 108rpx;
       left: 32rpx;
       z-index: 999;
       color: #fff;
