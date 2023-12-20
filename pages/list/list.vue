@@ -1,5 +1,9 @@
 <template>
   <view class="activity-list">
+    <StatusBarPlace></StatusBarPlace>
+    <view class="logo">
+      opening
+    </view>
     <uni-swiper-dot class="uni-swiper-dot-box" @clickItem=clickItem :info="bannerList" :current="current" mode="default"
       :dots-styles="dotsStyles" field="content">
       <swiper class="swiper-box" @change="change" :current="swiperDotIndex">
@@ -12,7 +16,6 @@
     <view class="activity-main">
       <view class="activity-list-wrap" v-if="isLogin">
       <ActivityCard v-for="item in list" :activityData="item" :key="item.activityId" @click-card="handleCard"></ActivityCard>
-        
       </view>
       <view v-else class="no-login">
         <image src="/static/no-con.png"></image>
@@ -25,10 +28,12 @@
 
 <script>
   import ActivityCard from '@/components/activity-card.vue'
+  import StatusBarPlace from '@/components/status-bar-place.vue'
   import { fetchList } from '@/api/list.js'
   export default {
     components: {
-      ActivityCard
+      ActivityCard,
+      StatusBarPlace
     },
     data() {
       return {
@@ -79,20 +84,6 @@
             } else {
               this.list = this.list.concat(res.data.list || [])
             }
-            this.bannerList.push({
-              bannerImgUrl: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-              bannerJumpUrl: 'https://uniapp.dcloud.io/static/web-view.html'
-            })
-            this.list.push({
-              activityId: 1,
-              activityStatus: 10,
-              activityStatusInfo: '未开始',
-              activitySubject: '轰趴',
-              cover: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/shuijiao.jpg',
-              endTime: '2023-12-06 23:00:00',
-              startTime: '2023-12-06 20:00:00',
-              location: ' 皇后酒吧'
-            })
           }
         }).finally(() => {
           this.loading = false
@@ -132,13 +123,22 @@
 </script>
 
 <style lang="scss" scoped>
+  .logo {
+    background-image: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 40rpx;
+    margin-top: 32rpx;
+    padding-left: 32rpx;
+    box-sizing: border-box;
+  }
   .activity-list {
-    height: calc(100vh - 100rpx);
+    height: 100vh;
     overflow-y: auto;
     background: #181818;
-    padding-top: 26rpx;
     box-sizing: border-box;
     .swiper-box {
+      margin-top: 64rpx;
       padding: 0 38rpx;
       overflow: hidden;
       .swiper-item {

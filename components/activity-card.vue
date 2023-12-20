@@ -70,6 +70,10 @@
   border-top: 18rpx solid #181818;
   background-color: #262626;
   box-sizing: border-box;
+  margin-bottom: 54rpx;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
   .activity-cover {
     position: absolute;
     top: -18rpx;

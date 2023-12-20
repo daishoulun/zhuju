@@ -32,11 +32,13 @@
       <view class="user-info">
         <view v-if="isLogin" class="user-name">{{ userInfo.nickName }}</view>
         <view v-if="isLogin" class="user-tag">
-          <view v-for="(item, index) in (profileInfo.tags || [])" v-if="index !== 1" class="user-item">
-            <image v-if="index === 0" :src="sex" mode=""></image>
-            <text v-if="index === 0">{{ profileInfo.tags[1] }}岁</text>
-            <text v-else>{{ item }}</text>
-          </view>
+          <template v-for="(item, index) in (profileInfo.tags || [])">
+            <view :key="index" v-if="index !== 1" class="user-item">
+              <image v-if="index === 0" :src="sex" mode=""></image>
+              <text v-if="index === 0">{{ profileInfo.tags[1] }}岁</text>
+              <text v-else>{{ item }}</text>
+            </view>
+          </template>
           <!-- <text class="user-item" v-for="item in (profileInfo.tags || [])">{{ item }}</text> -->
         </view>
         <view v-else class="login-btn" @click="handleLogin">点击登录</view>

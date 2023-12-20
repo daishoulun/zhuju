@@ -183,10 +183,10 @@
       }
     },
     {
-      "path" : "pages/dynamics-list/dynamics-list",
+      "path" : "pages/dynamics-detail/dynamics-detail",
       "style" : 
       {
-        "navigationBarTitleText" : "",
+        "navigationStyle": "custom",
         "enablePullDownRefresh" : false
       }
     }

@@ -1,18 +1,19 @@
 <template>
-	<view class="menu-list">
-    <view class="header-local">
+	<view class="menu-list" :class="{ isDetail: hasDetail }">
+    <view v-if="!hasDetail" class="header-local">
       <image src="/static/location.png" mode=""></image>
       <text class="area">杭州</text>
     </view>
 		<!-- 底部标题 -->
-		<view class="footTitle" :class="[vodIndex == index?(sliderDrag?'vodMenu-bright1':(moveOpacity?'vodMenu-bright2':'vodMenu-bright0')):'']">
+		<view v-if="!(activeType === 'dynamics' && item.moment.contentType === 3)" class="footTitle" :class="[vodIndex == index?(sliderDrag?'vodMenu-bright1':(moveOpacity?'vodMenu-bright2':'vodMenu-bright0')):'']">
 			<view class="v-title-wrap">
-        <text class="foot-name">{{ item.location }}</text>
-        <text class="detail" @click.stop="handleDetail">详情</text>
-        <image class="arrow-r" src="/static/arrow-r.png"></image>
+        <text class="foot-name">{{ footTitle }}</text>
+        <text v-if="activeType !== 'dynamics'" class="detail pointer-events-auto" @click.stop="handleDetail">详情</text>
+        <image v-if="activeType !== 'dynamics'" class="arrow-r" src="/static/arrow-r.png"></image>
       </view>
 			<view v-if="item.activity" class="foot-cont">{{ item.activity.startTime }} - {{ item.activity.endTime }}</view>
-      <view class="location">
+      <view v-if="activeType === 'dynamics'" id="content" class="content">{{ dyContent }}</view>
+      <view v-if="activeType !== 'dynamics'" class="location">
         <image src="/static/location.png" mode=""></image>
         <text>{{ item.location }} · {{ item.distance | distanceFilter }}</text>
       </view>
@@ -22,29 +23,29 @@
 			<view class="vodMenu" :class="[vodIndex == index?(sliderDrag?'vodMenu-bright1':(moveOpacity?'vodMenu-bright2':'vodMenu-bright0')):'']">
 				<!-- 头像 -->
 				<view class="menu-avatar">
-					<image :src="item.avatar" mode="aspectFill" class="avatar-image" @click.stop="JumpBtn(1, item)"></image>
-					<view v-if="activeType === 'dymanics'" class="follow" @click.stop="followBtn(index, item)">
+					<image :src="item.avatar" mode="aspectFill" class="avatar-image pointer-events-auto" @click.stop="JumpBtn(1, item)"></image>
+					<view v-if="activeType === 'dynamics'" class="follow pointer-events-auto" @click.stop="followBtn(item)">
 						<image src="/static/add-like.png" mode="" class="follow-guanzhu" v-if="!item.followed"></image>
 						<image src="/static/has-like.png" mode="" class="follow-guanzhu guanzhu-gou" v-else></image>
 					</view>
 				</view>
 				<!-- 点赞 -->
-				<view class="fabulous" :class="{ isHidden: activeType !== 'dymanics' }" @click.stop="JumpBtn(2)">
-          <view class="fabulous-image fabulous-taoxin" @click.stop="fabulousBtn(index)">
-            <image src="/static/heart-active.png" class="fabulous-image" v-if="item.fabulousShow"></image>
+				<view class="fabulous pointer-events-auto" :class="{ isHidden: activeType !== 'dynamics' }" @click.stop="JumpBtn(2)">
+          <view class="fabulous-image fabulous-taoxin pointer-events-auto" @click.stop="fabulousBtn(item.liked)">
+            <image src="/static/heart-active.png" class="fabulous-image" v-if="item.liked"></image>
             <image src="/static/heart.png" mode="" class="fabulous-image" v-else></image>
           </view>
-					<view class="fabulous-num">{{vodCurIndex}}</view>
+					<view class="fabulous-num">{{ item.likeCount || 0 }}</view>
 				</view>
 				<!-- 评论 -->
-				<view class="fabulous" :class="{ isHidden: activeType !== 'dymanics' }" style="margin-top: 30rpx;" @click.stop="JumpBtn(3)">
+				<view class="fabulous pointer-events-auto" :class="{ isHidden: activeType !== 'dynamics' }" style="margin-top: 30rpx;" @click.stop="JumpBtn(3)">
 					<view class="fabulous-image">
 						<image src="/static/comment.png" mode="" class="fabulous-image"></image>
 					</view>
-					<view class="fabulous-num">{{discussNum}}</view>
+					<view class="fabulous-num">{{ item.commentCount || 0 }}</view>
 				</view>
 				<!-- 转发 -->
-				<view class="fabulous" style="margin-top: 30rpx;" @click.stop="JumpBtn(4)">
+				<view class="fabulous pointer-events-auto" style="margin-top: 30rpx;" @click.stop="JumpBtn(4)">
 					<view class="fabulous-image">
 						<image src="/static/forward-arrow.png" mode="" class="fabulous-image"></image>
 					</view>
@@ -59,7 +60,7 @@
 	export default{
 		data(){
 			return {
-				fabulousShow:false,
+				followed:false,
 				fabuTimeOut:null
 			}
 		},
@@ -104,6 +105,10 @@
       params: {
         type: Object,
         default: () => {}
+      },
+      hasDetail: { // 是否是详情页
+				type: Boolean,
+				default: false
       }
 		},
     watch: {
@@ -111,10 +116,29 @@
         console.log(JSON.stringify(val))
       }
     },
-    mounted() {},
+    computed: {
+      footTitle() {
+        if (this.activeType === 'dynamics') {
+          if (this.hasDetail) {
+            
+          }
+          return this.item?.moment?.title || ''
+        } else {
+          return this.item.location 
+        }
+      },
+      dyContent() {
+        if (this.activeType === 'dynamics') {
+          if (this.hasDetail) {
+            return this.item.content
+          }
+          return this.item?.moment?.content || ''
+        }
+        return ''
+      }
+    },
     methods:{
       handleDetail() {
-        console.log(this.item)
         uni.navigateTo({
           url: '/pages/activity-detail/activity-detail?id=' + this.item.indexId
         })
@@ -122,7 +146,7 @@
 			/* 视频点赞动效 */
 			fabulousBtn(index){
 				let obj = Object.assign({},this.item)
-				obj.fabulousShow = !obj.fabulousShow
+				obj.followed = !obj.followed
 				clearTimeout(this.fabuTimeOut)
 				this.fabuTimeOut = setTimeout(()=>{
 					this.$emit('handleInfo',obj)  //点赞成功
@@ -157,12 +181,16 @@
 </script>
 
 <style lang="scss" scoped>
+  .pointer-events-auto {
+    pointer-events: auto;
+  }
   .menu-list {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     top: 0;
+    pointer-events: none;
     .header-local {
       display: flex;
       align-items: center;
@@ -276,14 +304,16 @@
 		transition: all 0.2s linear;
 		transform: scale(0.7);
 	}
+  .isDetail .footTitle {
+    bottom: 210rpx;
+  }
 	/* 底部标题部分 */
 	.footTitle{
 		position: absolute;
 		bottom: 20px;
 		left: 0;
 		z-index: 8;
-		width: 500rpx;
-		margin-left: 30rpx;
+    padding: 0 32rpx;
     .location {
       display: flex;
       align-items: center;
@@ -304,6 +334,7 @@
   .v-title-wrap {
     display: flex;
     align-items: center;
+    margin-bottom: 24rpx;
     .foot-name{
       font-size: 32rpx;
       font-weight: 500;
@@ -326,6 +357,18 @@
     color: #FFFFFF;
     margin: 20rpx 0 24rpx;
 	}
+  .content {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding-right: 160rpx;
+    margin-bottom: 24rpx;
+    font-size: 28rpx;
+    font-weight: 400;
+    color: #FFFFFF;
+  }
 	.foot-primary{
 		font-size: 27rpx;
 		color: #FFFFFF;

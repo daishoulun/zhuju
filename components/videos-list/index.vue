@@ -10,6 +10,9 @@
           class="video-box"
           v-for="(item, index) in list"
           :key="item.indexId"
+          :style="{
+            background: item.type === 2 && item.moment && item.moment.contentType === 3 ? item.moment.bgColor : ''
+          }"
           @click="handleClick(item)"
         >
           <template v-if="currentIndex === index">
@@ -39,10 +42,10 @@
                 <image class="img" :src="img" mode="widthFix"></image>
               </swiper-item>
             </swiper>
-            <text v-else>{{ item.con }}</text>
+            <view v-else class="text-content">{{ item.content }}</view>
             <menu-list
               :item="item"
-              :params="params"
+              :activeType="activeType"
               @click-transfer="val => $emit('click-transfer', val)"
             ></menu-list>
           </template>
@@ -64,10 +67,10 @@
         type: Array,
         default: () => []
       },
-      params: {
-        type: Object,
-        default: () => {}
-      }
+      activeType: {
+        type: String,
+        default: 'recommend'
+      },
     },
     data() {
       return {
@@ -76,6 +79,19 @@
       }
     },
     methods: {
+      setPageStyle(item) {
+        if (item.type === 2) {
+          const data = item.moment
+          if (data.contentType === 3) {
+            return {
+              background: item.moment.bgColor
+            }
+          }
+        }
+        return {
+          background: 'transparent'
+        }
+      },
       swiperChange(e) {
         this.currentIndex = e.detail.current
         this.isPlay = false
@@ -136,6 +152,13 @@
         }
       }
     }
+  }
+  .text-content {
+    font-size: 48rpx;
+    font-weight: 600;
+    color: #201F2C;
+    line-height: 66rpx;
+    padding: 0 128rpx;
   }
 }
 </style>

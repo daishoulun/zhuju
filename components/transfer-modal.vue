@@ -45,13 +45,6 @@
         this.$emit('close')
       }
     },
-    // onShareAppMessage() {
-    //   return {
-    //     title: '',
-    //     path: '',
-    //     imageUrl: '',
-    //   }
-    // }
   }
 </script>
 

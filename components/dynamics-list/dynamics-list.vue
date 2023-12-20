@@ -1,8 +1,8 @@
 <template>
   <view class="dynamics-list">
-    <view v-for="item in list" :key="item.momentId" class="dynamics-item" :style="{ backgroundImage: 'url(' + setCoverUrl(item) + ')'}">
+    <view v-for="item in list" :key="item.momentId" class="dynamics-item" :style="{ backgroundImage: 'url(' + setCoverUrl(item) + ')'}" @click="handleDetail(item.momentId)">
       <view class="like">
-        <image class="like-icon" :src="item.liked ? '../../static/like-active.png' : '../../static/like.png'" @click="handleLike(item)"></image>
+        <image class="like-icon" :src="item.liked ? '../../static/like-active.png' : '../../static/like.png'" @click.stop="handleLike(item)"></image>
         {{ item.likeCount || 0 }}
       </view>
     </view>
@@ -23,6 +23,11 @@
       };
     },
     methods: {
+      handleDetail(id) {
+        uni.navigateTo({
+          url: '/pages/dynamics-detail/dynamics-detail?id=' + id
+        })
+      },
       handleLike(item) {
         this.$emit('click-like', item)
       },

@@ -1,13 +1,13 @@
 <template>
   <view class="home">
-    <view class="tabbar">
+    <view class="tabbar" :style="{ top: tabbarTop + 'px' }">
       <text
        v-for="item in tabList"
        :key="item.key"
        :class="active === item.key ? 'active' : ''"
        @click="handleTabbar(item.key)">{{ item.label }}</text>
     </view>
-    <videos-list :list="vodList" :params="listQuery" @click-transfer="clickTransfer"></videos-list>
+    <videos-list :list="vodList" :params="listQuery" :activeType="active" @click-transfer="clickTransfer"></videos-list>
     <UserAgreement v-if="userAgreementModalVisible" @close="userAgreementModalVisible = flase"></UserAgreement>
     <LoginModal v-if="loginModalVisible" @close="loginModalVisible = flase"></LoginModal>
     <CommentPopup v-if="commentPopupVisible" ref="commentList" @close="commentPopupVisible = false"></CommentPopup>
@@ -26,6 +26,7 @@ import {
   fetchFollowList,
   fetchMomentList
 } from '@/api/index.js'
+import disTopHeight from '@/mixins/disTopHeight'
 export default{
   components:{
     // twVideov,
@@ -35,6 +36,7 @@ export default{
     LoginModal,
     TransferModal
   },
+  mixins: [disTopHeight],
   data(){
     return {
       commentPopupVisible: false,
@@ -45,7 +47,7 @@ export default{
       tabList: [
         { key: 'recommend', label: '推荐' },
         { key: 'follow', label: '关注' },
-        { key: 'dymanics', label: '动态' },
+        { key: 'dynamics', label: '动态' },
       ],
       listQuery: {
         lon: '',
@@ -53,12 +55,18 @@ export default{
         current: 1,
         pageSize: 10
       },
-      vodList: []
+      vodList: [],
+    }
+  },
+  computed: {
+    tabbarTop() {
+      const space = (this.navBarHeight - 20) / 2
+      return space + this.statusBarHeight
     }
   },
   onLoad() {
-        this.listQuery.lon = 116.4
-        this.listQuery.lat = 39.9
+    this.listQuery.lon = 116.4
+    this.listQuery.lat = 39.9
     // uni.getLocation({
       // type: 'wgs84',
       // success: res => {
@@ -97,8 +105,17 @@ export default{
             item.mediaType = 'video'
           }
         } else if (item.type === 2) {
-          item.mediaType = 'text'
-          item.content = item.moment.content
+          const data = item.moment
+          item.content = data.content
+          item.imgList = data.momentUrls
+          // activityFileType 封面类型 1：图片，2：视频
+          if (data.contentType === 1) {
+            item.mediaType = 'img'
+          } else if (data.contentType === 2) {
+            item.mediaType = 'video'
+          } else {
+            item.mediaType = 'text'
+          }
         }
         return item
       })
@@ -114,7 +131,6 @@ export default{
     async getFollowList() {
       const res = await fetchFollowList(this.listQuery)
       if (res.code === 0) {
-        this.initVod(res.data.list || [])
       } else {
         this.$showToast(res.msg)
       }
@@ -122,7 +138,8 @@ export default{
     async getTrendsList() {
       const res = await fetchMomentList(this.listQuery)
       if (res.code === 0) {
-        this.initVod(res.data.list || [])
+        this.vodList = this.formatVideoData(res.data.list)
+        console.log(this.vodList)
       } else {
         this.$showToast(res.msg)
       }
@@ -190,10 +207,10 @@ page{
     position: relative;
     .tabbar {
       position: absolute;
-      top: 108rpx;
       left: 32rpx;
       z-index: 999;
       color: #fff;
+      height: 20px;
       text {
         margin-right: 64rpx;
         font-size: 32rpx;
