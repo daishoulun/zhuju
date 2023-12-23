@@ -11,7 +11,7 @@
           v-for="(item, index) in list"
           :key="item.indexId"
           :style="{
-            background: item.type === 2 && item.moment && item.moment.contentType === 3 ? item.moment.bgColor : ''
+            background: setPageBg(item)
           }"
           @click="handleClick(item)"
         >
@@ -23,7 +23,7 @@
               :src="item.videoUrl"
               :controls="false"
               :show-center-play-btn="false"
-              object-fit="fill"
+              object-fit="cover"
               autoplay
               @play="videoPlay"
               @pause="videoPause"
@@ -47,6 +47,10 @@
               :item="item"
               :activeType="activeType"
               @click-transfer="val => $emit('click-transfer', val)"
+              @click-toggle="val => $emit('click-toggle', val)"
+              @click-follow="val => $emit('click-follow', val)"
+              @click-liked="val => $emit('click-liked', val)"
+              @click-comment="val => $emit('click-comment', val)"
             ></menu-list>
           </template>
         </swiper-item>
@@ -60,7 +64,7 @@
   export default {
     name:"videos-list",
     components: {
-      MenuList
+      MenuList,
     },
     props: {
       list: {
@@ -75,21 +79,21 @@
     data() {
       return {
         isPlay: false, // 视频是否正在播放
-        currentIndex: 0
+        currentIndex: 0,
+      }
+    },
+    watch: {
+      activeType(val) {
+        this.currentIndex = 0
       }
     },
     methods: {
-      setPageStyle(item) {
-        if (item.type === 2) {
-          const data = item.moment
-          if (data.contentType === 3) {
-            return {
-              background: item.moment.bgColor
-            }
-          }
-        }
-        return {
-          background: 'transparent'
+      setPageBg(item) {
+        const data = this.list[this.currentIndex]
+        if (item.type === 2 && item.moment && item.moment.contentType === 3) {
+          return item.moment.bgColor
+        } else {
+          return ''
         }
       },
       swiperChange(e) {
@@ -114,7 +118,7 @@
             videoContext.play()
           }
         }
-      }
+      },
     }
   }
 </script>
@@ -147,6 +151,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        height: 100%;
         .img {
           width: 100%;
         }

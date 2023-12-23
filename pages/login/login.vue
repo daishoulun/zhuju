@@ -1,5 +1,5 @@
 <template>
-  <view class="login-page" style="background-image: url('/static/start-bg.png');">
+  <view class="login-page">
     <image src="/static/logo.png"></image>
     <view class="name">煮桔</view>
     <view class="btn-box">
@@ -44,6 +44,7 @@
   height: 100vh;
   background-size: cover;
   text-align: center;
+  background-image: url('http://atta.juzitang.net/ocbg.png');
   image {
     width: 176rpx;
     height: 180rpx;

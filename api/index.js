@@ -23,3 +23,19 @@ export const fetchMomentList = data =>  {
     data
   })
 }
+
+export const fetchCommentList = data => {
+  return request({
+    url: '/moment/comment/list',
+    method: 'POST',
+    data
+  })
+}
+
+export const sendComment = data => {
+  return request({
+    url: '/moment/comment/create',
+    method: 'POST',
+    data
+  })
+}

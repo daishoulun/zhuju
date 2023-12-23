@@ -8,7 +8,7 @@
     <view class="person-main">
       <view class="user-header">
         <view class="avatar">
-          <image :src="avatar"></image>
+          <image :src="avatar" mode="aspectFill"></image>
         </view>
         <view class="user-data">
           <view class="data-item" @click="handleLike('like')">
