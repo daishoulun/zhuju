@@ -62,7 +62,7 @@
 
 <style lang="scss" scoped>
 .set-info {
-  height: calc(100vh - 88rpx);
+  height: 100vh;
   background: #181818;
   padding: 88rpx 70rpx 0;
   box-sizing: border-box;

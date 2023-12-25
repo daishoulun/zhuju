@@ -122,7 +122,7 @@
 
 <style lang="scss" scoped>
 .account-safe {
-  height: calc(100vh - 88rpx);
+  height: 100vh;
   background: #181818;
   .old-phone {
     padding: 40rpx 32rpx 60rpx;

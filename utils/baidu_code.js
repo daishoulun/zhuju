@@ -1,4 +1,4 @@
-[
+export const cityData = [
   {
     "id": 1,
     "bd_code": "33",

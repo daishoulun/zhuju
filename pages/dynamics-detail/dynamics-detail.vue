@@ -1,6 +1,6 @@
 <template>
   <view class="dynamics-detail">
-    <view id="back" :style="{
+    <view class="back" :style="{
       top: tabbarTop + 'px'
     }" @click="handleBack">
       <image class="back-icon" src="/static/arrow-l.png"></image>
@@ -15,7 +15,7 @@
           v-for="img in detail.contentUrlList"
           :key="img"
         >
-          <image class="img" :src="img" mode="widthFix"></image>
+          <image class="img" :src="img" mode="aspectFill"></image>
         </swiper-item>
       </swiper>
       <video
@@ -37,23 +37,37 @@
       :item="detail"
       :hasDetail="true"
       activeType="dynamics"
-      @click-transfer="val => $emit('click-transfer', val)"
+      @click-transfer="clickTransfer"
+      @click-liked="clickLiked"
+      @click-comment="clickComment"
+      @click-follow="clickFollow"
+      @click-toggle="clickToggle"
     ></menu-list>
+    <CommentPopup v-if="commentPopupVisible" ref="commentList" @comment-success="getDetail" @close="commentPopupVisible = false"></CommentPopup>
+    <TransferModal v-if="transferPopupVisible" ref="transferModal" @close="transferPopupVisible = false"></TransferModal>
   </view>
 </template>
 
 <script>
   import MenuList from '@/components/videos-list/menu-list.vue'
-  import { queryDynamicsDetail } from '@/api/dynamics-detail.js'
   import disTopHeight from '@/mixins/disTopHeight'
+  import CommentPopup from '@/components/comment-popup.vue'
+  import TransferModal from '@/components/transfer-modal.vue'
+  import { queryDynamicsDetail } from '@/api/dynamics-detail.js'
+  import { createLike, cancelLike } from '@/api/person-center.js'
+  import { createFollow, cancelFollow } from '@/api/fans-list.js'
   export default {
     components: {
-      MenuList
+      MenuList,
+      CommentPopup,
+      TransferModal
     },
     mixins: [disTopHeight],
     data() {
       return {
         id: '',
+        commentPopupVisible: false,
+        transferPopupVisible: false,
         detail: {},
         arrowHeight: 0,
         isPlay: false
@@ -71,7 +85,7 @@
     },
     onReady() {
       const query = uni.createSelectorQuery().in(this);
-      query.select('#back').boundingClientRect(data => {
+      query.select('.back').boundingClientRect(data => {
         this.arrowHeight = data.height
       }).exec();
     },
@@ -85,7 +99,84 @@
           }
         })
       },
-      
+      clickTransfer() {
+        this.transferPopupVisible = true
+        this.$nextTick(() => {
+          this.$refs.transferModal.open()
+        })
+      },
+      clickToggle(item) {
+        this.currentItem = item
+        this.dyDetailModalShow = true
+        this.$nextTick(() => {
+          this.$refs.dyDetailModalRef.open()
+        })
+      },
+      clickLiked(item) {
+        if (item.liked) {
+          this.cancelLiked(item)
+        } else {
+          this.createLiked(item)
+        }
+      },
+      clickFollow(item) {
+        if (item.followed) {
+          this.cancelFollow(item)
+        } else {
+          this.createFollow(item)
+        }
+      },
+      // 取消点赞
+      cancelLiked({ momentId }) {
+        cancelLike({ momentId }).then(res => {
+          if (res.code === 0) {
+            this.getDetail()
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
+      // 点赞
+      createLiked({ momentId }) {
+        createLike({ momentId }).then(res => {
+          if (res.code === 0) {
+            this.getDetail()
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
+      // 点击评论
+      clickComment(item) {
+        console.log(item)
+        this.commentPopupVisible = true
+        this.$nextTick(() => {
+          console.log(this.$refs)
+          this.$refs.commentList.open(item)
+        })
+      },
+      // 取消关注
+      cancelFollow({ userId, indexId }) {
+        cancelFollow({ userId }).then(res => {
+          if (res.code === 0) {
+            this.$showToast('取关成功')
+            this.getDetail()
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
+      // 关注
+      createFollow({ userId, indexId }) {
+        createFollow({ userId }).then(res => {
+          if (res.code === 0) {
+            this.$showToast('关注成功')
+            this.getDetail()
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
       videoPlay() {
         this.isPlay = true
       },
@@ -118,7 +209,7 @@
   width: 100%;
   height: 100vh;
   background-color: #181818;
-  #back {
+  .back {
     position: absolute;
     left: 32rpx;
     height: 44rpx;
@@ -143,6 +234,7 @@
       height: 100%;
       .img {
         width: 100%;
+        height: 100%;
       }
     }
   }

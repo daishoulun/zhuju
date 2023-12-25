@@ -30,7 +30,6 @@ import {
   fetchFollowList,
   fetchMomentList
 } from '@/api/index.js'
-
 import { createLike, cancelLike } from '@/api/person-center.js'
 import { createFollow, cancelFollow } from '@/api/fans-list.js'
 import disTopHeight from '@/mixins/disTopHeight'
@@ -283,6 +282,9 @@ export default {
         }
       })
     }
+  },
+  onReachBottom() {
+    console.log('reach')
   }
 }
 </script>

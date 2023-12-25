@@ -2,22 +2,22 @@
   <view class="menu-list" :class="{ isDetail: hasDetail }">
     <view v-if="!hasDetail" class="header-local">
       <image src="/static/location.png" mode=""></image>
-      <text class="area">杭州</text>
+      <text class="area">杭州-{{ isDynamics }}</text>
     </view>
     <!-- 底部标题 -->
-    <view v-if="!(activeType === 'dynamics' && item.moment && item.moment.contentType === 3)" class="footTitle"
+    <view v-if="!(isDynamics && item.moment && item.moment.contentType === 3)" class="footTitle"
       :class="[vodIndex == index ? (sliderDrag ? 'vodMenu-bright1' : (moveOpacity ? 'vodMenu-bright2' : 'vodMenu-bright0')) : '']">
       <view class="v-title-wrap">
         <text class="foot-name">{{ footTitle }}</text>
-        <text v-if="activeType !== 'dynamics'" class="detail pointer-events-auto" @click.stop="handleDetail">详情</text>
-        <image v-if="activeType !== 'dynamics'" class="arrow-r" src="/static/arrow-r.png"></image>
+        <text v-if="!isDynamics" class="detail pointer-events-auto" @click.stop="handleDetail">详情</text>
+        <image v-if="!isDynamics" class="arrow-r" src="/static/arrow-r.png"></image>
       </view>
       <view v-if="item.activity" class="foot-cont">{{ item.activity.startTime }} - {{ item.activity.endTime }}</view>
-      <view v-if="activeType === 'dynamics'" id="content" class="content">
+      <view v-if="isDynamics" id="content" class="content">
         {{ formatDyContent }}
         <text v-if="dyContent.length > 32" class="pointer-events-auto" style="margin-left: 16rpx" @click.stop="handleToggleText">展开</text>
       </view>
-      <view v-if="activeType !== 'dynamics'" class="location">
+      <view v-if="!isDynamics" class="location">
         <image src="/static/location.png" mode=""></image>
         <text>{{ item.location }} · {{ item.distance | distanceFilter }}</text>
       </view>
@@ -30,13 +30,13 @@
         <view class="menu-avatar">
           <image :src="item.avatar" mode="aspectFill" class="avatar-image pointer-events-auto"
             @click.stop="clickAvatar"></image>
-          <view v-if="activeType === 'dynamics'" class="follow pointer-events-auto" @click.stop="clickFollow">
+          <view v-if="isDynamics" class="follow pointer-events-auto" @click.stop="clickFollow">
             <image src="/static/add-like.png" mode="" class="follow-guanzhu" v-if="!item.followed"></image>
             <image src="/static/has-like.png" mode="" class="follow-guanzhu guanzhu-gou" v-else></image>
           </view>
         </view>
         <!-- 点赞 -->
-        <view class="fabulous pointer-events-auto" :class="{ isHidden: activeType !== 'dynamics' }"
+        <view class="fabulous pointer-events-auto" :class="{ isHidden: !isDynamics }"
           @click.stop="clickLike">
           <view class="fabulous-image fabulous-taoxin pointer-events-auto">
             <image src="/static/heart-active.png" class="fabulous-image" v-if="item.liked || item.moment.liked"></image>
@@ -45,12 +45,12 @@
           <view class="fabulous-num">{{ (item.moment && item.moment.likeNum) || item.likeCount || 0 }}</view>
         </view>
         <!-- 评论 -->
-        <view class="fabulous pointer-events-auto" :class="{ isHidden: activeType !== 'dynamics' }"
+        <view class="fabulous pointer-events-auto" :class="{ isHidden: !isDynamics }"
           style="margin-top: 30rpx;" @click.stop="clickComment">
           <view class="fabulous-image">
             <image src="/static/comment.png" mode="" class="fabulous-image"></image>
           </view>
-          <view class="fabulous-num">{{ item.commentCount || 0 }}</view>
+          <view class="fabulous-num">{{ (item.moment && item.moment.commentNum) || item.commentCount || 0 }}</view>
         </view>
         <!-- 转发 -->
         <view class="fabulous pointer-events-auto" style="margin-top: 30rpx;" @click.stop="clickTransfer">
@@ -120,8 +120,11 @@ export default {
     }
   },
   computed: {
+    isDynamics() {
+      return this.activeType === 'dynamics' || this.item.type === 2
+    },
     footTitle() {
-      if (this.activeType === 'dynamics') {
+      if (this.isDynamics) {
         if (this.hasDetail) {
 
         }
@@ -132,7 +135,7 @@ export default {
     },
     // 动态 文字内容
     dyContent() {
-      if (this.activeType === 'dynamics') {
+      if (this.isDynamics) {
         if (this.hasDetail) {
           return this.item.content
         }
@@ -141,6 +144,9 @@ export default {
       return ''
     },
     formatDyContent() {
+      if (!this.dyContent) {
+        return ''
+      }
       if (this.dyContent.length > 32) {
         return this.dyContent.substring(0, 32) + '...'
       } else {
@@ -150,6 +156,9 @@ export default {
   },
   methods: {
     handleDetail() {
+      if (this.hasDetail) {
+        return
+      }
       uni.navigateTo({
         url: '/pages/activity-detail/activity-detail?id=' + this.item.indexId
       })
@@ -167,6 +176,9 @@ export default {
       this.$emit('click-transfer')
     },
     clickAvatar() {
+      if (this.hasDetail) {
+        return
+      }
       uni.navigateTo({
         url: '/pages/person-detail/person-detail?id=' + this.item.userId
       })

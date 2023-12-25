@@ -179,7 +179,7 @@
 
 <style lang="scss">
 .set-info {
-  height: calc(100vh - 88rpx);
+  height: 100vh;
   background: #181818;
 }
 .set-avatar {

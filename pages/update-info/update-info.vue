@@ -137,7 +137,7 @@
 
 <style lang="scss">
 .update-info {
-  height: calc(100vh - 88rpx);
+  height: 100vh;
   box-sizing: border-box;
   padding-top: 88rpx;
   background: #181818;

@@ -18,7 +18,7 @@
 
 <style lang="scss" scoped>
 .protocol-policy {
-  height: calc(100vh - 88rpx);
+  height: 100vh;
   background-color: #181818;
   padding: 24rpx 32rpx;
   box-sizing: border-box;

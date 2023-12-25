@@ -1,12 +1,14 @@
 <template>
   <view class="comment-pop">
-    <uni-popup ref="popup" background-color="#181818">
+    <uni-popup ref="popup" background-color="#181818" @maskClick="close">
       <view class="comment-list-wrap">
         <view class="comment-header">
           {{ total }}条评论
           <image class="close" src="/static/close.png" mode="" @click="close"></image>
         </view>
-        <CommentList :detail="currentItem" :has-sub="true" :list="commentList" @comment-success="commentSuccess"></CommentList>
+        <view class="comment-con">
+          <CommentList :detail="currentItem" :has-sub="true" :list="commentList" @comment-success="commentSuccess"></CommentList>
+        </view>
       </view>
     </uni-popup>
   </view>
@@ -36,17 +38,22 @@ export default {
     open(item) {
       this.$refs.popup.open('bottom')
       this.currentItem = item
-      this.listQuery.momentId = item.indexId
+      this.listQuery.momentId = item.indexId || item.momentId
       this.getList()
     },
     async getList() {
       const res = await fetchCommentList(this.listQuery)
-      this.commentList = res.data.commentList
-      this.total = res.data.total
+      if (res.code === 0) {
+        this.commentList = res.data.commentList
+        this.total = res.data.total
+      } else {
+        this.$showToast(res.msg)
+      }
     },
     commentSuccess() {
       this.listQuery.current = 1
       this.getList()
+      this.$emit('comment-success')
     },
     close() {
       this.$emit('close')
@@ -70,7 +77,6 @@ export default {
     position: relative;
     height: 70vh;
     border-radius: 48rpx 48rpx 0rpx 0rpx;
-    overflow-y: auto;
     font-size: 28rpx;
     font-weight: 500;
     color: #FFFFFF;
@@ -95,8 +101,11 @@ export default {
         transform: translateY(-50%);
       }
     }
-
+    .comment-con {
+      height: 100%;
+    }
   }
+
   .no-comment {
     text-align: center;
     margin-top: 100rpx;

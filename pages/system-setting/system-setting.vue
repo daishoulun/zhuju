@@ -1,6 +1,6 @@
 <template>
   <view class="system-setting">
-    <FormItem label="隐私政策" @click-label="handleLabel('privacy')">&nbsp;</FormItem>
+    <FormItem label="隐私政策" @click-label="handleLabel('privacy')"><text></text></FormItem>
     <FormItem label="用户服务" @click-label="handleLabel('userService')">&nbsp;</FormItem>
     <FormItem label="关于我们" @click-label="handleLabel('about')">&nbsp;</FormItem>
   </view>
@@ -29,7 +29,7 @@
 
 <style lang="scss" scoped>
 .system-setting {
-  height: calc(100vh - 88rpx);
+  height: 100vh;
   background-color: #181818;
   ::v-deep .form-item .label {
     color: #fff;

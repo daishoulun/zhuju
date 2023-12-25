@@ -52,7 +52,7 @@
       <view class="active-wrap">
         <template v-if="total > 0">
           <ActiveList v-if="active === 'active'" :list="list"></ActiveList>
-          <DynamicsList v-else-if="active === 'dynamics'" :list="list" @click-like="handleLike"></DynamicsList>
+          <DynamicsList v-else-if="active === 'dynamics'" :list="list" @click-like="clickLike"></DynamicsList>
         </template>
         <view v-else class="empty-state">
           <image src="/static/empty.png" mode=""></image>
@@ -69,14 +69,6 @@
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
   import AccountSetting from '@/components/account-setting.vue'
   import { fetchUserInfo, getProfile, getActivityList, getMomentList, createLike, cancelLike } from '@/api/person-center.js'
-  // import PinyinUtils from '@/utils/pinUtils.js'
-  // // 获取拼音
-  // console.log(PinyinUtils.chineseToPinYin('张三'))
-  // // ZHANGSAN
-  // // ===============
-  // // 获取首字母
-  // console.log(PinyinUtils.chineseToPinYinFirst('安庆市'))
-  // ZS
 	export default {
     components: {
       ActiveList,
@@ -213,7 +205,7 @@
           url: '/pages/login/login'
         })
       },
-      handleLike(item) {
+      clickLike(item) {
         if (item.liked) {
           this.cancelLike(item.momentId)
         } else {

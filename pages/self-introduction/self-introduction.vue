@@ -53,7 +53,7 @@
 
 <style lang="scss">
 .self-introduction {
-  height: calc(100vh - 88rpx);
+  height: 100vh;
   box-sizing: border-box;
   background: #181818;
   padding: 56rpx 32rpx;

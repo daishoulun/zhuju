@@ -37,7 +37,7 @@
               <view>
                 <image src="/static/comment.png"></image>
               </view>
-              <text>{{ item.commentNum || 0 }}</text>
+              <text>{{ item.moment.commentNum || 0 }}</text>
             </view>
             <view class="fun-item" @click="clickTransfer">
               <view>

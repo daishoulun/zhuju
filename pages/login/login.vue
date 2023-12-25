@@ -42,9 +42,10 @@
 .login-page {
   width: 100%;
   height: 100vh;
-  background-size: cover;
   text-align: center;
-  background-image: url('http://atta.juzitang.net/ocbg.png');
+  background: url('http://atta.juzitang.net/ocbg.png');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
   image {
     width: 176rpx;
     height: 180rpx;

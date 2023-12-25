@@ -1,6 +1,6 @@
 <template>
   <view class="fans-list">
-    <view class="tabbar">
+    <view class="tabbar" :style="{ top: tabbarTop + 'px' }">
       <image class="arrow-l" src="/static/arrow-l.png" mode="" @click="handleBack"></image>
       <view class="tabbar-con">
         <text
@@ -14,7 +14,7 @@
         >{{ item.name }}</text>
       </view>
     </view>
-    <view class="fans-main">
+    <view class="fans-main" :style="{ marginTop: tabbarTop + 'px' }">
       <view class="search-bar">
         <image class="search-icon" src="/static/search.png"></image>
         <input type="text" confirm-type="search" placeholder="搜索粉丝" @input="searchList" />
@@ -26,7 +26,7 @@
           :key="item.id"
         >
           <view class="avatar">
-            <image :src="item.avatar" mode=""></image>
+            <image :src="item.avatar" mode="aspectFill"></image>
           </view>
           <view class="content">
             <view class="name">{{ item.nickName }}</view>
@@ -44,9 +44,9 @@
 
 <script>
   import { fetchFansList, fetchFollowList, fetchFirendList, createFollow, cancelFollow } from '@/api/fans-list.js'
-  
-  
+  import disTopHeight from '@/mixins/disTopHeight'
   export default {
+    mixins: [disTopHeight],
     data() {
       return {
         type: '',
@@ -66,6 +66,12 @@
         loading: false,
         timer: null
       };
+    },
+    computed: {
+      tabbarTop() {
+        const space = (this.navBarHeight - 44) / 2
+        return space + this.statusBarHeight
+      }
     },
     async onLoad(opt) {
       this.type = opt.type

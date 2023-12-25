@@ -99,6 +99,9 @@
       swiperChange(e) {
         this.currentIndex = e.detail.current
         this.isPlay = false
+        if (this.currentIndex + 1 === this.list.length) {
+          this.$emit('load-data')
+        }
       },
       videoPlay() {
         this.isPlay = true

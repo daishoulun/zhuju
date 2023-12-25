@@ -1,18 +1,19 @@
 <template>
   <view class="activity-list">
-    <StatusBarPlace></StatusBarPlace>
-    <view class="logo">
-      opening
+    <view class="logo" :style="{ top: imgTop + 'px' }">
+      <image src="/static/opening.png"></image>
     </view>
-    <uni-swiper-dot class="uni-swiper-dot-box" @clickItem=clickItem :info="bannerList" :current="current" mode="default"
-      :dots-styles="dotsStyles" field="content">
-      <swiper class="swiper-box" @change="change" :current="swiperDotIndex">
-        <swiper-item v-for="(item, index) in bannerList" :key="index">
-          <view class="swiper-item" :class="'swiper-item' + index" :style="{ backgroundImage: 'url(' + item.bannerImgUrl + ')' }" @click="handleBanner(item.bannerJumpUrl)">
-          </view>
-        </swiper-item>
-      </swiper>
-    </uni-swiper-dot>
+    <view class="banner-list">
+      <uni-swiper-dot class="uni-swiper-dot-box" @clickItem=clickItem :info="bannerList" :current="current" mode="default"
+        :dots-styles="dotsStyles" field="content">
+        <swiper class="swiper-box" @change="change" :current="swiperDotIndex">
+          <swiper-item v-for="(item, index) in bannerList" :key="index">
+            <view class="swiper-item" :class="'swiper-item' + index" :style="{ backgroundImage: 'url(' + item.bannerImgUrl + ')' }" @click="handleBanner(item.bannerJumpUrl)">
+            </view>
+          </swiper-item>
+        </swiper>
+      </uni-swiper-dot>
+    </view>
     <view class="activity-main">
       <view class="activity-list-wrap" v-if="isLogin">
       <ActivityCard v-for="item in list" :activityData="item" :key="item.activityId" @click-card="handleCard"></ActivityCard>
@@ -28,13 +29,13 @@
 
 <script>
   import ActivityCard from '@/components/activity-card.vue'
-  import StatusBarPlace from '@/components/status-bar-place.vue'
+  import disTopHeight from '@/mixins/disTopHeight'
   import { fetchList } from '@/api/list.js'
   export default {
     components: {
       ActivityCard,
-      StatusBarPlace
     },
+    mixins: [disTopHeight],
     data() {
       return {
         isLogin: true,
@@ -60,6 +61,12 @@
         total: 0,
         loading: false
       };
+    },
+    computed: {
+      imgTop() {
+        const space = (this.navBarHeight - 20) / 2
+        return space + this.statusBarHeight
+      },
     },
     onShow() {
       this.getList()
@@ -124,13 +131,16 @@
 
 <style lang="scss" scoped>
   .logo {
-    background-image: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);;
-    -webkit-background-clip: text;
-    color: transparent;
-    font-size: 40rpx;
-    margin-top: 32rpx;
+    position: relative;
     padding-left: 32rpx;
     box-sizing: border-box;
+    image {
+      width: 142rpx;
+      height: 42rpx;
+    }
+  }
+  .banner-list {
+    margin-top: 62rpx;
   }
   .activity-list {
     height: 100vh;
