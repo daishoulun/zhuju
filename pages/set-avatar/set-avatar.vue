@@ -1,5 +1,5 @@
 <template>
-  <view class="set-info">
+  <view v-if="pageShow" class="set-info">
     <view v-if="type === 'setAvatar'" class="set-avatar">
       <view class="avatar">
         <image class="header" :src="form.avatar ? form.avatar : '../../static/avatar-set.png'"></image>
@@ -58,7 +58,7 @@
 
 <script>
   import { register, getAliInfo } from '@/api/login.js'
-  import { access } from 'fs';
+import { generateRandomString } from '@/utils/index'
   export default {
     data() {
       return {
@@ -68,7 +68,8 @@
           gender: '',
           nickName: ''
         },
-        type: 'setAvatar'
+        type: 'setAvatar',
+        pageShow: true
       };
     },
     computed: {
@@ -92,6 +93,13 @@
         return this.form.birthday ? this.form.birthday.split('-') : ['', '', '']
       }
     },
+    onLoad(s) {
+      uni.$on('setAvatar', async url => {
+        this.form.avatar = url
+        const authInfo = await getAliInfo({ token: uni.getStorageSync('T-token') })
+        this.uploadFile(authInfo.data, 'avatar', url)
+      })
+    },
     methods: {
       getDate(type) {
         const date = new Date();
@@ -109,15 +117,16 @@
         return `${year}-${month}-${day}`;
       },
       handlePic() {
-        uni.chooseImage({
+        uni.chooseMedia({
           count: 1,
+          mediaType: ['image'],
           success: async (res) => {
             const authInfo = await getAliInfo({ token: uni.getStorageSync('T-token') })
-            this.uploadFile(authInfo.data, res.tempFiles[0].name, res.tempFilePaths[0])
+            this.uploadFile(authInfo.data, 'setBg', res.tempFiles[0].tempFilePath, 'setBg')
           }
         })
       },
-      uploadFile(data, fileName, filePath) {
+      uploadFile(data, fileName, filePath, type) {
         const {
           accessid,
           dir,
@@ -126,20 +135,29 @@
           signature,
           urlAnchor
         } = data
+        const key = dir + fileName + generateRandomString()
         uni.uploadFile({
           url: host,
           filePath,
           name: 'file',
           formData: {
-            key: dir + fileName,
+            key,
             signature,
             policy,
             ossAccessKeyId: accessid,
           },
           success: (uploadFileRes) => {
-            this.form.avatar = urlAnchor + dir + fileName
-            console.log(this.form)
-            
+            if (type === 'setBg') {
+              uni.navigateTo({
+                url: `/pages/image-crop/image-crop?imageUrl=${urlAnchor + key}&type=circular&fromUrl=registry`
+              })
+            } else {
+              this.form.avatar = urlAnchor + key
+              this.pageShow = false
+              this.$nextTick(() => {
+                this.pageShow = true
+              })
+            }
           },
           fail: error => {
             console.log('error', error)

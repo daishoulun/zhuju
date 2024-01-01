@@ -56,7 +56,7 @@ export default {
   right: 0;
   bottom: 0;
   background: red;
-  z-index: 999;
+  z-index: 999999;
   background: rgba(0, 0, 0, .3);
 
   .transfer-wrap {

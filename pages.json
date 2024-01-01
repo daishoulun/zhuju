@@ -1,221 +1,203 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+  "pages": [
     {
-      "path" : "pages/start-page/start-page",
-      "style" : 
-      {
+      "path": "pages/start-page/start-page",
+      "style": {
         "navigationStyle": "custom"
       }
     },
-		{
-			"path": "pages/index/index",
-			"style": {
-        "navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/list/list",
-			"style": {
-				"navigationBarTitleText": "uni-app",
-        "navigationStyle": "custom"
-			}
-		},
-		{
-			"path" : "pages/person-center/person-center",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : true,
-        "navigationStyle": "custom"
-			}
-		},
-		{
-			"path" : "pages/attention/attention",
-			"style" : 
-			{
-				"navigationBarTitleText" : "关注列表",
-				"enablePullDownRefresh" : false
-			}
-		},
-		{
-		  "path" : "pages/skills-list/skills-list",
-		  "style" : 
-		  {
-		    "navigationBarTitleText" : "技能证书",
-        "navigationBarTextStyle": "white",
-        "backgroundColor": "#181818",
-		    "enablePullDownRefresh" : false
-		  }
-		},
     {
-      "path" : "pages/update-info/update-info",
-      "style" : 
-      {
-        "navigationBarTitleText" : "编辑资料",
+      "path": "pages/index/index",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/list/list",
+      "style": {
+        "navigationBarTitleText": "uni-app",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/person-center/person-center",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": true,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/attention/attention",
+      "style": {
+        "navigationBarTitleText": "关注列表",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/skills-list/skills-list",
+      "style": {
+        "navigationBarTitleText": "技能证书",
         "navigationBarTextStyle": "white",
         "backgroundColor": "#181818",
-        "enablePullDownRefresh" : false,
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/update-info/update-info",
+      "style": {
+        "navigationBarTitleText": "编辑资料",
+        "navigationBarTextStyle": "white",
+        "backgroundColor": "#181818",
+        "enablePullDownRefresh": false,
         "mp-weixin": {
           "backgroundColor": "#181818"
         }
       }
     },
     {
-      "path" : "pages/self-introduction/self-introduction",
-      "style" : 
-      {
-        "navigationBarTitleText" : "个人简介",
+      "path": "pages/self-introduction/self-introduction",
+      "style": {
+        "navigationBarTitleText": "个人简介",
         "navigationBarTextStyle": "white",
-        "enablePullDownRefresh" : false
+        "enablePullDownRefresh": false
       }
     },
     {
-      "path" : "pages/set-avatar/set-avatar",
-      "style" : 
-      {
-        "navigationBarTitleText" : "设置头像",
-        "enablePullDownRefresh" : false
+      "path": "pages/set-avatar/set-avatar",
+      "style": {
+        "navigationBarTitleText": "设置头像",
+        "enablePullDownRefresh": false
       }
     },
     {
-      "path" : "pages/person-detail/person-detail",
-      "style" : 
-      {
+      "path": "pages/person-detail/person-detail",
+      "style": {
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText" : "",
-        "enablePullDownRefresh" : false
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
       }
     },
     {
-      "path" : "pages/fans-list/fans-list",
-      "style" : 
-      {
+      "path": "pages/fans-list/fans-list",
+      "style": {
         "navigationStyle": "custom",
         "navigationBarTextStyle": "white",
         "onReachBottomDistance": 50,
-        "navigationBarTitleText" : "",
+        "navigationBarTitleText": "",
         "backgroundColor": "#181818",
-        "enablePullDownRefresh" : true
+        "enablePullDownRefresh": true
       }
     },
     {
-      "path" : "pages/account-safe/account-safe",
-      "style" : 
-      {
-		    "navigationBarTitleText" : "账号安全",
+      "path": "pages/account-safe/account-safe",
+      "style": {
+        "navigationBarTitleText": "账号安全",
         "navigationBarTextStyle": "white",
-        "enablePullDownRefresh" : false
+        "enablePullDownRefresh": false
       }
     },
     {
-      "path" : "pages/system-setting/system-setting",
-      "style" : 
-      {
+      "path": "pages/system-setting/system-setting",
+      "style": {
         "navigationBarTextStyle": "white",
-        "navigationBarTitleText" : "设置",
-        "enablePullDownRefresh" : false
+        "navigationBarTitleText": "设置",
+        "enablePullDownRefresh": false
       }
     },
     {
-    	"path" : "pages/protocol-policy/protocol-policy",
-    	"style" : 
-    	{
-			"navigationBarTextStyle": "white",
-    		"navigationBarTitleText" : "隐私政策",
-    		"enablePullDownRefresh" : false
-    	}
-    },
-    {
-      "path" : "pages/select-city/select-city",
-      "style" : 
-      {
-        "navigationBarTitleText" : "",
-        "enablePullDownRefresh" : false
+      "path": "pages/protocol-policy/protocol-policy",
+      "style": {
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "隐私政策",
+        "enablePullDownRefresh": false
       }
     },
     {
-      "path" : "pages/login/login",
-      "style" : 
-      {
+      "path": "pages/select-city/select-city",
+      "style": {
         "navigationStyle": "custom",
-        "enablePullDownRefresh" : false
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
       }
     },
     {
-      "path" : "pages/login-form/login-form",
-      "style" : 
-      {
-        "navigationBarTitleText" : "",
-        "enablePullDownRefresh" : false
-      }
-    },
-    {
-      "path" : "pages/activity-detail/activity-detail",
-      "style" : 
-      {
-        "navigationBarTitleText" : "",
-        "enablePullDownRefresh" : false
-      }
-    },
-    {
-      "path" : "pages/image-crop/image-crop",
-      "style" : 
-      {
+      "path": "pages/login/login",
+      "style": {
         "navigationStyle": "custom",
-        "enablePullDownRefresh" : false
+        "enablePullDownRefresh": false
       }
     },
     {
-      "path" : "pages/nick-name/nick-name",
-      "style" : 
-      {
-        "navigationBarTitleText" : "",
-        "enablePullDownRefresh" : false
+      "path": "pages/login-form/login-form",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
       }
     },
     {
-      "path" : "pages/web-view/web-view",
-      "style" : 
-      {
-        "navigationBarTitleText" : "",
-        "enablePullDownRefresh" : false
+      "path": "pages/activity-detail/activity-detail",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
       }
     },
     {
-      "path" : "pages/dynamics-detail/dynamics-detail",
-      "style" : 
-      {
+      "path": "pages/image-crop/image-crop",
+      "style": {
         "navigationStyle": "custom",
-        "enablePullDownRefresh" : false
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/nick-name/nick-name",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/web-view/web-view",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/dynamics-detail/dynamics-detail",
+      "style": {
+        "navigationStyle": "custom",
+        "enablePullDownRefresh": false
       }
     }
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "煮桔",
-		"navigationBarBackgroundColor": "#181818",
-		"backgroundColor": "#F8F8F8"
-	},
-	"tabBar": {
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "煮桔",
+    "navigationBarBackgroundColor": "#181818",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
     "backgroundColor": "#181818",
-		"list": [
-			{
-				"iconPath": "static/home.png",
-				"pagePath": "pages/index/index",
-				"selectedIconPath": "static/home-active.png"
-			},
-			{
-				"iconPath": "static/huodong.png",
-				"pagePath": "pages/list/list",
-				"selectedIconPath": "static/huodong-active.png"
-			},
-			{
-				"iconPath": "static/person.png",
-				"pagePath": "pages/person-center/person-center",
-				"selectedIconPath": "static/person-active.png"
-			}
-		]
-	},
-	"uniIdRouter": {}
+    "list": [
+      {
+        "iconPath": "static/home.png",
+        "pagePath": "pages/index/index",
+        "selectedIconPath": "static/home-active.png"
+      },
+      {
+        "iconPath": "static/huodong.png",
+        "pagePath": "pages/list/list",
+        "selectedIconPath": "static/huodong-active.png"
+      },
+      {
+        "iconPath": "static/person.png",
+        "pagePath": "pages/person-center/person-center",
+        "selectedIconPath": "static/person-active.png"
+      }
+    ]
+  },
+  "uniIdRouter": {},
+  "__usePrivacyCheck__": true
 }

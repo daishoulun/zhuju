@@ -2,7 +2,7 @@
   <view class="city-list-page" :style="{ paddingTop: headerTop + 'px' }">
     <view class="head-bar-wrap">
       <view class="head-bar">
-        <image class="back-icon" src="/static/arrow-l.png"></image>
+        <image class="back-icon" src="/static/arrow-l.png" @click="clickBack"></image>
         <view class="input-wrap">
           <image class="search-icon" src="/static/search.png"></image>
           <input class="search-input" type="text" v-model="keyword" placeholder="输入城市名称"
@@ -14,7 +14,7 @@
         <view class="city">
           <view class="c-city">
             <image class="c-icon" src="/static/location-color.png"></image>
-            <text class="city-name">hanghzoushi</text>
+            <text class="city-name">{{ currentCity }}</text>
           </view>
           <view class="c-city">
             <image class="c-icon" src="/static/reset.png"></image>
@@ -25,11 +25,11 @@
     </view>
     <scroll-view scroll-y :scroll-into-view="scrollTop" :style="{ height: `calc(100vh - ${scrollHeight}px)` }">
       <view class="city-main">
-        <view class="city-list-wrap">
-          <view class="city-partition" :id="'city-partition-' + item.key === '顶部' ? '0' : item.key" v-for="item in cityList" :key="item.key">
+        <view id="city-partition-top" class="city-list-wrap">
+          <view class="city-partition" :id="'city-partition-' + item.key" v-for="item in cityList" :key="item.key">
             <view class="city-initials">{{ item.key }}</view>
             <view class="city-list">
-              <view class="city-item" v-for="city in item.list" :key="item.id">{{ city.name }}</view>
+              <view class="city-item" v-for="city in item.list" :key="city.id" @click="clickCity(city)">{{ city.name }}</view>
             </view>
           </view>
         </view>
@@ -50,15 +50,9 @@
 </template>
 
 <script>
-  import PinyinUtils from '@/utils/pinUtils.js'
-  import { cityData } from '@/utils/baidu_code.js'
-  // // 获取拼音
-  // console.log(PinyinUtils.chineseToPinYin('张三'))
-  // // ZHANGSAN
-  // // ===============
-  // // 获取首字母
-  // console.log(PinyinUtils.chineseToPinYinFirst('安庆市'))
-  // ZS
+import PinyinUtils from '@/utils/pinUtils.js'
+import { cityData } from '@/utils/baidu_code.js'
+import { editInfo } from '@/api/person-center.js'
 import disTopHeight from '@/mixins/disTopHeight'
 export default {
   mixins: [disTopHeight],
@@ -69,7 +63,9 @@ export default {
       headerWrapHeight: 0,
       cityList: [],
       rData: ['顶部', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'],
-      scrollTop: ''
+      scrollTop: '',
+      currentCity: '',
+      userId: ''
     };
   },
   computed: {
@@ -80,6 +76,11 @@ export default {
     scrollHeight() {
       return this.headerTop + this.headerWrapHeight
     }
+  },
+  onLoad({ cityCode, city, userId }) {
+    this.cityCode = cityCode
+    this.currentCity = city
+    this.userId = userId
   },
   onReady() {
     this.formatCityData()
@@ -112,7 +113,6 @@ export default {
     getHeaderHeight() {
       const query = uni.createSelectorQuery().in(this);
       query.select('.head-bar-wrap').boundingClientRect(data => {
-        console.log('wra', data)
         this.headerWrapHeight = data.height
       })
       query.select('.head-bar').boundingClientRect(data => {
@@ -120,20 +120,30 @@ export default {
       }).exec();
     },
     clickNavBar(item) {
-      // 'city-partition-'
-      this.scrollTop = ''
       this.$nextTick(() => {
-        this.scrollTop = 'city-partition-' + item === '顶部' ? 'A' : item
+        this.scrollTop = 'city-partition-' + (item === '顶部' ? 'top' : item)
       })
-      // console.log(item)
-      //   this.scrollTop = 1
-      // if (item === '顶部') {
-      //   this.scrollTop = 0
-      // } else {
-      //   uni.pageScrollTo({
-      //     selector: '.city-partition-' + item
-      //   })
-      // }
+    },
+    clickBack() {
+      uni.navigateBack()
+    },
+    clickCity(city) {
+      this.currentCity = city.name
+      this.cityCode = city.bd_code
+      this.edit(city.bd_code)
+    },
+    edit(cityCode) {
+      editInfo({
+        cityCode,
+        userId: this.userId
+      }).then(res => {
+        if (res.code === 0) {
+          this.$showToast('修改成功')
+          this.clickBack()
+        } else {
+          this.$showToast(res.msg)
+        }
+      })
     }
   }
 }
@@ -252,10 +262,6 @@ export default {
       font-weight: 400;
       color: #7D7D7D;
       margin-bottom: 10rpx;
-      transition: all .5s;
-      &:hover {
-        transform: scale(1.5);
-      }
     }
   }
 }

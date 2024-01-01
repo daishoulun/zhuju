@@ -15,3 +15,10 @@ export const updatePhone = data => {
     data
   })
 }
+// 注销账号
+export const delAccount = ()=> {
+  return request({
+    url: '/cancel/account',
+    method: 'POST',
+  })
+}

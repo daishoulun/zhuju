@@ -20,7 +20,8 @@
         </picker>
       </FormItem>
       <FormItem label="地区">
-        <view class="uni-input" @click="updateCity">杭州</view>
+        <view class="uni-input" @click="updateCity">{{ userForm.city 
+        || '暂无' }}</view>
       </FormItem>
       <FormItem class="home-bg" label="主页背景" :hasArrow="false">
         <view class="uni-input" @click="handelBg">更改主页背景</view>
@@ -30,9 +31,10 @@
 </template>
 
 <script>
-  import { mapState, mapActions, mapMutations } from 'vuex'
   import FormItem from '@/components/form-item.vue'
-  import { fetchUserInfo, getProfile, editInfo } from '@/api/person-center.js'
+  import { fetchUserInfo, editInfo } from '@/api/person-center.js'
+  import { getAliInfo } from '@/api/login.js'
+import { generateRandomString } from '@/utils/index'
   export default {
     components: {
       FormItem
@@ -44,9 +46,10 @@
           avatar: '',
           nickName: '',
           sexInd: 0,
-          birthday: ''
+          birthday: '',
+          city: ''
         },
-        userId: ''
+        userId: '',
       };
     },
     computed: {
@@ -58,6 +61,7 @@
       }
     },
     onShow() {
+      this.userForm = {}
       this.userId= uni.getStorageSync('userId')
       if (this.userId) {
         this.getUserInfo()
@@ -87,23 +91,60 @@
         })
       },
       handlePic() {
-        uni.navigateTo({
-          url: '/pages/set-avatar/set-avatar'
+        uni.chooseMedia({
+          count: 1,
+          mediaType: ['image'],
+          count: 1,
+          success: async (res) => {
+            const authInfo = await getAliInfo({ token: uni.getStorageSync('T-token') })
+            this.uploadFile(authInfo.data, res.tempFiles[0].tempFilePath, 'circular')
+          }
         })
       },
       handelBg() {
-        uni.chooseImage({
+        uni.chooseMedia({
           count: 1,
-          success: (res) => {
+          mediaType: ['image'],
+          count: 1,
+          success: async (res) => {
+            const authInfo = await getAliInfo({ token: uni.getStorageSync('T-token') })
+            this.uploadFile(authInfo.data, res.tempFiles[0].tempFilePath, 'rect')
+          }
+        })
+      },
+      uploadFile(data, filePath, type) {
+        const {
+          accessid,
+          dir,
+          host,
+          policy,
+          signature,
+          urlAnchor
+        } = data
+      const key = dir + 'setBg' + generateRandomString()
+        uni.uploadFile({
+          url: host,
+          filePath,
+          name: 'file',
+          formData: {
+            key,
+            signature,
+            policy,
+            ossAccessKeyId: accessid,
+          },
+          success: (uploadFileRes) => {
             uni.navigateTo({
-              url: '/pages/image-crop/image-crop?imageUrl=' + res.tempFilePaths[0]
+              url: `/pages/image-crop/image-crop?imageUrl=${urlAnchor + key}&type=${type}`
             })
+          },
+          fail: error => {
+            console.log('error', error)
           }
         })
       },
       updateCity() {
         uni.navigateTo({
-          url: '/pages/select-city/select-city'
+          url: `/pages/select-city/select-city?cityCode=${this.userForm.cityCode || ''}&city=${this.userForm.city || ''}&userId=${this.userForm.userId}`
         })
       },
       handleNickName() {

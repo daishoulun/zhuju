@@ -6,7 +6,7 @@
     </view>
     <videos-list v-if="videoShow" ref="videosListRef" :list="vodList" :params="listQuery" :activeType="active"
       @click-transfer="clickTransfer" @click-liked="clickLiked" @click-comment="clickComment" @click-follow="clickFollow"
-      @click-toggle="clickToggle"></videos-list>
+      @click-toggle="clickToggle" @load-data="loadData"></videos-list>
     <UserAgreement v-if="userAgreementModalVisible" @close="userAgreementModalVisible = flase"></UserAgreement>
     <LoginModal v-if="loginModalVisible" @close="loginModalVisible = flase"></LoginModal>
     <CommentPopup v-if="commentPopupVisible" ref="commentList" @close="commentPopupVisible = false"></CommentPopup>
@@ -134,7 +134,12 @@ export default {
     async getRecommendList() {
       const res = await fetchRecommendList(this.listQuery)
       if (res.code === 0) {
-        this.vodList = this.formatVideoData(res.data.list)
+        const data = this.formatVideoData(res.data.list)
+        if (this.listQuery.current === 1) {
+          this.vodList = data
+        } else {
+          this.vodList.push(...data)
+        }
       } else {
         this.$showToast(res.msg)
       }
@@ -142,6 +147,12 @@ export default {
     async getFollowList() {
       const res = await fetchFollowList(this.listQuery)
       if (res.code === 0) {
+        const data = this.formatVideoData(res.data.list)
+        if (this.listQuery.current === 1) {
+          this.vodList = data
+        } else {
+          this.vodList.push(...data)
+        }
       } else {
         this.$showToast(res.msg)
       }
@@ -149,7 +160,12 @@ export default {
     async getTrendsList() {
       const res = await fetchMomentList(this.listQuery)
       if (res.code === 0) {
-        this.vodList = this.formatVideoData(res.data.list)
+        const data = this.formatVideoData(res.data.list)
+        if (this.listQuery.current === 1) {
+          this.vodList = data
+        } else {
+          this.vodList.push(...data)
+        }
       } else {
         this.$showToast(res.msg)
       }
@@ -164,12 +180,18 @@ export default {
     },
     async handleTabbar(val) {
       this.active = val
+      this.listQuery.current = 1
+      this.vodList = []
       await this.getList()
       this.videoKey++
       this.videoShow = false
       this.$nextTick(() => {
         this.videoShow = true
       })
+    },
+    loadData() {
+      this.listQuery.current++
+      this.getList()
     },
     /* 下拉刷新 */
     refreshData() {
@@ -268,7 +290,6 @@ export default {
       })
     },
     setData(field, val, indexId) {
-      console.log(field, val, indexId)
       this.vodList.forEach(item => {
         if (item.indexId === indexId) {
           if (field === 'like') {
@@ -284,7 +305,6 @@ export default {
     }
   },
   onReachBottom() {
-    console.log('reach')
   }
 }
 </script>

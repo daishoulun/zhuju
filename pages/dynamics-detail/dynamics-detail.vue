@@ -148,10 +148,8 @@
       },
       // 点击评论
       clickComment(item) {
-        console.log(item)
         this.commentPopupVisible = true
         this.$nextTick(() => {
-          console.log(this.$refs)
           this.$refs.commentList.open(item)
         })
       },

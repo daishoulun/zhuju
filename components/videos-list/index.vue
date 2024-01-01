@@ -99,7 +99,8 @@
       swiperChange(e) {
         this.currentIndex = e.detail.current
         this.isPlay = false
-        if (this.currentIndex + 1 === this.list.length) {
+        // 提前两个滚动页加载数据
+        if (this.currentIndex + 2 === this.list.length) {
           this.$emit('load-data')
         }
       },

@@ -2,7 +2,9 @@
 	<view class="person-center" :class="{
     noLogin: isLogin
   }">
-		<view class="bg">
+		<view class="bg" :style="{
+      backgroundImage: userInfo.bgImage ? `url(${userInfo.bgImage})` : ''
+    }">
       <image class="draw-list" src="/static/list.png" @click="handleSetting"></image>
     </view>
     <view class="person-main">
@@ -42,7 +44,7 @@
           <!-- <text class="user-item" v-for="item in (profileInfo.tags || [])">{{ item }}</text> -->
         </view>
         <view v-else class="login-btn" @click="handleLogin">点击登录</view>
-        <view class="user-desc">{{ userInfo.intro }}</view>
+        <view class="user-desc">{{ userInfo.intro || '' }}</view>
         <button type="default" class="edit-btn" @click="handleEdit">编辑资料</button>
       </view>
       <view class="tabbar">
@@ -93,7 +95,7 @@
         profileInfo: {},
         total: 0,
         list: [],
-        loading: false
+        loading: false,
 			};
 		},
     computed: {
@@ -124,11 +126,19 @@
         this.isLogin = false
       }
     },
+    onShow() {
+      this.userInfo = {}
+      this.getUserInfo(uni.getStorageSync('userId'))
+    },
     methods: {
       getUserInfo(userId) {
         fetchUserInfo({ userId }).then(res => {
           this.userInfo = res.data || {}
           uni.setStorageSync('userInfo', JSON.stringify(this.userInfo))
+          this.pageShow = false
+          this.$nextTick(() => {
+            this.pageShow = true
+          })
         })
       },
       getProfile(userId) {
@@ -265,6 +275,9 @@
     width: 750rpx;
     height: 446rpx;
     background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: 0 0;
     .draw-list {
       position: absolute;
       left: 32rpx;

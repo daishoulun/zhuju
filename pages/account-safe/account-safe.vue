@@ -29,7 +29,7 @@
       <VerifyCode @change="handleUpdatePhone"></VerifyCode>
       <view class="btn">重新发送<text v-if="num > 0">（{{num}}s）</text></view>
     </view>
-    <LogOffModal v-if="logOffModalVisible" @close="logOffModalVisible = false" @confirm="handleLogOff"></LogOffModal>
+    <LogOffModal v-if="logOffModalVisible" @close="logOffModalVisible = false" @confirm="confirmLogOff"></LogOffModal>
   </view>
 </template>
 
@@ -37,7 +37,7 @@
   import VerifyCode from '@/components/verify-code.vue'
   import LogOffModal from '@/components/log-off-modal.vue'
   import { fetchUserInfo } from '@/api/person-center.js'
-  import { getCode, updatePhone } from '@/api/account-safe.js'
+  import { getCode, updatePhone, delAccount } from '@/api/account-safe.js'
   export default {
     components: {
       VerifyCode,
@@ -102,6 +102,16 @@
       },
       handleLogOff() {
         this.logOffModalVisible = true
+      },
+      confirmLogOff() {
+        delAccount().then(res => {
+          if (res.code === 0) {
+            uni.clearStorageSync()
+            uni.reLaunch({
+              url: '/pages/index/index'
+            })
+          }
+        })
       },
       handleUpdatePhone(val) {
         updatePhone({ code: val, phone: this.newPhone }).then(res => {

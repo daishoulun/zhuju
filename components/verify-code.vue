@@ -39,7 +39,6 @@
     },
     methods: {
       oninput(index) {
-        console.log(this.inputList)
         const codes = this.inputList.map(item => item.value).join('')
         if (codes.length === 6) {
           this.$emit('change', codes)

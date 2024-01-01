@@ -2,7 +2,7 @@
   <view class="menu-list" :class="{ isDetail: hasDetail }">
     <view v-if="!hasDetail" class="header-local">
       <image src="/static/location.png" mode=""></image>
-      <text class="area">杭州-{{ isDynamics }}</text>
+      <text class="area">杭州</text>
     </view>
     <!-- 底部标题 -->
     <view v-if="!(isDynamics && item.moment && item.moment.contentType === 3)" class="footTitle"

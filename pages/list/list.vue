@@ -16,7 +16,13 @@
     </view>
     <view class="activity-main">
       <view class="activity-list-wrap" v-if="isLogin">
-      <ActivityCard v-for="item in list" :activityData="item" :key="item.activityId" @click-card="handleCard"></ActivityCard>
+        <template v-if="list.length > 0">
+          <ActivityCard v-for="item in list" :activityData="item" :key="item.activityId" @click-card="handleCard"></ActivityCard>
+        </template>
+        <view v-else class="no-con">
+          <image src="/static/no-con.png"></image>
+          <view class="tip">暂无内容</view>
+        </view>
       </view>
       <view v-else class="no-login">
         <image src="/static/no-con.png"></image>
@@ -162,7 +168,7 @@
     .activity-main {
       padding: 20rpx;
     }
-    .no-login {
+    .no-con {
       margin-top: 238rpx;
       text-align: center;
       image {
@@ -175,6 +181,9 @@
         font-weight: 400;
         color: #7D7D7D;
       }
+    }
+    .no-login {
+      text-align: center;
       .btn {
         width: 268rpx;
         height: 76rpx;

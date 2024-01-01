@@ -68,14 +68,6 @@
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
   import { fetchUserInfo, getProfile, getActivityList, getMomentList, createLike, cancelLike } from '@/api/person-center.js'
   import { cancelFollow, createFollow } from '@/api/fans-list.js'
-  // import PinyinUtils from '@/utils/pinUtils.js'
-  // // 获取拼音
-  // console.log(PinyinUtils.chineseToPinYin('张三'))
-  // // ZHANGSAN
-  // // ===============
-  // // 获取首字母
-  // console.log(PinyinUtils.chineseToPinYinFirst('安庆市'))
-  // ZS
 	export default {
     components: {
       ActiveList,
@@ -149,7 +141,6 @@
       getProfile(userId) {
         getProfile({ userId }).then(res => {
           this.profileInfo = res.data || {}
-          console.log(this.profileInfo)
         })
       },
       getList() {
