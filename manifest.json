@@ -65,10 +65,7 @@
                 "desc" : "根据位置推荐内容"
             }
         },
-        "requiredPrivateInfos": [
-            "getLocation",
-            "getFuzzyLocation"
-        ]
+        "requiredPrivateInfos" : [ "getLocation" ]
     },
     "h5" : {
         "devServer" : {
