@@ -15,13 +15,13 @@ const request = (opt) => {
       success(res) {
         if (res.data.code === 1001) {
           uni.showToast({
-            title: '登录信息已过期'
+            title: '暂未登录'
           })
-          setTimeout(() => {
-            uni.reLaunch({
-              url: '/pages/login/login'
-            })
-          }, 300)
+          // setTimeout(() => {
+          //   uni.reLaunch({
+          //     url: '/pages/login/login'
+          //   })
+          // }, 300)
         } else {
           resolve(res.data || res)
         }

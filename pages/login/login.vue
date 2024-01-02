@@ -3,7 +3,7 @@
     <image src="/static/logo.png"></image>
     <view class="name">煮桔</view>
     <view class="btn-box">
-      <button class="btn qucik-btn" @click="handleQuickLogin">手机号快捷登录</button>
+      <button class="btn qucik-btn" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" :disabled="btnDisabled">手机号快捷登录</button>
       <button class="btn code-btn" @click="handleCodeLogin"></button>
     </view>
   </view>
@@ -14,19 +14,32 @@
   export default {
     data() {
       return {
-        
-      };
+        btnDisabled: false
+      }
     },
     methods: {
-      handleQuickLogin() {
-        fastLogin().then(res => {
+      getPhoneNumber(e) {
+        this.btnDisabled = true
+        fastLogin({
+          code: e.detail.code
+        }).then(res => {
           if (res.code === 0) {
-            uni.switchTab({
-              url: '/pages/index/index'
-            })
+            uni.setStorageSync('T-token', res.data.token)
+            uni.setStorageSync('userId', res.data.userId)
+            if (res.data.registered) {
+              uni.switchTab({
+                url: '/pages/index/index'
+              })
+            } else {
+              uni.navigateTo({
+                url: '/pages/set-avatar/set-avatar'
+              })
+            }
           } else {
             this.$showToast(res.msg)
           }
+        }).finally(() => {
+          this.btnDisabled = false
         })
       },
       handleCodeLogin() {

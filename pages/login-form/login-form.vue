@@ -110,7 +110,6 @@
             }
           }, 1000)
           this.$showToast('发送成功')
-          this.form.code = res.data.code
         } else {
           this.$showToast(res.msg)
         }

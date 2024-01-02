@@ -17,7 +17,7 @@ export const getCode = data => {
 // 一键登录
 export const fastLogin = data =>  {
   return request({
-    url: '/fast/login',
+    url: '/wx/login',
     method: 'POST',
     data
   })
@@ -36,5 +36,12 @@ export const getAliInfo = data => {
     url: '/alioss/signature',
     method: 'POST',
     data
+  })
+}
+
+export const logout = () => {
+  return request({
+    url: '/logout',
+    method: 'POST'
   })
 }

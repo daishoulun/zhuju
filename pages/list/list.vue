@@ -44,7 +44,6 @@
     mixins: [disTopHeight],
     data() {
       return {
-        isLogin: true,
         current: 0,
 				swiperDotIndex: 0,
         mode: 'default',
@@ -73,6 +72,14 @@
         const space = (this.navBarHeight - 20) / 2
         return space + this.statusBarHeight
       },
+      isLogin() {
+        const userId = uni.getStorageSync('userId')
+        if (userId) {
+          return true
+        } else {
+          return false
+        }
+      }
     },
     onShow() {
       this.getList()
@@ -184,6 +191,16 @@
     }
     .no-login {
       text-align: center;
+      image {
+        width: 264rpx;
+        height: 228rpx;
+      }
+      .tip {
+        margin: 80rpx 0 50rpx;
+        font-size: 28rpx;
+        font-weight: 400;
+        color: #7D7D7D;
+      }
       .btn {
         width: 268rpx;
         height: 76rpx;

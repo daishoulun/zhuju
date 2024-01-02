@@ -6,7 +6,7 @@
         <view class="input-wrap">
           <image class="search-icon" src="/static/search.png"></image>
           <input class="search-input" type="text" v-model="keyword" placeholder="输入城市名称"
-            placeholder-style="color: #AAAAAA; font-size: 24rpx;">
+            placeholder-style="color: #AAAAAA; font-size: 24rpx;" @confirm="searchCity">
         </view>
       </view>
       <view class="current-city">
@@ -18,14 +18,14 @@
           </view>
           <view class="c-city">
             <image class="c-icon" src="/static/reset.png"></image>
-            <text class="reset-loc">重新定位</text>
+            <text class="reset-loc" @click="resetLoc">重新定位</text>
           </view>
         </view>
       </view>
     </view>
     <scroll-view scroll-y :scroll-into-view="scrollTop" :style="{ height: `calc(100vh - ${scrollHeight}px)` }">
       <view class="city-main">
-        <view id="city-partition-top" class="city-list-wrap">
+        <view v-if="cityList.length > 0" id="city-partition-top" class="city-list-wrap">
           <view class="city-partition" :id="'city-partition-' + item.key" v-for="item in cityList" :key="item.key">
             <view class="city-initials">{{ item.key }}</view>
             <view class="city-list">
@@ -33,6 +33,7 @@
             </view>
           </view>
         </view>
+        <view v-else class="no-con">暂无数据</view>
       </view>
     </scroll-view>
 
@@ -62,10 +63,11 @@ export default {
       headerHeight: 0,
       headerWrapHeight: 0,
       cityList: [],
+      originalList: [], // 原始数据
       rData: ['顶部', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'],
       scrollTop: '',
       currentCity: '',
-      userId: ''
+      userId: '',
     };
   },
   computed: {
@@ -87,6 +89,19 @@ export default {
     this.getHeaderHeight()
   },
   methods: {
+    resetLoc() {
+      // uni.authorize({
+      //   scope: 'scope.userLocation',
+      //   success(r) {
+      //     uni.getLocation({
+      //       type: 'wgs84',
+      //       success: (res) => {
+      //         console.log('位置是', res)
+      //       }
+      //     })
+      //   }
+      // })
+    },
     formatCityData() {
       let cityMap = {}
       let cityList = []
@@ -94,6 +109,7 @@ export default {
         const pinyin = PinyinUtils.chineseToPinYinFirst(item.name)
         const firstLetter = pinyin.substring(0, 1)
         item.pinyin = pinyin
+        item.fullPinyin = PinyinUtils.chineseToPinYin(item.name).toLowerCase()
         if (cityMap[firstLetter]) {
           cityMap[firstLetter].push(item)
         } else {
@@ -108,6 +124,7 @@ export default {
         })
       }
       cityList.sort((a, b) => a.key.localeCompare(b.key))
+      this.originalList = cityList
       this.cityList = cityList
     },
     getHeaderHeight() {
@@ -143,6 +160,14 @@ export default {
         } else {
           this.$showToast(res.msg)
         }
+      })
+    },
+    searchCity() {
+      const list = JSON.parse(JSON.stringify(this.originalList))
+      const key = this.keyword.toLowerCase()
+      this.cityList = list.filter(item => {
+        item.list = item.list.filter(item => item.fullPinyin.includes(key) || item.name.includes(key))
+        return item.list.length > 0
       })
     }
   }
@@ -263,6 +288,13 @@ export default {
       color: #7D7D7D;
       margin-bottom: 10rpx;
     }
+  }
+  .no-con {
+    font-size: 28rpx;
+    font-weight: 400;
+    color: #7D7D7D;
+    text-align: center;
+    margin-top: 100rpx;
   }
 }
 </style>

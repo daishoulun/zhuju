@@ -77,14 +77,17 @@ export default {
   onLoad() {
     this.listQuery.lon = 116.4
     this.listQuery.lat = 39.9
-    // uni.getLocation({
-    // type: 'wgs84',
-    // success: res => {
-    // this.listQuery.lon = res.longitude
-    // this.listQuery.lat = res.latitude
-    this.getList()
-    // }
-    // })
+      this.getList()
+    uni.getLocation({
+      type: 'wgs84',
+      success: ({latitude, longitude}) => {
+        const geoLocation = `${latitude},${longitude}`;
+        console.log(geoLocation)
+        this.getAddressFromBaidu(geoLocation);
+      // this.listQuery.lon = res.longitude
+      // this.listQuery.lat = res.latitude
+      }
+    })
   },
   onHide() {
     /* 暂停视频 */
@@ -93,6 +96,20 @@ export default {
     }
   },
   methods: {
+    async getAddressFromBaidu(geoLocation) {
+      const apiKey = 'cEp4DBq3xUaM7OxfRHL9d26S6xfmtwa6'; // 替换为你的百度地图API密钥
+      const url = `https://api.map.baidu.com/geocoder/v2/?location=${geoLocation}&output=json&ak=${apiKey}`;
+      const response = await uni.request({ url });
+      console.log('response', response)
+      console.log('data', data)
+      const data = JSON.parse(response.data);
+      if (data.status === 0) {
+        return data.result.addressComponent; // 返回地址信息
+      } else {
+        console.error('逆地址解析失败：', data);
+        return '';
+      }
+    },
     async getList() {
       if (this.active === 'recommend') {
         await this.getRecommendList()
@@ -135,11 +152,11 @@ export default {
       const res = await fetchRecommendList(this.listQuery)
       if (res.code === 0) {
         const data = this.formatVideoData(res.data.list)
-        if (this.listQuery.current === 1) {
+        // if (this.listQuery.current === 1) {
           this.vodList = data
-        } else {
-          this.vodList.push(...data)
-        }
+        // } else {
+        //   this.vodList.push(...data)
+        // }
       } else {
         this.$showToast(res.msg)
       }
@@ -148,11 +165,11 @@ export default {
       const res = await fetchFollowList(this.listQuery)
       if (res.code === 0) {
         const data = this.formatVideoData(res.data.list)
-        if (this.listQuery.current === 1) {
+        // if (this.listQuery.current === 1) {
           this.vodList = data
-        } else {
-          this.vodList.push(...data)
-        }
+        // } else {
+        //   this.vodList.push(...data)
+        // }
       } else {
         this.$showToast(res.msg)
       }
@@ -161,11 +178,11 @@ export default {
       const res = await fetchMomentList(this.listQuery)
       if (res.code === 0) {
         const data = this.formatVideoData(res.data.list)
-        if (this.listQuery.current === 1) {
+        // if (this.listQuery.current === 1) {
           this.vodList = data
-        } else {
-          this.vodList.push(...data)
-        }
+        // } else {
+        //   this.vodList.push(...data)
+        // }
       } else {
         this.$showToast(res.msg)
       }

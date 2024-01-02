@@ -17,7 +17,7 @@
     <view class="fans-main" :style="{ marginTop: tabbarTop + 'px' }">
       <view class="search-bar">
         <image class="search-icon" src="/static/search.png"></image>
-        <input type="text" confirm-type="search" placeholder="搜索粉丝" @input="searchList" />
+        <input v-model="listQuery.keyword" type="text" confirm-type="search" placeholder="搜索粉丝" @confirm="searchList" />
       </view>
       <view class="list">
         <view
@@ -92,13 +92,8 @@
         }
       },
       searchList() {
-        if (this.timer) {
-          clearTimeout(this.timer)
-        }
-        this.timer = setTimeout(() => {
-          this.listQuery.current = 1
-          this.getList()
-        }, 500)
+        this.listQuery.current = 1
+        this.getList()
       },
       getFollowList() {
         fetchFollowList(this.listQuery).then(res => {
@@ -143,6 +138,7 @@
         })
       },
       handleTabbar(val) {
+        this.list = []
         this.type = val
         this.listQuery.current = 1
         this.getList()

@@ -15,11 +15,7 @@
     </view>
     <view v-else-if="type === 'setSex'" class="set-sex">
       <view class="sex">
-        <view
-          class="sex-item sex-women"
-          :class="{ 'sex-active': form.gender === 1 }"
-           @click="form.gender = 1"
-        >
+        <view class="sex-item sex-women" :class="{ 'sex-active': form.gender === 1 }" @click="form.gender = 1">
           <image src="/static/sex-women.png"></image>
           <view class="name">女生</view>
         </view>
@@ -30,16 +26,8 @@
       </view>
     </view>
     <view v-else-if="type === 'setBirthDay'" class="set-birthday">
-      <picker
-        v-for="(item, index) in birthday"
-        :key="index"
-        class="birthday-item"
-        mode="date"
-        :value="form.birthday"
-        :start="startDate"
-        :end="endDate"
-        @change="bindDateChange"
-      >
+      <picker v-for="(item, index) in birthday" :key="index" class="birthday-item" mode="date" :value="form.birthday"
+        :start="startDate" :end="endDate" @change="bindDateChange">
         <view class="birthday">
           <text v-if="item">{{ item }}</text>
           <view v-else class="placeholder">
@@ -57,142 +45,142 @@
 </template>
 
 <script>
-  import { register, getAliInfo } from '@/api/login.js'
+import { register, getAliInfo } from '@/api/login.js'
 import { generateRandomString } from '@/utils/index'
-  export default {
-    data() {
-      return {
-        form: {
-          avatar: '',
-          birthday: '',
-          gender: '',
-          nickName: ''
-        },
-        type: 'setAvatar',
-        pageShow: true
-      };
+export default {
+  data() {
+    return {
+      form: {
+        avatar: '',
+        birthday: '',
+        gender: '',
+        nickName: ''
+      },
+      type: 'setAvatar',
+      pageShow: true
+    };
+  },
+  computed: {
+    startDate() {
+      return this.getDate('start');
     },
-    computed: {
-      startDate() {
-        return this.getDate('start');
-      },
-      endDate() {
-        return this.getDate('end');
-      },
-      isHighLight() {
-        return (
-          (this.form.avatar && this.form.nickName && this.type === 'setAvatar') || 
-          (this.form.gender && this.type === 'setSex') || 
-          (this.form.birthday && this.type === 'setBirthDay')
-        )
-      },
-      btnClass() {
-        return 'btn-' + this.type
-      },
-      birthday() {
-        return this.form.birthday ? this.form.birthday.split('-') : ['', '', '']
+    endDate() {
+      return this.getDate('end');
+    },
+    isHighLight() {
+      return (
+        (this.form.avatar && this.form.nickName && this.type === 'setAvatar') ||
+        (this.form.gender !== '' && this.type === 'setSex') ||
+        (this.form.birthday && this.type === 'setBirthDay')
+      )
+    },
+    btnClass() {
+      return 'btn-' + this.type
+    },
+    birthday() {
+      return this.form.birthday ? this.form.birthday.split('-') : ['', '', '']
+    }
+  },
+  onLoad(s) {
+    uni.$on('setAvatar', async url => {
+      this.form.avatar = url
+      const authInfo = await getAliInfo({ token: uni.getStorageSync('T-token') })
+      this.uploadFile(authInfo.data, 'avatar', url)
+    })
+  },
+  methods: {
+    getDate(type) {
+      const date = new Date();
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+
+      if (type === 'start') {
+        year = year - 60;
+      } else if (type === 'end') {
+        year = year + 2;
       }
+      month = month > 9 ? month : '0' + month;
+      day = day > 9 ? day : '0' + day;
+      return `${year}-${month}-${day}`;
     },
-    onLoad(s) {
-      uni.$on('setAvatar', async url => {
-        this.form.avatar = url
-        const authInfo = await getAliInfo({ token: uni.getStorageSync('T-token') })
-        this.uploadFile(authInfo.data, 'avatar', url)
+    handlePic() {
+      uni.chooseMedia({
+        count: 1,
+        mediaType: ['image'],
+        success: async (res) => {
+          const authInfo = await getAliInfo({ token: uni.getStorageSync('T-token') })
+          this.uploadFile(authInfo.data, 'setBg', res.tempFiles[0].tempFilePath, 'setBg')
+        }
       })
     },
-    methods: {
-      getDate(type) {
-        const date = new Date();
-        let year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-
-        if (type === 'start') {
-            year = year - 60;
-        } else if (type === 'end') {
-            year = year + 2;
-        }
-        month = month > 9 ? month : '0' + month;
-        day = day > 9 ? day : '0' + day;
-        return `${year}-${month}-${day}`;
-      },
-      handlePic() {
-        uni.chooseMedia({
-          count: 1,
-          mediaType: ['image'],
-          success: async (res) => {
-            const authInfo = await getAliInfo({ token: uni.getStorageSync('T-token') })
-            this.uploadFile(authInfo.data, 'setBg', res.tempFiles[0].tempFilePath, 'setBg')
-          }
-        })
-      },
-      uploadFile(data, fileName, filePath, type) {
-        const {
-          accessid,
-          dir,
-          host,
-          policy,
+    uploadFile(data, fileName, filePath, type) {
+      const {
+        accessid,
+        dir,
+        host,
+        policy,
+        signature,
+        urlAnchor
+      } = data
+      const key = dir + fileName + generateRandomString()
+      uni.uploadFile({
+        url: host,
+        filePath,
+        name: 'file',
+        formData: {
+          key,
           signature,
-          urlAnchor
-        } = data
-        const key = dir + fileName + generateRandomString()
-        uni.uploadFile({
-          url: host,
-          filePath,
-          name: 'file',
-          formData: {
-            key,
-            signature,
-            policy,
-            ossAccessKeyId: accessid,
-          },
-          success: (uploadFileRes) => {
-            if (type === 'setBg') {
-              uni.navigateTo({
-                url: `/pages/image-crop/image-crop?imageUrl=${urlAnchor + key}&type=circular&fromUrl=registry`
-              })
-            } else {
-              this.form.avatar = urlAnchor + key
-              this.pageShow = false
-              this.$nextTick(() => {
-                this.pageShow = true
-              })
-            }
-          },
-          fail: error => {
-            console.log('error', error)
+          policy,
+          ossAccessKeyId: accessid,
+        },
+        success: (uploadFileRes) => {
+          if (type === 'setBg') {
+            uni.navigateTo({
+              url: `/pages/image-crop/image-crop?imageUrl=${urlAnchor + key}&type=circular&fromUrl=registry`
+            })
+          } else {
+            this.form.avatar = urlAnchor + key
+            this.pageShow = false
+            this.$nextTick(() => {
+              this.pageShow = true
+            })
+          }
+        },
+        fail: error => {
+          console.log('error', error)
+        }
+      })
+    },
+    handleContinue() {
+      if (this.type === 'setAvatar') {
+        this.type = 'setSex'
+        uni.setNavigationBarTitle({
+          title: '设置性别'
+        })
+      } else if (this.type === 'setSex') {
+        this.type = 'setBirthDay'
+        uni.setNavigationBarTitle({
+          title: '选择生日'
+        })
+      } else if (this.type === 'setBirthDay') {
+        register(this.form).then(res => {
+          if (res.code === 0) {
+            this.$showToast('设置成功')
+            uni.switchTab({
+              url: '/pages/index/index'
+            })
+          } else {
+            this.$showToast(res.msg)
           }
         })
-      },
-      handleContinue() {
-        if (this.type === 'setAvatar') {
-          this.type = 'setSex'
-          uni.setNavigationBarTitle({
-            title: '设置性别'
-          })
-        } else if (this.type === 'setSex') {
-          this.type = 'setBirthDay'
-          uni.setNavigationBarTitle({
-            title: '选择生日'
-          })
-        } else if (this.type === 'setBirthDay') {
-          register(this.form).then(res => {
-            if (res.code === 0) {
-              this.$showToast('设置成功')
-              uni.switchTab({
-                url: '/pages/index/index'
-              })
-            } else {
-              this.$showToast(res.msg)
-            }
-          })
-        }
-      },
-      bindDateChange(e) {
-        this.form.birthday = e.detail.value
       }
+    },
+    bindDateChange(e) {
+      this.form.birthday = e.detail.value
     }
   }
+}
 </script>
 
 <style lang="scss">
@@ -200,19 +188,23 @@ import { generateRandomString } from '@/utils/index'
   height: 100vh;
   background: #181818;
 }
+
 .set-avatar {
   box-sizing: border-box;
   padding: 88rpx 70rpx 0;
+
   .avatar {
     position: relative;
     width: 192rpx;
     height: 192rpx;
     margin: 0 auto 40rpx;
+
     .header {
       width: 100%;
       height: 100%;
       border-radius: 50%;
     }
+
     .camera {
       position: absolute;
       bottom: 0;
@@ -221,14 +213,16 @@ import { generateRandomString } from '@/utils/index'
       height: 72rpx;
     }
   }
+
   .set-name {
     text-align: center;
     font-size: 32rpx;
     font-weight: 500;
     color: #DCAEF4;
-    text-shadow: 0px 2px 2px rgba(0,0,0,0.14);
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.14);
     margin-bottom: 40rpx;
   }
+
   .nick-input {
     input {
       width: 100%;
@@ -238,6 +232,7 @@ import { generateRandomString } from '@/utils/index'
       padding-left: 40rpx;
       color: #fff;
     }
+
     .tip {
       margin-top: 24rpx;
       font-size: 24rpx;
@@ -247,10 +242,13 @@ import { generateRandomString } from '@/utils/index'
     }
   }
 }
+
 .set-sex {
   padding: 224rpx 78rpx 0;
+
   .sex {
     display: flex;
+
     .sex-item {
       width: 286rpx;
       height: 348rpx;
@@ -259,19 +257,24 @@ import { generateRandomString } from '@/utils/index'
       text-align: center;
       padding-top: 106rpx;
       box-sizing: border-box;
+
       &.sex-man {
         margin-left: 22rpx;
+
         .name {
           color: #7CA6F9;
         }
       }
+
       &.sex-active {
         background: #fff;
       }
+
       image {
         width: 80rpx;
         height: 80rpx;
       }
+
       .name {
         font-size: 32rpx;
         font-weight: 500;
@@ -281,10 +284,12 @@ import { generateRandomString } from '@/utils/index'
     }
   }
 }
+
 .set-birthday {
   padding: 332rpx 70rpx 0;
   margin-bottom: 232rpx;
   display: flex;
+
   .birthday-item {
     position: relative;
     width: 196rpx;
@@ -296,9 +301,11 @@ import { generateRandomString } from '@/utils/index'
     color: #FFFFFF;
     text-align: center;
     line-height: 132rpx;
+
     &:last-of-type {
       margin-right: 0;
     }
+
     .placeholder {
       position: absolute;
       top: 50%;
@@ -307,12 +314,14 @@ import { generateRandomString } from '@/utils/index'
       display: flex;
       align-items: center;
       justify-content: center;
+
       .dots {
         width: 12rpx;
         height: 12rpx;
         background: #5C5C5C;
         border-radius: 50%;
         margin-right: 22rpx;
+
         &:last-of-type {
           margin-right: 0;
         }
@@ -320,6 +329,7 @@ import { generateRandomString } from '@/utils/index'
     }
   }
 }
+
 .btn {
   width: 612rpx;
   height: 120rpx;
@@ -331,14 +341,16 @@ import { generateRandomString } from '@/utils/index'
   font-weight: 600;
   color: #201F2C;
   text-align: center;
+
   &.btn-active {
     background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
   }
+
   &.btn-setAvatar {
     margin-top: 102rpx;
   }
+
   &.btn-setSex {
     margin-top: 124rpx;
   }
-}
-</style>
+}</style>
