@@ -14,19 +14,19 @@
         </view>
         <view class="user-data">
           <view class="data-item" @click="handleLike('like')">
-            <text class="num">{{ profileInfo.followNum }}</text>
+            <text class="num">{{ profileInfo.followNum || 0 }}</text>
             <text class="name">关注</text>
           </view>
           <view class="data-item" @click="handleLike('fans')">
-            <text class="num">{{ profileInfo.fansNum }}</text>
+            <text class="num">{{ profileInfo.fansNum || 0 }}</text>
             <text class="name">粉丝</text>
           </view>
           <view class="data-item" @click="handleLike('firend')">
-            <text class="num">{{ profileInfo.friendNum }}</text>
+            <text class="num">{{ profileInfo.friendNum || 0 }}</text>
             <text class="name">好友</text>
           </view>
           <view class="data-item">
-            <text class="num">{{ profileInfo.likeNum }}</text>
+            <text class="num">{{ profileInfo.likeNum || 0 }}</text>
             <text class="name">获赞</text>
           </view>
         </view>
@@ -44,7 +44,7 @@
           <!-- <text class="user-item" v-for="item in (profileInfo.tags || [])">{{ item }}</text> -->
         </view>
         <view v-else class="login-btn" @click="handleLogin">点击登录</view>
-        <view class="user-desc">{{ userInfo.intro || '' }}</view>
+        <view class="user-desc">{{ userInfo.intro || '这个人很懒，什么都没留下' }}</view>
         <button type="default" class="edit-btn" @click="handleEdit">编辑资料</button>
       </view>
       <view class="tabbar">
@@ -63,6 +63,7 @@
       </view>
     </view>
     <AccountSetting ref="accountSet"></AccountSetting>
+    <LoginModal v-if="loginModalVisible" @close="loginModalVisible = false"></LoginModal>
 	</view>
 </template>
 
@@ -70,15 +71,18 @@
   import ActiveList from '@/components/active-list/active-list'
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
   import AccountSetting from '@/components/account-setting.vue'
+  import LoginModal from '@/components/login-modal.vue'
   import { fetchUserInfo, getProfile, getActivityList, getMomentList, createLike, cancelLike } from '@/api/person-center.js'
 	export default {
     components: {
       ActiveList,
       DynamicsList,
-      AccountSetting
+      AccountSetting,
+      LoginModal
     },
 		data() {
 			return {
+        loginModalVisible: false,
         isLogin: false,
 				active: 'active',
         userInfo: {
@@ -100,6 +104,7 @@
 		},
     computed: {
       avatar() {
+        console.log(this.isLogin)
         if (this.isLogin) {
           return this.userInfo.avatar
         } else {
@@ -128,7 +133,11 @@
     },
     onShow() {
       this.userInfo = {}
-      this.getUserInfo(uni.getStorageSync('userId'))
+      const userId = uni.getStorageSync('userId')
+      if (userId) {
+        this.getUserInfo(userId)
+        this.getProfile(userId)
+      }
     },
     methods: {
       getUserInfo(userId) {
@@ -198,6 +207,10 @@
         this.getList()
       },
       handleEdit() {
+        if (!this.isLogin) {
+          this.loginModalVisible = true
+          return
+        }
         uni.navigateTo({
           url: '/pages/update-info/update-info'
         })
@@ -211,7 +224,7 @@
         this.$refs.accountSet.showDrawer()
       },
       handleLogin() {
-        uni.navigateTo({
+        uni.redirectTo({
           url: '/pages/login/login'
         })
       },

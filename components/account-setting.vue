@@ -23,7 +23,7 @@
       return {
         list: [
           {
-            name: '账号安全',
+            name: '账号与安全',
             value: 'account-safe',
             icon: '/static/account-safe.png'
           },

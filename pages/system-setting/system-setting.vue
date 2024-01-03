@@ -21,16 +21,22 @@ export default {
   },
   methods: {
     handleLabel(type) {
-      uni.navigateTo({
-        url: '/pages/protocol-policy/protocol-policy?type=' + type
-      })
+      if (type === 'about') {
+        uni.navigateTo({
+          url: '/pages/about-us/about-us'
+        })
+      } else {
+        uni.navigateTo({
+          url: '/pages/protocol-policy/protocol-policy?type=' + type
+        })
+      }
     },
     handleLogOff() {
       logout().then(res => {
         if (res.code === 0) {
           this.$showToast('退出成功')
           uni.clearStorageSync()
-          uni.switchTab({
+          uni.reLaunch({
             url: '/pages/index/index'
           })
         } else {

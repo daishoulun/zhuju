@@ -23,7 +23,7 @@
         </view>
         <view class="dy-footer">
           <view class="comment">
-            <input type="text" placeholder="说点什么...">
+            <input type="text" v-model="commentText" placeholder="说点什么..." @confirm="handleComment">
           </view>
           <view class="fun-list">
             <view class="fun-item" @click="clickLiked">
@@ -53,12 +53,18 @@
 </template>
 
 <script>
+import { sendComment } from '@/api/index'
 export default {
   name: "dy-popup",
   props: {
     item: {
       type: Object,
       default: () => { }
+    }
+  },
+  data() {
+    return {
+      commentText: ''
     }
   },
   computed: {
@@ -98,7 +104,28 @@ export default {
     },
     close() {
       this.$emit('close')
-    }
+    },
+    handleComment() {
+      if (!this.commentText) {
+        return
+      }
+      if (this.commentText.length > 200) {
+        this.$showToast('最多评论200个字')
+        return
+      }
+      sendComment({
+        momentId: this.item.indexId,
+        content: this.commentText
+      }).then(res => {
+        if (res.code === 0) {
+          this.$showToast('评论成功')
+          this.commentText = ''
+          this.$emit('comment-success')
+        } else {
+          this.$showToast(res.msg)
+        }
+      })
+    },
   }
 }
 </script>

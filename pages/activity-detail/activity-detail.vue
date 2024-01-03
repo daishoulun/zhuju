@@ -1,16 +1,12 @@
 <template>
   <view class="activity-detail">
-    <view v-if="activityDetail.activityFileType === 2" class="bg" @click="handleVideo">
+    <view v-if="activityDetail.activityFileType === 2" class="bg">
       <video
         id="activityDetailVideo"
         :src="activityDetail.activityFileUrl"
         :controls="false"
         :show-center-play-btn="false"
         object-fit="cover"
-        autoplay
-        @play="videoPlay"
-        @pause="videoPause"
-        @ended="videoEnded"
       ></video>
     </view>
     <view v-else-if="coverUrl" class="bg" :style="{ backgroundImage: 'url(' + coverUrl + ')' }"></view>
@@ -25,7 +21,7 @@
           <view class="title">场地服务费</view>
           <view class="info">
             <view class="price-info">
-              <text class="price">{{ activityDetail.unitPrice }}</text>
+              <text class="price">{{ activityDetail.unitPrice }}元/人、{{ activityDetail.timeStr }}</text>
               <text class="">{{ activityDetail.payerType | payerTypeFilter }}</text>
             </view>
             <text>费用明细</text>
@@ -51,7 +47,7 @@
               v-for="item in activityDetail.list || []"
               :key="item.key"
             >
-              <view v-if="item.emcee === 1" class="host">主持人</view>
+              <view v-if="item.emcee" class="host">主持人</view>
               <view class="avatar">
                 <image class="img-head" :src="item.avatar" mode="aspectFill"></image>
                 <image class="sex" :src="item.sex === '1' ? '/static/man.png' : '/static/women.png'"></image>
@@ -133,25 +129,6 @@
           this.activityDetail.noJoin = this.activityDetail.femaleRemainNum + this.activityDetail.maleRemainNum || 0
           this.activityDetail.hasJoin = this.activityDetail.totalPeopleNum - this.activityDetail.noJoin
         })
-      },
-      videoPlay() {
-        this.isPlay = true
-      },
-      videoPause() {
-        this.isPlay = false
-      },
-      videoEnded() {
-        this.isPlay = false
-      },
-      handleVideo() {
-        if (this.activityDetail.activityFileType === 2) {
-          const videoContext = uni.createVideoContext('activityDetailVideo', this)
-          if (this.isPlay) {
-            videoContext.pause()
-          } else {
-            videoContext.play()
-          }
-        }
       },
       handleBtn(type) {
         switch(type) {

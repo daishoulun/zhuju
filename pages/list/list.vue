@@ -27,7 +27,7 @@
       <view v-else class="no-login">
         <image src="/static/no-con.png"></image>
         <view class="tip">暂无内容</view>
-        <view class="btn">去登录</view>
+        <view class="btn" @click="handleLogin">去登录</view>
       </view>
     </view>
   </view>
@@ -64,27 +64,29 @@
         },
         list: [],
         total: 0,
-        loading: false
+        loading: false,
+        isLogin: false,
       };
     },
     computed: {
       imgTop() {
         const space = (this.navBarHeight - 20) / 2
         return space + this.statusBarHeight
-      },
-      isLogin() {
-        const userId = uni.getStorageSync('userId')
-        if (userId) {
-          return true
-        } else {
-          return false
-        }
       }
     },
     onShow() {
-      this.getList()
+      this.init()
     },
     methods: {
+      init() {
+        const userId = uni.getStorageSync('userId')
+        if (userId) {
+          this.isLogin = true
+          this.getList()
+        } else {
+          this.isLogin = false
+        }
+      },
       change(e) {
         this.current = e.detail.current
       },
@@ -119,6 +121,11 @@
       handleCard(item) {
         uni.navigateTo({
           url: '/pages/activity-detail/activity-detail?id=' + item.activityId
+        })
+      },
+      handleLogin() {
+        uni.navigateTo({
+          url: '/pages/login/login'
         })
       }
     },

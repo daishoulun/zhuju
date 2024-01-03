@@ -2,7 +2,7 @@
   <view class="set-info">
     <view class="nick-input">
       <input type="text" v-model="nickName" maxlength="15" placeholder="请输入">
-      <view class="tip">可输入2-10字中文，4-20字符</view>
+      <view class="tip">中文、数字、字母组合最多15个字符</view>
     </view>
     <view class="btn" @click="handleConfirm">确定</view>
   </view>
@@ -38,7 +38,7 @@
             len += 1
           }
         })
-        if (len > 10) {
+        if (len > 15) {
           this.$showToast('昵称长度过长')
           return
         }

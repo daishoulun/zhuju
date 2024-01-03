@@ -154,20 +154,36 @@ export default {
     },
     handleContinue() {
       if (this.type === 'setAvatar') {
+        if (!this.form.avatar) {
+          this.$showToast('请设置头像')
+          return
+        }
+        if (!this.form.nickName) {
+          this.$showToast('请设置昵称')
+          return
+        }
         this.type = 'setSex'
         uni.setNavigationBarTitle({
           title: '设置性别'
         })
       } else if (this.type === 'setSex') {
+        if (this.form.gender === '') {
+          this.$showToast('请选择性别')
+          return
+        }
         this.type = 'setBirthDay'
         uni.setNavigationBarTitle({
           title: '选择生日'
         })
       } else if (this.type === 'setBirthDay') {
+        if (!this.form.birthday) {
+          this.$showToast('请选择生日')
+          return
+        }
         register(this.form).then(res => {
           if (res.code === 0) {
             this.$showToast('设置成功')
-            uni.switchTab({
+            uni.reLaunch({
               url: '/pages/index/index'
             })
           } else {

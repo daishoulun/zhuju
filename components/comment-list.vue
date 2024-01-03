@@ -21,8 +21,8 @@
     </view>
     <view v-if="level > 1 && list.length > 1 && !showAllComment" class="show-all-comment" @click="showAllComment = true">展开{{ list.length - 1 }}条评论</view>
     <view v-if="level > 1 && showAllComment" class="show-all-comment" @click="showAllComment = false">收起评论</view>
-    <view v-if="level === 1" class="comment-section">
-      <input class="comment-input" v-model="form.content" type="text" :focus="inputFocus" :placeholder="placeholder" @blur="handleSendComment" />
+    <view v-if="level === 1" class="comment-section" :style="{ bottom: bottom + 'px' }">
+      <input class="comment-input" v-model="form.content" type="text" :focus="inputFocus" :placeholder="placeholder" :adjust-position="false" @confirm="handleSendComment" @keyboardheightchange="handleFocus" />
     </view>
   </view>
 </template>
@@ -64,7 +64,8 @@ export default {
         replyUserId: ''
       },
       inputFocus: false,
-      showAllComment: false
+      showAllComment: false,
+      bottom: 0
     }
   },
   computed: {
@@ -80,7 +81,17 @@ export default {
       }
     },
   },
+  async created() {
+  },
   methods: {
+    async handleFocus(e) {
+      const res = await uni.getSystemInfo();
+      if (e.detail.height > 0) {
+        this.bottom = e.detail.height - (res.screenHeight - res.windowHeight)
+      } else {
+        this.bottom = e.detail.height
+      }
+    },
     handleSendComment() {
       this.form.momentId = this.detail.indexId || this.detail.momentId
       this.inputFocus = false

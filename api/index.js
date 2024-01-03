@@ -39,3 +39,11 @@ export const sendComment = data => {
     data
   })
 }
+// 分享数量+1
+export const wxShare = data => {
+  return request({
+    url: '/user/share/wx/count',
+    method: 'POST',
+    data
+  })
+}

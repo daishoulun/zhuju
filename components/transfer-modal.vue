@@ -12,13 +12,7 @@
               <image src="/static/wx.png" mode=""></image>
             </view>
             <view class="share-text">微信好友</view>
-          </button>
-          <button class="share-item" open-type="share">
-            <view class="share-icon">
-              <image src="/static/wx-firend.png" mode=""></image>
-            </view>
-            <view class="share-text">朋友圈</view>
-          </button>
+          </button> 
         </view>
       </view>
     </uni-popup>

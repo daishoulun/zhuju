@@ -70,7 +70,7 @@
             uni.setStorageSync('T-token', res.data.token)
             uni.setStorageSync('userId', res.data.userId)
             if (res.data.registered) {
-              uni.switchTab({
+              uni.reLaunch({
                 url: '/pages/index/index'
               })
             } else {

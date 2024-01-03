@@ -106,8 +106,8 @@ export default {
       startY = event.touches[0].clientY;
     },
     touchmove(event) {
-      if (!timer) {
-        timer = setTimeout(() => {
+      // if (!timer) {
+      //   timer = setTimeout(() => {
           let distanceY = event.touches[0].clientY - startY;
           let y = this.cropBoxTop + distanceY;
           let maxY = zoomHeight - this.cropBoxHeight;
@@ -118,9 +118,9 @@ export default {
             let maxX = zoomWidth - this.cropBoxHeight;
             this.cropBoxLeft = x <= 0 ? 0 : (x > maxX ? maxX : x);
           }
-          timer = null
-        }, 50);
-      }
+        //   timer = null
+        // }, 50);
+      // }
     },
     cancel() {
       uni.navigateBack()

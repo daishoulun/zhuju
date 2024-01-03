@@ -25,6 +25,11 @@
     methods: {
       close() {
         this.$emit('close')
+      },
+      handleLogin() {
+        uni.navigateTo({
+          url: '/pages/login/login'
+        })
       }
     }
   }

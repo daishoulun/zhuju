@@ -23,6 +23,7 @@
               :src="item.videoUrl"
               :controls="false"
               :show-center-play-btn="false"
+              loop
               object-fit="cover"
               autoplay
               @play="videoPlay"

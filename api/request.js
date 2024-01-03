@@ -14,14 +14,15 @@ const request = (opt) => {
       ...opt,
       success(res) {
         if (res.data.code === 1001) {
+          uni.clearStorageSync()
+        } else if (res.data.code === 1003) {
           uni.showToast({
-            title: '暂未登录'
+            title: res.data.msg,
+            icon:'none'
           })
-          // setTimeout(() => {
-          //   uni.reLaunch({
-          //     url: '/pages/login/login'
-          //   })
-          // }, 300)
+          uni.reLaunch({
+            url: '/pages/set-avatar/set-avatar'
+          })
         } else {
           resolve(res.data || res)
         }

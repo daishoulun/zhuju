@@ -27,7 +27,7 @@
             uni.setStorageSync('T-token', res.data.token)
             uni.setStorageSync('userId', res.data.userId)
             if (res.data.registered) {
-              uni.switchTab({
+              uni.reLaunch({
                 url: '/pages/index/index'
               })
             } else {
@@ -35,8 +35,6 @@
                 url: '/pages/set-avatar/set-avatar'
               })
             }
-          } else {
-            this.$showToast(res.msg)
           }
         }).finally(() => {
           this.btnDisabled = false
@@ -59,6 +57,7 @@
   background: url('http://atta.juzitang.net/ocbg.png');
   background-size: 100% auto;
   background-repeat: no-repeat;
+  background-color: #181818;
   image {
     width: 176rpx;
     height: 180rpx;

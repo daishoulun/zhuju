@@ -30,7 +30,7 @@
         <view class="menu-avatar">
           <image :src="item.avatar" mode="aspectFill" class="avatar-image pointer-events-auto"
             @click.stop="clickAvatar"></image>
-          <view v-if="isDynamics" class="follow pointer-events-auto" @click.stop="clickFollow">
+          <view class="follow pointer-events-auto" @click.stop="clickFollow">
             <image src="/static/add-like.png" mode="" class="follow-guanzhu" v-if="!item.followed"></image>
             <image src="/static/has-like.png" mode="" class="follow-guanzhu guanzhu-gou" v-else></image>
           </view>
@@ -156,6 +156,11 @@ export default {
   },
   methods: {
     handleDetail() {
+      const token = uni.getStorageSync('T-token')
+      if (!token) {
+        uni.$emit('login')
+        return
+      }
       if (this.hasDetail) {
         return
       }
@@ -173,9 +178,14 @@ export default {
       this.$emit('click-comment', this.item)
     },
     clickTransfer() {
-      this.$emit('click-transfer')
+      this.$emit('click-transfer', this.item)
     },
     clickAvatar() {
+      const token = uni.getStorageSync('T-token')
+      if (!token) {
+        uni.$emit('login')
+        return
+      }
       if (this.hasDetail) {
         return
       }

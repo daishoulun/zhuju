@@ -10,20 +10,20 @@
             'tabbar-item': true,
             'tabbar-active': item.value === type
           }"
-          @click="handleTabbar(item.value)"
+          @click="handleTabbar(item)"
         >{{ item.name }}</text>
       </view>
     </view>
     <view class="fans-main" :style="{ marginTop: tabbarTop + 'px' }">
       <view class="search-bar">
         <image class="search-icon" src="/static/search.png"></image>
-        <input v-model="listQuery.keyword" type="text" confirm-type="search" placeholder="搜索粉丝" @confirm="searchList" />
+        <input v-model="listQuery.keyword" type="text" confirm-type="search" :placeholder="placeholder" @confirm="searchList" />
       </view>
-      <view class="list">
+      <view v-if="list.length > 0" class="list">
         <view
           class="list-item"
-          v-for="item in list"
-          :key="item.id"
+          v-for="(item, index) in list"
+          :key="index"
         >
           <view class="avatar">
             <image :src="item.avatar" mode="aspectFill"></image>
@@ -33,10 +33,13 @@
             <view class="info">21岁双鱼座</view>
           </view>
           <view class="rig-con">
-            <button v-if="type === 'fans'" class="btn" @click="handleLike(item)">回关</button>
-            <button v-if="type === 'like'" class="btn already-attion-btn" @click="handleCancelLike(item)">已关注</button>
+            <button v-if="type === 'fans'" class="btn" @click="handleLike(item.userId)">回关</button>
+            <button v-if="type === 'like'" class="btn already-attion-btn" @click="handleCancelLike(item.userId)">已关注</button>
           </view>
         </view>
+      </view>
+      <view v-else class="no-con">
+        <image class="empty" src="/static/empty.png"></image>
       </view>
     </view>
   </view>
@@ -53,7 +56,7 @@
         tabbarList: [
           { value: 'like', name: '关注' },
           { value: 'fans', name: '粉丝' },
-          { value: 'firend', name: '朋友' }
+          { value: 'firend', name: '好友' }
         ],
         listQuery: {
           current: 1,
@@ -64,7 +67,8 @@
         list: [],
         total: 0,
         loading: false,
-        timer: null
+        timer: null,
+        placeholder: '搜索粉丝'
       };
     },
     computed: {
@@ -137,14 +141,15 @@
           uni.hideLoading();
         })
       },
-      handleTabbar(val) {
+      handleTabbar(item) {
         this.list = []
-        this.type = val
+        this.type = item.value
         this.listQuery.current = 1
+        this.placeholder = '搜索' + item.name
         this.getList()
       },
-      handleLike(item) {
-        createFollow({ userId: item.userId }).then(res => {
+      handleLike(userId) {
+        createFollow({ userId }).then(res => {
           if (res.code === 0) {
             this.$showToast('关注成功')
             this.listQuery.current = 1
@@ -154,8 +159,8 @@
           }
         })
       },
-      handleCancelLike() {
-        cancelFollow({ userId: item.userId }).then(res => {
+      handleCancelLike(userId) {
+        cancelFollow({ userId }).then(res => {
           if (res.code === 0) {
             this.$showToast('取关成功')
             this.listQuery.current = 1
@@ -291,6 +296,14 @@
             background: #343434;          
           }
         }
+      }
+    }
+    .no-con {
+      margin-top: 300rpx;
+      text-align: center;
+      .empty {
+        width: 204rpx;
+        height: 204rpx;
       }
     }
   }

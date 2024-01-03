@@ -4,17 +4,37 @@
       <text v-for="item in tabList" :key="item.key" :class="active === item.key ? 'active' : ''"
         @click="handleTabbar(item.key)">{{ item.label }}</text>
     </view>
-    <videos-list v-if="videoShow" ref="videosListRef" :list="vodList" :params="listQuery" :activeType="active"
-      @click-transfer="clickTransfer" @click-liked="clickLiked" @click-comment="clickComment" @click-follow="clickFollow"
-      @click-toggle="clickToggle" @load-data="loadData"></videos-list>
+    <videos-list
+      v-if="videoShow && vodList.length > 0"
+      ref="videosListRef"
+      :list="vodList"
+      :params="listQuery"
+      :activeType="active"
+      @click-transfer="clickTransfer"
+      @click-liked="clickLiked"
+      @click-comment="clickComment"
+      @click-follow="clickFollow"
+      @click-toggle="clickToggle"
+      @load-data="loadData"
+    ></videos-list>
     <UserAgreement v-if="userAgreementModalVisible" @close="userAgreementModalVisible = flase"></UserAgreement>
-    <LoginModal v-if="loginModalVisible" @close="loginModalVisible = flase"></LoginModal>
-    <CommentPopup v-if="commentPopupVisible" ref="commentList" @close="commentPopupVisible = false"></CommentPopup>
+    <LoginModal v-if="loginModalVisible" @close="loginModalVisible = false"></LoginModal>
+    <CommentPopup
+      v-if="commentPopupVisible"
+      ref="commentList"
+      @comment-success="commentSuccess"
+      @close="commentPopupVisible = false"
+    ></CommentPopup>
     <TransferModal v-if="transferPopupVisible" ref="transferModal" @close="transferPopupVisible = false"></TransferModal>
     <dy-detail-modal v-if="dyDetailModalShow" ref="dyDetailModalRef" :item="currentItem"
       @close="dyDetailModalShow = false" @cancel-liked="cancelLiked" @create-liked="createLiked"
       @click-transfer="clickTransfer" @click-comment="clickComment" @cancel-follow="cancelFollow"
-      @create-follow="createFollow"></dy-detail-modal>
+      @create-follow="createFollow"
+      @comment-success="commentSuccess"
+    ></dy-detail-modal>
+    <view class="no-con" v-if="vodList.length === 0">
+      <image class="empty" src="/static/empty.png"></image>
+    </view>
   </view>
 </template>
 
@@ -28,7 +48,8 @@ import DyDetailModal from '@/components/dy-detail-modal.vue'
 import {
   fetchRecommendList,
   fetchFollowList,
-  fetchMomentList
+  fetchMomentList,
+  wxShare
 } from '@/api/index.js'
 import { createLike, cancelLike } from '@/api/person-center.js'
 import { createFollow, cancelFollow } from '@/api/fans-list.js'
@@ -65,7 +86,9 @@ export default {
       vodList: [],
       videoShow: true,
       currentItem: {},
-      dyDetailModalShow: false
+      dyDetailModalShow: false,
+      shareForm: null,
+      isLogin: false
     }
   },
   computed: {
@@ -88,6 +111,10 @@ export default {
       // this.listQuery.lat = res.latitude
       }
     })
+    uni.$on('login', () => {
+      this.loginModalVisible = true
+    })
+    this.init()
   },
   onHide() {
     /* 暂停视频 */
@@ -96,19 +123,27 @@ export default {
     }
   },
   methods: {
-    async getAddressFromBaidu(geoLocation) {
-      const apiKey = 'cEp4DBq3xUaM7OxfRHL9d26S6xfmtwa6'; // 替换为你的百度地图API密钥
-      const url = `https://api.map.baidu.com/geocoder/v2/?location=${geoLocation}&output=json&ak=${apiKey}`;
-      const response = await uni.request({ url });
-      console.log('response', response)
-      console.log('data', data)
-      const data = JSON.parse(response.data);
-      if (data.status === 0) {
-        return data.result.addressComponent; // 返回地址信息
+    init() {
+      const token = uni.getStorageSync('T-token')
+      if (token) {
+        this.isLogin = true
       } else {
-        console.error('逆地址解析失败：', data);
-        return '';
+        this.isLogin = false
       }
+    },
+    async getAddressFromBaidu(geoLocation) {
+      // const apiKey = 'cEp4DBq3xUaM7OxfRHL9d26S6xfmtwa6'; // 替换为你的百度地图API密钥
+      // const url = `https://api.map.baidu.com/geocoder/v2/?location=${geoLocation}&output=json&ak=${apiKey}`;
+      // const response = await uni.request({ url });
+      // console.log('response', response)
+      // console.log('data', data)
+      // const data = JSON.parse(response.data);
+      // if (data.status === 0) {
+      //   return data.result.addressComponent; // 返回地址信息
+      // } else {
+      //   console.error('逆地址解析失败：', data);
+      //   return '';
+      // }
     },
     async getList() {
       if (this.active === 'recommend') {
@@ -196,6 +231,11 @@ export default {
       }
     },
     async handleTabbar(val) {
+      console.log(this.isLogin)
+      if (val !== 'recommend' && !this.isLogin) {
+        this.loginModalVisible = true
+        return
+      }
       this.active = val
       this.listQuery.current = 1
       this.vodList = []
@@ -230,12 +270,22 @@ export default {
         }
       })
     },
-    clickTransfer() {
+    // 转发
+    clickTransfer(item) {
+      if (!this.isLogin) {
+        this.loginModalVisible = true
+        return
+      }
+      this.shareForm = {
+        shareType: item.type,
+        shareId: item.indexId
+      }
       this.transferPopupVisible = true
       this.$nextTick(() => {
         this.$refs.transferModal.open()
       })
     },
+    // 动态详情展开
     clickToggle(item) {
       this.currentItem = item
       this.dyDetailModalShow = true
@@ -243,6 +293,7 @@ export default {
         this.$refs.dyDetailModalRef.open()
       })
     },
+    // 点赞
     clickLiked(item) {
       if (item.moment.liked) {
         this.cancelLiked(item)
@@ -250,6 +301,7 @@ export default {
         this.createLiked(item)
       }
     },
+    // 关注
     clickFollow(item) {
       if (item.followed) {
         this.cancelFollow(item)
@@ -279,6 +331,7 @@ export default {
     },
     // 点击评论
     clickComment(item) {
+      this.currentItem = item
       this.commentPopupVisible = true
       this.$nextTick(() => {
         this.$refs.commentList.open(item)
@@ -307,19 +360,32 @@ export default {
       })
     },
     setData(field, val, indexId) {
+      console.log(field, val, indexId)
+      console.log(this.vodList)
       this.vodList.forEach(item => {
         if (item.indexId === indexId) {
           if (field === 'like') {
             const num = item.moment.likeNum
             item.moment.liked = val
             item.moment.likeNum = val ? num + 1 : num - 1
+          } else if (field === 'commentNum') {
+            item.moment.commentNum += 1
+            this.currentItem.moment.commentNum = item.moment.commentNum
           } else {
             item[field] = val
           }
           this.currentItem = Object.assign({}, item)
         }
       })
+    },
+    commentSuccess() {
+      this.setData('commentNum', this.currentItem.moment.commentNum, this.currentItem.indexId)
     }
+  },
+  onShareAppMessage() {
+    wxShare(this.shareForm).finally(res => {
+      this.shareForm = null
+    })
   },
   onReachBottom() {
   }
@@ -359,6 +425,17 @@ page {
         font-weight: 600;
         color: #FFFFFF;
       }
+    }
+  }
+  .no-con {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    .empty {
+      width: 204rpx;
+      height: 204rpx;
     }
   }
 }
