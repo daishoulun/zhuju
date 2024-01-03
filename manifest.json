@@ -65,6 +65,7 @@
                 "desc" : "根据位置推荐内容"
             }
         },
+        "lazyCodeLoading" : "requiredComponents",
         "requiredPrivateInfos" : [ "getLocation" ]
     },
     "h5" : {
