@@ -135,19 +135,27 @@
       this.userInfo = {}
       const userId = uni.getStorageSync('userId')
       if (userId) {
+        this.isLogin = true
         this.getUserInfo(userId)
         this.getProfile(userId)
+      } else {
+        this.isLogin = false
       }
     },
     methods: {
       getUserInfo(userId) {
         fetchUserInfo({ userId }).then(res => {
-          this.userInfo = res.data || {}
-          uni.setStorageSync('userInfo', JSON.stringify(this.userInfo))
-          this.pageShow = false
-          this.$nextTick(() => {
-            this.pageShow = true
-          })
+          if (res.code === 0) {
+            this.userInfo = res.data || {}
+            uni.setStorageSync('userInfo', JSON.stringify(this.userInfo))
+            this.pageShow = false
+            this.$nextTick(() => {
+              this.pageShow = true
+            })
+          } else if (res.code === 1001) {
+            this.userInfo = {}
+            this.isLogin = false
+          }
         })
       },
       getProfile(userId) {

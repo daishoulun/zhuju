@@ -106,6 +106,8 @@
             } else {
               this.list = this.list.concat(res.data.list || [])
             }
+          } else if (res.code === 1001) {
+            this.isLogin = false
           }
         }).finally(() => {
           this.loading = false

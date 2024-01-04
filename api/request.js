@@ -14,6 +14,7 @@ const request = (opt) => {
       ...opt,
       success(res) {
         if (res.data.code === 1001) {
+          resolve(res.data || res)
           uni.clearStorageSync()
         } else if (res.data.code === 1003) {
           uni.showToast({
@@ -23,6 +24,7 @@ const request = (opt) => {
           uni.reLaunch({
             url: '/pages/set-avatar/set-avatar'
           })
+          resolve(res.data || res)
         } else {
           resolve(res.data || res)
         }

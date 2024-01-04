@@ -32,9 +32,7 @@
       @create-follow="createFollow"
       @comment-success="commentSuccess"
     ></dy-detail-modal>
-    <view class="no-con" v-if="vodList.length === 0">
-      <image class="empty" src="/static/empty.png"></image>
-    </view>
+    <empty-state v-if="vodList.length === 0"></empty-state>
   </view>
 </template>
 
@@ -45,6 +43,7 @@ import CommentPopup from '@/components/comment-popup.vue'
 import VideosList from '@/components/videos-list/index.vue'
 import TransferModal from '@/components/transfer-modal.vue'
 import DyDetailModal from '@/components/dy-detail-modal.vue'
+import EmptyState from '@/components/empty-state'
 import {
   fetchRecommendList,
   fetchFollowList,
@@ -62,7 +61,8 @@ export default {
     UserAgreement,
     LoginModal,
     TransferModal,
-    DyDetailModal
+    DyDetailModal,
+    EmptyState
   },
   mixins: [disTopHeight],
   data() {
@@ -114,6 +114,9 @@ export default {
     uni.$on('login', () => {
       this.loginModalVisible = true
     })
+    this.init()
+  },
+  onShow() {
     this.init()
   },
   onHide() {
@@ -303,6 +306,10 @@ export default {
     },
     // 关注
     clickFollow(item) {
+      if (!this.isLogin) {
+        this.loginModalVisible = true
+        return
+      }
       if (item.followed) {
         this.cancelFollow(item)
       } else {
@@ -425,17 +432,6 @@ page {
         font-weight: 600;
         color: #FFFFFF;
       }
-    }
-  }
-  .no-con {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    .empty {
-      width: 204rpx;
-      height: 204rpx;
     }
   }
 }

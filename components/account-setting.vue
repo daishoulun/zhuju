@@ -41,11 +41,6 @@
             name: '设置',
             value: 'system-setting',
             icon: '/static/setting.png'
-          },
-          {
-            name: '公众号',
-            value: 'official-account',
-            icon: '/static/gongzhonghao.png'
           }
         ]
       };

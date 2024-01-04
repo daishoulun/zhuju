@@ -35,7 +35,7 @@
             </view> -->
             <view class="loc-info">
               <view class="name">{{ activityDetail.location }}</view>
-              <view class="no">{{ activityDetail.rongRoomId }}</view>
+              <view class="no">{{ activityDetail.address }}</view>
             </view>
           </view>
         </view>
@@ -398,7 +398,7 @@
     border-radius: 60rpx;
     font-size: 36rpx;
     font-weight: 600;
-    color: #201F2C;
+    color: #3D3D3D;
     text-align: center;
     line-height: 120rpx;
     &.btn-5,
