@@ -139,6 +139,7 @@
     {
       "path": "pages/activity-detail/activity-detail",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "",
         "enablePullDownRefresh": false
       }
