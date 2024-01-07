@@ -1,5 +1,12 @@
 <template>
   <view class="activity-detail">
+    <view class="action-bar" :style="{
+      top: tabbarTop + 'px'
+    }">
+      <image class="back-icon" src="/static/arrow-l.png" @click="handleBack"></image>
+      <button class="share-btn" open-type="share"><image class="share-icon" src="/static/share.png"></image></button>
+      
+    </view>
     <view v-if="activityDetail.activityFileType === 2" class="bg">
       <video
         id="activityDetailVideo"
@@ -65,8 +72,10 @@
 </template>
 
 <script>
+  import disTopHeight from '@/mixins/disTopHeight'
   import { fetchDetail, joinActivity, activityPay, queryPayResult } from '@/api/activity-detail.js'
   export default {
+    mixins: [disTopHeight],
     filters: {
       payerTypeFilter(val) {
         const map = {
@@ -96,9 +105,15 @@
       return {
         activityDetail: {},
         isPlay: false,
+        id: '',
+        arrowHeight: 0
       };
     },
     computed: {
+      tabbarTop() {
+        const space = (this.navBarHeight - this.arrowHeight) / 2
+        return space + this.statusBarHeight
+      },
       coverUrl() {
         return this.activityDetail.cover || this.activityDetail.activityFileUrl
       },
@@ -120,11 +135,18 @@
       }
     },
     onLoad(opt) {
-      this.getDetail(opt.id)
+      this.id = opt.id
+      this.getDetail()
+    },
+    onReady() {
+      const query = uni.createSelectorQuery().in(this);
+      query.select('.action-bar').boundingClientRect(data => {
+        this.arrowHeight = data.height
+      }).exec();
     },
     methods: {
-      getDetail(id) {
-        fetchDetail({ activityId: id }).then(res => {
+      getDetail() {
+        fetchDetail({ activityId: this.id }).then(res => {
           this.activityDetail = res?.data || {}
           this.activityDetail.noJoin = this.activityDetail.femaleRemainNum + this.activityDetail.maleRemainNum || 0
           this.activityDetail.hasJoin = this.activityDetail.totalPeopleNum - this.activityDetail.noJoin
@@ -138,11 +160,14 @@
       },
       handleJoinActivity() {
         joinActivity({ activityId: this.activityDetail.activityId }).then(res => {
-          if (res.data.needPay) {
-            this.handlePay(res.data.orderNo)
-          }
           if (res.code === 0) {
-            this.$showToast('加入成功')
+            if (res.data.needPay) {
+              this.$showToast('需要支付，支付功能暂未开发')
+              this.handlePay(res.data.orderNo)
+            } else {
+              this.$showToast('加入成功')
+              this.getDetail()
+            }
           } else {
             this.$showToast(res.msg)
           }
@@ -204,8 +229,16 @@
             this.$showToast(res.msg)
           }
         })
+      },
+      handleBack() {
+        uni.navigateBack({
+          fail: () => {
+            uni.reLaunch({
+              url: '/pages/index/index'
+            })
+          }
+        })
       }
-      
     }
   }
 </script>
@@ -214,6 +247,31 @@
 .activity-detail {
   height: 100vh;
   overflow: auto;
+  .action-bar {
+    position: absolute;
+    left: 32rpx;
+    height: 44rpx;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    .share-btn,
+    .back-icon,
+    .share-icon {
+      width: 44rpx;
+      height: 44rpx;
+    }
+    .share-btn {
+      padding-left: 0;
+      padding-right: 0;
+      background: transparent;
+      text-align: center;
+      margin-left: 0;
+      border: none;
+      border-radius: 0;
+      margin-left: 42rpx;
+      line-height: 44rpx;
+    }
+  }
   .title {
     font-size: 32rpx;
     font-weight: 500;

@@ -14,9 +14,12 @@ const request = (opt) => {
       ...opt,
       success(res) {
         if (res.data.code === 1001) {
-          resolve(res.data || res)
+          // token过期或者被顶下线
           uni.clearStorageSync()
+          uni.$emit('login')
+          resolve(res.data || res)
         } else if (res.data.code === 1003) {
+          // 注册信息没有填写的状态
           uni.showToast({
             title: res.data.msg,
             icon:'none'

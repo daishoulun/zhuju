@@ -112,6 +112,7 @@ export default {
       }
     })
     uni.$on('login', () => {
+      this.isLogin = false
       this.loginModalVisible = true
     })
     this.init()
@@ -393,6 +394,11 @@ export default {
     wxShare(this.shareForm).finally(res => {
       this.shareForm = null
     })
+    const path = this.shareForm.shareType === 1 ?  '/pages/activity-detail/activity-detail?id=' : 'pages/dynamics-detail/dynamics-detail?id='
+    return {
+      path: path + this.shareForm.shareId
+    }
+    
   },
   onReachBottom() {
   }

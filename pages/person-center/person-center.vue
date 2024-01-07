@@ -130,6 +130,10 @@
       } else {
         this.isLogin = false
       }
+      uni.$on('login', () => {
+        this.isLogin = false
+        this.loginModalVisible = true
+      })
     },
     onShow() {
       this.userInfo = {}
@@ -210,6 +214,10 @@
         })
       },
       handleTabbar(val) {
+        if (!this.isLogin) {
+          this.loginModalVisible = true
+          return
+        }
         this.active = val
         this.listQuery.current = 1
         this.getList()
@@ -224,6 +232,10 @@
         })
       },
       handleLike(val) {
+        if (!this.isLogin) {
+          this.loginModalVisible = true
+          return
+        }
         uni.navigateTo({
           url: '/pages/fans-list/fans-list?type=' + val
         })

@@ -1,7 +1,16 @@
 <template>
   <view class="activity-card" @click="handleClick">
     <view class="activity-cover">
-      <image :src="activityData.cover || ''" mode="aspectFill"></image>
+      <video
+        v-if="activityData.activityFileType === 2"
+        class="cover-video"
+        id="activityDetailVideo"
+        :src="activityData.activityFileUrl"
+        :controls="false"
+        :show-center-play-btn="false"
+        object-fit="cover"
+      ></video>
+      <image v-else class="cover-img" :src="activityData.cover || ''" mode="aspectFill"></image>
     </view>
     <view class="activity-con">
       <view class="title">{{ activityData.activitySubject }}</view>
@@ -81,7 +90,8 @@
     width: 120rpx;
     height: 163rpx;
     border-radius: 20rpx;
-    image {
+    .cover-img,
+    .cover-video {
       width: 100%;
       height: 100%;
     }

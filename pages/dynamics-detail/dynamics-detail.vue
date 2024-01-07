@@ -195,7 +195,13 @@
         }
       },
       handleBack() {
-        uni.navigateBack()
+        uni.navigateBack({
+          fail: () => {
+            uni.reLaunch({
+              url: '/pages/index/index'
+            })
+          }
+        })
       }
     }
   }

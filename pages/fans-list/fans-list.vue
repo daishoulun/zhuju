@@ -79,6 +79,8 @@
     },
     async onLoad(opt) {
       this.type = opt.type
+      const data = this.tabbarList.find(item => item.value === opt.type)
+      this.placeholder = '搜索' + data.name
       this.listQuery.userId = uni.getStorageSync('userId')
       this.getList()
     },
