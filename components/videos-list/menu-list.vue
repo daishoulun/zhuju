@@ -7,6 +7,9 @@
     <!-- 底部标题 -->
     <view v-if="!(isDynamics && item.moment && item.moment.contentType === 3)" class="footTitle"
       :class="[vodIndex == index ? (sliderDrag ? 'vodMenu-bright1' : (moveOpacity ? 'vodMenu-bright2' : 'vodMenu-bright0')) : '']">
+      <text v-if="payTagShow" class="pay-tag" :class="{ noPay: !item.activity.needToPay }">{{
+        item.activity.needToPay ? '需付款' : '无需付款'
+      }}</text>
       <view class="v-title-wrap">
         <text class="foot-name">{{ footTitle }}</text>
         <text v-if="!isDynamics" class="detail pointer-events-auto" @click.stop="handleDetail">详情</text>
@@ -65,7 +68,9 @@
 </template>
 
 <script>
+import checkLogin from '@/mixins/checkLogin'
 export default {
+  mixins: [checkLogin],
   data() {
     return {
       followed: false,
@@ -120,6 +125,9 @@ export default {
     }
   },
   computed: {
+    payTagShow() {
+      return !this.isDynamics && this.item?.activity?.show
+    },
     isDynamics() {
       return this.activeType === 'dynamics' || this.item.type === 2
     },
@@ -156,41 +164,43 @@ export default {
   },
   methods: {
     handleDetail() {
-      const token = uni.getStorageSync('T-token')
-      if (!token) {
-        uni.$emit('login')
-        return
-      }
-      if (this.hasDetail) {
-        return
-      }
-      uni.navigateTo({
-        url: '/pages/activity-detail/activity-detail?id=' + this.item.indexId
+      this.handleCheckLogin(() => {
+        if (this.hasDetail) {
+          return
+        }
+        uni.navigateTo({
+          url: '/pages/activity-detail/activity-detail?id=' + this.item.indexId
+        })
       })
     },
     clickFollow() {
-      this.$emit('click-follow', this.item)
+      this.handleCheckLogin(() => {
+        this.$emit('click-follow', this.item)
+      })
     },
     clickLike() {
-      this.$emit('click-liked', this.item)
+      this.handleCheckLogin(() => {
+        this.$emit('click-liked', this.item)
+      })
     },
     clickComment() {
-      this.$emit('click-comment', this.item)
+      this.handleCheckLogin(() => {
+        this.$emit('click-comment', this.item)
+      })
     },
     clickTransfer() {
-      this.$emit('click-transfer', this.item)
+      this.handleCheckLogin(() => {
+        this.$emit('click-transfer', this.item)
+      })
     },
     clickAvatar() {
-      const token = uni.getStorageSync('T-token')
-      if (!token) {
-        uni.$emit('login')
-        return
-      }
-      if (this.hasDetail) {
-        return
-      }
-      uni.navigateTo({
-        url: '/pages/person-detail/person-detail?id=' + this.item.userId
+      this.handleCheckLogin(() => {
+        if (this.hasDetail) {
+          return
+        }
+        uni.navigateTo({
+          url: '/pages/person-detail/person-detail?id=' + this.item.userId
+        })
       })
     },
     handleToggleText() {
@@ -201,6 +211,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pay-tag {
+  padding: 4rpx 12rpx;
+  background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #201F2C;
+  line-height: 40rpx;
+  letter-spacing: 1px;
+  &.noPay {
+    background: rgba(0,0,0,0.2);
+    color: #FFFFFF;
+  }
+}
 .pointer-events-auto {
   pointer-events: auto;
 }
@@ -378,7 +402,7 @@ export default {
 .v-title-wrap {
   display: flex;
   align-items: center;
-  margin-bottom: 24rpx;
+  margin: 24rpx 0;
 
   .foot-name {
     font-size: 32rpx;

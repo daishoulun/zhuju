@@ -53,6 +53,7 @@ import {
 import { createLike, cancelLike } from '@/api/person-center.js'
 import { createFollow, cancelFollow } from '@/api/fans-list.js'
 import disTopHeight from '@/mixins/disTopHeight'
+import checkLogin from '@/mixins/checkLogin'
 export default {
   components: {
     // twVideov,
@@ -64,7 +65,7 @@ export default {
     DyDetailModal,
     EmptyState
   },
-  mixins: [disTopHeight],
+  mixins: [disTopHeight, checkLogin],
   data() {
     return {
       commentPopupVisible: false,
@@ -235,11 +236,15 @@ export default {
       }
     },
     async handleTabbar(val) {
-      console.log(this.isLogin)
-      if (val !== 'recommend' && !this.isLogin) {
-        this.loginModalVisible = true
+      if (val !== 'recommend') {
+        this.handleCheckLogin().then(() => {
+          this.getData(val)
+        })
         return
       }
+      this.getData(val)
+    },
+    async getData(val) {
       this.active = val
       this.listQuery.current = 1
       this.vodList = []
@@ -276,10 +281,6 @@ export default {
     },
     // 转发
     clickTransfer(item) {
-      if (!this.isLogin) {
-        this.loginModalVisible = true
-        return
-      }
       this.shareForm = {
         shareType: item.type,
         shareId: item.indexId
@@ -307,10 +308,6 @@ export default {
     },
     // 关注
     clickFollow(item) {
-      if (!this.isLogin) {
-        this.loginModalVisible = true
-        return
-      }
       if (item.followed) {
         this.cancelFollow(item)
       } else {
@@ -368,8 +365,6 @@ export default {
       })
     },
     setData(field, val, indexId) {
-      console.log(field, val, indexId)
-      console.log(this.vodList)
       this.vodList.forEach(item => {
         if (item.indexId === indexId) {
           if (field === 'like') {
@@ -388,7 +383,7 @@ export default {
     },
     commentSuccess() {
       this.setData('commentNum', this.currentItem.moment.commentNum, this.currentItem.indexId)
-    }
+    },
   },
   onShareAppMessage() {
     wxShare(this.shareForm).finally(res => {

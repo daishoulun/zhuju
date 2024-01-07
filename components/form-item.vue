@@ -1,6 +1,6 @@
 <template>
   <view class="form-item">
-    <view class="label" @click="handleItem">{{ label }}</view>
+    <view v-if="label" class="label" @click="handleItem">{{ label }}</view>
     <view class="input">
       <slot>
         <input
@@ -12,7 +12,9 @@
       </slot>
     </view>
     <view v-if="hasArrow" class="arrow">
-      <image src="@/static/arrow-r.png"></image>
+      <slot name="icon">
+        <image src="@/static/arrow-r.png"></image>
+      </slot>
     </view>
   </view>
 </template>
@@ -57,7 +59,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 750rpx;
+    width: 100%;
     height: 112rpx;
     padding: 0 32rpx;
     box-sizing: border-box;

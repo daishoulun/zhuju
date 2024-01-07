@@ -1,6 +1,12 @@
 <template>
 	<view class="person-center">
-    <image class="arrow-l" src="/static/arrow-l.png" @click="handleBack"></image>
+    <view class="action-bar" :style="{
+      top: tabbarTop + 'px'
+    }">
+      <image class="back-icon" src="/static/arrow-l.png" @click="handleBack"></image>
+      <view class="divider"></view>
+      <image class="more-icon" src="/static/more.png" @click="handleMore"></image>
+    </view>
 		<view class="bg">
     </view>
     <view class="person-main">
@@ -57,22 +63,40 @@
         <view v-else class="empty-state">
           <image src="/static/empty.png" mode=""></image>
         </view>
-        
       </view>
     </view>
+    <person-more-popup
+      v-if="personMoreVisible"
+      ref="personMorePopup"
+      @join-black="handleJoinBlack"
+      @report-user="handleReportUser"
+      @close="personMoreVisible = false"
+    ></person-more-popup>
+    <join-black-modal
+      v-if="blackModalVisible"
+      ref="joinBlackModal"
+      @confirm="joinBlack"
+      @close="blackModalVisible = false"
+    ></join-black-modal>
 	</view>
 </template>
 
 <script>
   import ActiveList from '@/components/active-list/active-list'
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
-  import { fetchUserInfo, getProfile, getActivityList, getMomentList, createLike, cancelLike } from '@/api/person-center.js'
+  import PersonMorePopup from '@/components/person-more-popup.vue'
+  import JoinBlackModal from '@/components/join-black-modal.vue'
+  import { fetchUserInfo, getProfile, getActivityList, getMomentList, joinBlack } from '@/api/person-center.js'
   import { cancelFollow, createFollow } from '@/api/fans-list.js'
+  import disTopHeight from '@/mixins/disTopHeight'
 	export default {
     components: {
       ActiveList,
       DynamicsList,
+      PersonMorePopup,
+      JoinBlackModal
     },
+    mixins: [disTopHeight],
     filters: {
       stateFilter(val) {
         const map = {
@@ -86,6 +110,8 @@
     },
 		data() {
 			return {
+        personMoreVisible: false,
+        blackModalVisible: false,
         isLogin: false,
 				active: 'active',
         userInfo: {
@@ -102,10 +128,15 @@
         profileInfo: {},
         total: 0,
         list: [],
-        loading: false
+        loading: false,
+        actionBarHeight: 0
 			};
 		},
     computed: {
+      tabbarTop() {
+        const space = (this.navBarHeight - this.actionBarHeight) / 2
+        return space + this.statusBarHeight
+      },
       avatar() {
         if (this.isLogin) {
           return this.userInfo.avatar
@@ -131,6 +162,12 @@
       } else {
         this.isLogin = false
       }
+    },
+    onReady() {
+      const query = uni.createSelectorQuery().in(this);
+      query.select('.action-bar').boundingClientRect(data => {
+        this.arrowHeight = data.height
+      }).exec();
     },
     methods: {
       getUserInfo(userId) {
@@ -237,6 +274,37 @@
       },
       handleBack() {
         uni.navigateBack()
+      },
+      handleMore() {
+        this.personMoreVisible = true
+        this.$nextTick(() => {
+          this.$refs.personMorePopup.open()
+        })
+      },
+      handleJoinBlack() {
+        this.personMoreVisible = false
+        this.blackModalVisible = true
+      },
+      joinBlack() {
+        joinBlack({
+          blocked: true,
+          userId: this.listQuery.userId
+        }).then(res => {
+          if (res.code === 0) {
+            this.getUserInfo(this.profileInfo.userId)
+            this.getProfile(this.profileInfo.userId)
+            this.$showToast('已成功加入黑名单')
+            this.blackModalVisible = false
+          } else {
+            this.$showToast(res.msg)
+          }
+        })
+      },
+      handleReportUser() {
+        this.personMoreVisible = false
+        uni.navigateTo({
+          url: '/pages/report-list/report-list?id=' + this.profileInfo.userId
+        })
       }
     },
     onPullDownRefresh() {
@@ -267,12 +335,28 @@
   box-sizing: border-box;
   background: #181818;
   overflow-y: auto;
-  .arrow-l {
+  .action-bar {
     position: fixed;
-    top: 108rpx;
     left: 32rpx;
-    width: 44rpx;
-    height: 44rpx;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    .back-icon {
+      width: 44rpx;
+      height: 44rpx;
+    }
+    .more-icon {
+      width: 48rpx;
+      height: 48rpx;
+    }
+    .divider {
+      width: 2rpx;
+      height: 40rpx;
+      background: #FFFFFF;
+      border-radius: 2rpx;
+      opacity: 0.34;
+      margin: 0 20rpx;
+    }
   }
   .bg {
     width: 750rpx;

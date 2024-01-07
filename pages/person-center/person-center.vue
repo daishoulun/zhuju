@@ -104,7 +104,6 @@
 		},
     computed: {
       avatar() {
-        console.log(this.isLogin)
         if (this.isLogin) {
           return this.userInfo.avatar
         } else {

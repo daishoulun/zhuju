@@ -57,3 +57,21 @@ export const createLike = data => {
     data
   })
 }
+
+// 拉黑
+export const joinBlack = data => {
+  return request({
+    url: '/user/chat/blacklist/setting',
+    method: 'POST',
+    data
+  })
+}
+
+// 举报
+export const reportUser = data => {
+  return request({
+    url: '/user/chat/report',
+    method: 'POST',
+    data
+  })
+}

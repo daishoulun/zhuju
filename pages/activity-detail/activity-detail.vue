@@ -5,7 +5,6 @@
     }">
       <image class="back-icon" src="/static/arrow-l.png" @click="handleBack"></image>
       <button class="share-btn" open-type="share"><image class="share-icon" src="/static/share.png"></image></button>
-      
     </view>
     <view v-if="activityDetail.activityFileType === 2" class="bg">
       <video
@@ -141,7 +140,7 @@
     onReady() {
       const query = uni.createSelectorQuery().in(this);
       query.select('.action-bar').boundingClientRect(data => {
-        this.arrowHeight = data.height
+        this.actionBarHeight = data.height
       }).exec();
     },
     methods: {

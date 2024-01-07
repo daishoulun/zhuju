@@ -179,6 +179,22 @@
         "navigationBarTitleText" : "",
         "enablePullDownRefresh" : false
       }
+    },
+    {
+      "path" : "pages/report-list/report-list",
+      "style" : 
+      {
+        "navigationBarTitleText" : "举报",
+        "enablePullDownRefresh" : false
+      }
+    },
+    {
+      "path" : "pages/report-form/report-form",
+      "style" : 
+      {
+        "navigationBarTitleText" : "举报",
+        "enablePullDownRefresh" : false
+      }
     }
   ],
   "globalStyle": {
