@@ -45,6 +45,7 @@
     ></menu-list>
     <CommentPopup v-if="commentPopupVisible" ref="commentList" @comment-success="getDetail" @close="commentPopupVisible = false"></CommentPopup>
     <TransferModal v-if="transferPopupVisible" ref="transferModal" @close="transferPopupVisible = false"></TransferModal>
+    <LoginModal v-if="loginModalVisible" @close="loginModalVisible = false"></LoginModal>
   </view>
 </template>
 
@@ -53,6 +54,8 @@
   import disTopHeight from '@/mixins/disTopHeight'
   import CommentPopup from '@/components/comment-popup.vue'
   import TransferModal from '@/components/transfer-modal.vue'
+  import LoginModal from '@/components/login-modal.vue'
+  import checkLogin from '@/mixins/checkLogin'
   import { queryDynamicsDetail } from '@/api/dynamics-detail.js'
   import { createLike, cancelLike } from '@/api/person-center.js'
   import { createFollow, cancelFollow } from '@/api/fans-list.js'
@@ -60,9 +63,10 @@
     components: {
       MenuList,
       CommentPopup,
-      TransferModal
+      TransferModal,
+      LoginModal
     },
-    mixins: [disTopHeight],
+    mixins: [disTopHeight, checkLogin],
     data() {
       return {
         id: '',
@@ -70,7 +74,8 @@
         transferPopupVisible: false,
         detail: {},
         arrowHeight: 0,
-        isPlay: false
+        isPlay: false,
+        loginModalVisible: false
       }
     },
     computed: {
@@ -80,6 +85,12 @@
       }
     },
     onLoad(opt) {
+      uni.$on('login', () => {
+        console.log('on')
+        this.$nextTick(() => {
+          this.loginModalVisible = true
+        })
+      })
       this.id = opt.id
       this.getDetail()
     },
@@ -88,6 +99,9 @@
       query.select('.back').boundingClientRect(data => {
         this.arrowHeight = data.height
       }).exec();
+    },
+    onShow() {
+      this.handleCheckLogin()
     },
     methods: {
       getDetail() {

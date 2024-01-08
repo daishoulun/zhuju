@@ -1,9 +1,5 @@
 <template>
   <view class="menu-list" :class="{ isDetail: hasDetail }">
-    <view v-if="!hasDetail" class="header-local">
-      <image src="/static/location.png" mode=""></image>
-      <text class="area">杭州</text>
-    </view>
     <!-- 底部标题 -->
     <view v-if="!(isDynamics && item.moment && item.moment.contentType === 3)" class="footTitle"
       :class="[vodIndex == index ? (sliderDrag ? 'vodMenu-bright1' : (moveOpacity ? 'vodMenu-bright2' : 'vodMenu-bright0')) : '']">
@@ -60,7 +56,7 @@
           <view class="fabulous-image">
             <image src="/static/forward-arrow.png" mode="" class="fabulous-image"></image>
           </view>
-          <view class="fabulous-num">转发</view>
+          <view class="fabulous-num">{{ item.shareNum > 0 ? item.shareNum : '转发' }}</view>
         </view>
       </view>
     </view>
@@ -236,25 +232,6 @@ export default {
   bottom: 0;
   top: 0;
   pointer-events: none;
-
-  .header-local {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: 168rpx;
-    left: 32rpx;
-    z-index: 8;
-    font-size: 32rpx;
-    font-weight: 500;
-    color: #FFFFFF;
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.14);
-
-    image {
-      width: 32rpx;
-      height: 32rpx;
-      margin-right: 12rpx;
-    }
-  }
 }
 
 .isHidden {

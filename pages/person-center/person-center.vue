@@ -240,6 +240,10 @@
         })
       },
       handleSetting() {
+        if (!this.isLogin) {
+          this.loginModalVisible = true
+          return
+        }
         this.$refs.accountSet.showDrawer()
       },
       handleLogin() {

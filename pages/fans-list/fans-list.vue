@@ -25,7 +25,7 @@
           v-for="(item, index) in list"
           :key="index"
         >
-          <view class="avatar">
+          <view class="avatar" @click="handlePerson(item)">
             <image :src="item.avatar" mode="aspectFill"></image>
           </view>
           <view class="content">
@@ -174,6 +174,11 @@
       },
       handleBack() {
         uni.navigateBack()
+      },
+      handlePerson(item) {
+        uni.navigateTo({
+          url: '/pages/person-detail/person-detail?id=' + item.userId
+        })
       }
     },
     onPullDownRefresh() {

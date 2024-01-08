@@ -1,8 +1,14 @@
 <template>
   <view class="home">
     <view class="tabbar" :style="{ top: tabbarTop + 'px' }">
-      <text v-for="item in tabList" :key="item.key" :class="active === item.key ? 'active' : ''"
+      <view>
+        <text v-for="item in tabList" :key="item.key" :class="active === item.key ? 'active' : ''"
         @click="handleTabbar(item.key)">{{ item.label }}</text>
+      </view>
+      <view v-if="!hasDetail" class="header-local">
+        <image src="/static/location.png" mode=""></image>
+        <text class="area">杭州</text>
+      </view>
     </view>
     <videos-list
       v-if="videoShow && vodList.length > 0"
@@ -101,7 +107,7 @@ export default {
   onLoad() {
     this.listQuery.lon = 116.4
     this.listQuery.lat = 39.9
-      this.getList()
+    this.getList()
     uni.getLocation({
       type: 'wgs84',
       success: ({latitude, longitude}) => {
@@ -256,8 +262,8 @@ export default {
       })
     },
     loadData() {
-      this.listQuery.current++
-      this.getList()
+      // this.listQuery.current++
+      // this.getList()
     },
     /* 下拉刷新 */
     refreshData() {
@@ -374,6 +380,8 @@ export default {
           } else if (field === 'commentNum') {
             item.moment.commentNum += 1
             this.currentItem.moment.commentNum = item.moment.commentNum
+          } else if (field === 'shareNum') {
+            item.shareNum += 1
           } else {
             item[field] = val
           }
@@ -386,8 +394,10 @@ export default {
     },
   },
   onShareAppMessage() {
-    wxShare(this.shareForm).finally(res => {
-      this.shareForm = null
+    wxShare(this.shareForm).then(res => {
+      if (!res.data.shared) {
+        this.setData('shareNum', '', this.shareForm.shareId)
+      }
     })
     const path = this.shareForm.shareType === 1 ?  '/pages/activity-detail/activity-detail?id=' : 'pages/dynamics-detail/dynamics-detail?id='
     return {
@@ -401,10 +411,6 @@ export default {
 </script>
 
 <style>
-page {
-  background-color: #000;
-}
-
 .home {
   width: 100%;
   height: 100vh;
@@ -432,6 +438,20 @@ page {
       &.active {
         font-weight: 600;
         color: #FFFFFF;
+      }
+    }
+    .header-local {
+      display: flex;
+      align-items: center;
+      margin-top: 44rpx;
+      font-size: 32rpx;
+      font-weight: 500;
+      color: #FFFFFF;
+      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.14);
+      image {
+        width: 32rpx;
+        height: 32rpx;
+        margin-right: 12rpx;
       }
     }
   }

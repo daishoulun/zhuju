@@ -4,7 +4,7 @@
       top: tabbarTop + 'px'
     }">
       <image class="back-icon" src="/static/arrow-l.png" @click="handleBack"></image>
-      <button class="share-btn" open-type="share"><image class="share-icon" src="/static/share.png"></image></button>
+      <button class="share-btn" plain open-type="share"><image class="share-icon" src="/static/share.png"></image></button>
     </view>
     <view v-if="activityDetail.activityFileType === 2" class="bg">
       <video
@@ -67,14 +67,17 @@
       </view>
     </view>
     <view class="placeholder"></view>
+    <LoginModal v-if="loginModalVisible" @close="loginModalVisible = false"></LoginModal>
   </view>
 </template>
 
 <script>
   import disTopHeight from '@/mixins/disTopHeight'
   import { fetchDetail, joinActivity, activityPay, queryPayResult } from '@/api/activity-detail.js'
+  import LoginModal from '@/components/login-modal.vue'
+  import checkLogin from '@/mixins/checkLogin'
   export default {
-    mixins: [disTopHeight],
+    mixins: [disTopHeight, checkLogin],
     filters: {
       payerTypeFilter(val) {
         const map = {
@@ -100,12 +103,16 @@
         return map[val]
       }
     },
+    components: {
+      LoginModal
+    },
     data() {
       return {
         activityDetail: {},
         isPlay: false,
         id: '',
-        arrowHeight: 0
+        arrowHeight: 0,
+        loginModalVisible: false
       };
     },
     computed: {
@@ -134,8 +141,17 @@
       }
     },
     onLoad(opt) {
+      uni.$on('login', () => {
+        console.log('on')
+        this.$nextTick(() => {
+          this.loginModalVisible = true
+        })
+      })
       this.id = opt.id
       this.getDetail()
+    },
+    onShow() {
+      this.handleCheckLogin()
     },
     onReady() {
       const query = uni.createSelectorQuery().in(this);

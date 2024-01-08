@@ -10,7 +10,9 @@
           @click="handleUpload(item)"
         >
           <template v-if="item.type === 'default'">
-            <view class="default-icon">占位</view>
+            <view class="default-icon">
+              <image class="camera" src="@/static/camera-up.png"></image>
+            </view>
             <view>{{ imgList.length - 1 }} / 9</view>
           </template>
           <image v-else class="u-img" :src="item.url" mode="aspectFill"></image>
@@ -181,7 +183,11 @@
       .default-icon {
         width: 46rpx;
         height: 46rpx;
-        background: #7D7D7D;
+        margin-bottom: 12rpx;
+        .camera {
+          width: 100%;
+          height: 100%;
+        }
       }
       .u-img {
         width: 100%;

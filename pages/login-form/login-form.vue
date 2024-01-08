@@ -12,11 +12,12 @@
         <text class="send-code" @click="handleCode">{{ codeText }}</text>
       </view>
       <view class="policy">
-        <checkbox :value="value" @click="handlePolicy" /> 我已阅读并同意<text @click="handleViewPolicy" style="border-radius: 50%;">《隐私权政策》</text>
+        <checkbox :value="value" @click="handlePolicy" /> 我已阅读并同意<text @click="handleViewPolicy" style="border-radius: 50%;">《隐私政策》</text>
       </view>
       <button class="btn" :class="{ canLogin: isCanLogin }" @click="handleLogin">登录</button>
     </view>
     <UserAgreement v-if="userAgreementVisible"></UserAgreement>
+    <view class="foot-tip">若手机号未注册，请返回选择<text class="wx-pay">《微信支付》</text></view>
   </view>
 </template>
 
@@ -201,12 +202,26 @@
       background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
     }
   }
+  .foot-tip {
+    position: absolute;
+    bottom: 72rpx;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 24rpx;
+    font-weight: 400;
+    color: #777777;
+    .wx-pay {
+      color: #4EFC9C;
+    }
+  }
 }
 .wx-checkbox-input {
   width: 28rpx !important;
   height: 28rpx !important;
   border-radius: 50%!important;
   font-size: 24rpx!important;
+  overflow: hidden;
 }
 .wx-checkbox-input.wx-checkbox-input-checked{
   border-color:#FFFFFF !important;

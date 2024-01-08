@@ -76,7 +76,7 @@
       v-if="blackModalVisible"
       ref="joinBlackModal"
       @confirm="joinBlack"
-      @close="blackModalVisible = false"
+      @close="closeBlackModal"
     ></join-black-modal>
 	</view>
 </template>
@@ -295,16 +295,20 @@
             this.getProfile(this.profileInfo.userId)
             this.$showToast('已成功加入黑名单')
             this.blackModalVisible = false
+            this.handleMore()
           } else {
             this.$showToast(res.msg)
           }
         })
       },
       handleReportUser() {
-        this.personMoreVisible = false
         uni.navigateTo({
           url: '/pages/report-list/report-list?id=' + this.profileInfo.userId
         })
+      },
+      closeBlackModal() {
+        this.blackModalVisible = false
+        this.handleMore()
       }
     },
     onPullDownRefresh() {

@@ -16,6 +16,7 @@
           @click="handleClick(item)"
         >
           <template v-if="currentIndex === index">
+            <image v-if="item.mediaType === 'video' && !isPlay" class="play-btn" src="@/static/video-play.png"></image>
             <video
               v-if="item.mediaType === 'video'"
               class="video"
@@ -26,9 +27,6 @@
               loop
               object-fit="cover"
               autoplay
-              @play="videoPlay"
-              @pause="videoPause"
-              @ended="videoEnded"
             ></video>
             <swiper
               v-else-if="item.mediaType === 'img'"
@@ -79,13 +77,17 @@
     },
     data() {
       return {
-        isPlay: false, // 视频是否正在播放
+        isPlay: true, // 视频是否正在播放
         currentIndex: 0,
       }
     },
     watch: {
       activeType(val) {
         this.currentIndex = 0
+        this.isPlay = true
+      },
+      list() {
+        this.isPlay = true
       }
     },
     methods: {
@@ -105,15 +107,6 @@
           this.$emit('load-data')
         }
       },
-      videoPlay() {
-        this.isPlay = true
-      },
-      videoPause() {
-        this.isPlay = false
-      },
-      videoEnded() {
-        this.isPlay = false
-      },
       handleClick(item) {
         if (item.mediaType === 'video') {
           const videoContext = uni.createVideoContext('myVideo' + item.indexId, this)
@@ -122,6 +115,7 @@
           } else {
             videoContext.play()
           }
+          this.isPlay = !this.isPlay
         }
       },
     }
@@ -136,6 +130,15 @@
   bottom: 0;
   right: 0;
   overflow: hidden;
+  .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 128rpx;
+    height: 128rpx;
+    z-index: 9999;
+  }
   .swiper-wrap {
     width: 100%;
     height: 100%;
