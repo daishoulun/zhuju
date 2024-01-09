@@ -22,7 +22,8 @@
     <view v-if="level > 1 && list.length > 1 && !showAllComment" class="show-all-comment" @click="showAllComment = true">展开{{ list.length - 1 }}条评论</view>
     <view v-if="level > 1 && showAllComment" class="show-all-comment" @click="showAllComment = false">收起评论</view>
     <view v-if="level === 1" class="comment-section" :style="{ bottom: bottom + 'px' }">
-      <input class="comment-input" v-model="form.content" type="text" :focus="inputFocus" :placeholder="placeholder" :adjust-position="false" @confirm="handleSendComment" @keyboardheightchange="handleFocus" />
+      <input class="comment-input" v-model="form.content" type="text" :focus="inputFocus" :placeholder="placeholder" :adjust-position="false" @blur="handleBlur" @keyboardheightchange="handleFocus" />
+      <image class="send-btn" src="@/static/send.png" @click="handleSendComment"></image>
     </view>
   </view>
 </template>
@@ -88,9 +89,10 @@ export default {
       const res = await uni.getSystemInfo();
       if (e.detail.height > 0) {
         this.bottom = e.detail.height - (res.screenHeight - res.windowHeight)
-      } else {
-        this.bottom = e.detail.height
       }
+    },
+    handleBlur() {
+      this.bottom = 0
     },
     handleSendComment() {
       this.form.momentId = this.detail.indexId || this.detail.momentId
@@ -220,14 +222,20 @@ export default {
     padding: 20rpx 32rpx;
     background: #0A0A0A;
     box-sizing: border-box;
-
+    display: flex;
+    align-items: center;
     .comment-input {
-      width: 100%;
+      flex: 1;
       height: 80rpx;
       background: #181818;
       border-radius: 100rpx;
       padding-left: 36rpx;
       box-sizing: border-box;
+    }
+    .send-btn {
+      width: 80rpx;
+      height: 80rpx;
+      margin-left: 16rpx;
     }
   }
 }

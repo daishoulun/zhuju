@@ -420,7 +420,7 @@ export default {
 <style lang="scss">
 .home {
   position: relative;
-
+  background: #181818;
   .tabbar {
     position: absolute;
     left: 32rpx;

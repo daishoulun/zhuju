@@ -15,7 +15,7 @@
     <view class="activity-con">
       <view class="title">{{ activityData.activitySubject }}</view>
       <view class="time">{{ activityData.startTime }} - {{ activityData.endTime }}</view>
-      <view class="btn-state">{{ activityData.activityStatusInfo }}</view>
+      <view class="btn-state" :class="{ 'btn-end': [30, 40].includes(activityData.activityStatus) }">{{ activityData.activityStatusInfo }}</view>
     </view>
     <view class="activity-footer">
       <view class="local">
@@ -80,9 +80,6 @@
   background-color: #262626;
   box-sizing: border-box;
   margin-bottom: 54rpx;
-  &:last-of-type {
-    margin-bottom: 0;
-  }
   .activity-cover {
     position: absolute;
     top: -18rpx;

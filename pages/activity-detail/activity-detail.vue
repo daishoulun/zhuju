@@ -4,7 +4,7 @@
       top: tabbarTop + 'px'
     }">
       <image class="back-icon" src="/static/arrow-l.png" @click="handleBack"></image>
-      <button class="share-btn" plain open-type="share"><image class="share-icon" src="/static/share.png"></image></button>
+      <button v-if="![30, 40].includes(activityDetail.activityStatus)" class="share-btn" plain open-type="share"><image class="share-icon" src="/static/share.png"></image></button>
     </view>
     <view v-if="activityDetail.activityFileType === 2" class="bg">
       <video
@@ -183,7 +183,7 @@
               this.$showToast('加入成功')
               this.getDetail()
             }
-          } else {
+          } else if (res.code !== 1001) {
             this.$showToast(res.msg)
           }
         })

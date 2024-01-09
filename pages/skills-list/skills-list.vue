@@ -11,8 +11,12 @@
     </view>
     
     <view class="content-wrap">
-      <view class="title">2、技能证书用途是什么？</view>
+      <view class="title">2、拥有技能证书有何优势？</view>
       <view class="content">
+        <view class="section">拥有职业资格证书将大大提高求职者的竞争力。</view>
+        <view class="section">在招聘过程中，许多企业更倾向于有相关证书的求职者，因为他们通常具备更专业的技能和知识，能更快地适应工作环境；除了求职优势外，职业资格证书还能为在职场上的人士提供晋升机会。</view>
+        <view class="section">在一些行业或公司中，拥有高级别的职业资格证书或多个相关证书可以成为升职加薪的加分项。</view>
+        <view class="section">此外，职业资格证书也能帮助个人在职业生涯中更好地规划和发展。</view>
       </view>
     </view>
     <view class="btn">去考证</view>
@@ -31,12 +35,16 @@
 
 <style lang="scss" scoped>
 .skill-list {
-  height: 100vh;
+  min-height: 100vh;
   background: #181818;
-  padding: 40rpx 32rpx;
+  padding: 40rpx 32rpx 120rpx;
   box-sizing: border-box;
+  overflow-y: auto;
   .content-wrap {
     margin-bottom: 40rpx;
+    &.last-of-type {
+      margin-bottom: 0;
+    }
   }
   .title {
     font-size: 32rpx;

@@ -81,7 +81,7 @@
       this.type = opt.type
       const data = this.tabbarList.find(item => item.value === opt.type)
       this.placeholder = '搜索' + data.name
-      this.listQuery.userId = uni.getStorageSync('userId')
+      this.listQuery.userId = opt.id || uni.getStorageSync('userId')
       this.getList()
     },
     methods: {
