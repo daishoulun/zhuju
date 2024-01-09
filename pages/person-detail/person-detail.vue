@@ -269,7 +269,7 @@
       },
       handleLike(val) {
         uni.navigateTo({
-          url: `/pages/fans-list/fans-list?type=${val}&id=${this.profileInfo.userId}`
+          url: `/pages/fans-list/fans-list?from=other&type=${val}&id=${this.profileInfo.userId}`
         })
       },
       handleBack() {

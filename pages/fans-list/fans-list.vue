@@ -32,7 +32,7 @@
             <view class="name">{{ item.nickName }}</view>
             <view class="info">21岁双鱼座</view>
           </view>
-          <view class="rig-con">
+          <view v-if="from !== 'other'" class="rig-con">
             <button v-if="type === 'fans'" class="btn" @click="handleLike(item.userId)">回关</button>
             <button v-if="type === 'like'" class="btn already-attion-btn" @click="handleCancelLike(item.userId)">已关注</button>
           </view>
@@ -68,6 +68,7 @@
         total: 0,
         loading: false,
         timer: null,
+        from: '',
         placeholder: '搜索粉丝'
       };
     },
@@ -78,6 +79,7 @@
       }
     },
     async onLoad(opt) {
+      this.from = opt.from
       this.type = opt.type
       const data = this.tabbarList.find(item => item.value === opt.type)
       this.placeholder = '搜索' + data.name

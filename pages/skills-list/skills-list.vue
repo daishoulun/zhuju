@@ -23,7 +23,9 @@
         <view class="section">此外，职业资格证书也能帮助个人在职业生涯中更好地规划和发展。</view>
       </view>
     </view>
-    <view class="btn">去考证</view>
+    <view class="btn-wrap">
+      <view class="btn">去考证</view>
+    </view>
   </view>
 </template>
 
@@ -70,20 +72,25 @@
     color: rgba(255,255,255,0.7);
     line-height: 52rpx;
   }
-  .btn {
+  .btn-wrap {
     position: fixed;
-    left: 50%;
-    bottom: 48rpx;
-    transform: translateX(-50%);
-    width: 686rpx;
-    height: 92rpx;
-    background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
-    border-radius: 60rpx;
-    text-align: center;
-    font-size: 36rpx;
-    font-weight: 500;
-    color: #201F2C;
-    line-height: 92rpx;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #181818;
+    padding-bottom: 48rpx;
+    .btn {
+      width: 686rpx;
+      height: 92rpx;
+      margin: 0 auto;
+      background: linear-gradient(109deg, #FDB0F2 0%, #109DFF 100%);
+      border-radius: 60rpx;
+      text-align: center;
+      font-size: 36rpx;
+      font-weight: 500;
+      color: #201F2C;
+      line-height: 92rpx;
+    }
   }
 }
 </style>
