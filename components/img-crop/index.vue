@@ -106,8 +106,8 @@ export default {
       startY = event.touches[0].clientY;
     },
     touchmove(event) {
-      // if (!timer) {
-      //   timer = setTimeout(() => {
+      if (!timer) {
+        timer = setTimeout(() => {
           let distanceY = event.touches[0].clientY - startY;
           let y = this.cropBoxTop + distanceY;
           let maxY = zoomHeight - this.cropBoxHeight;
@@ -118,9 +118,12 @@ export default {
             let maxX = zoomWidth - this.cropBoxHeight;
             this.cropBoxLeft = x <= 0 ? 0 : (x > maxX ? maxX : x);
           }
-        //   timer = null
-        // }, 50);
-      // }
+          // 每次拖动后重置开始位置为当前位置
+          startX = event.touches[0].clientX;
+          startY = event.touches[0].clientY;
+          timer = null
+        }, 40);
+      }
     },
     cancel() {
       uni.navigateBack()

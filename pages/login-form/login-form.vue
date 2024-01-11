@@ -4,7 +4,7 @@
     <view class="tip">欢迎来到煮桔</view>
     <view class="form">
       <view class="input-con">
-        <view class="label">+86</view>
+        <view class="label">+86<image class="caret" src="@/static/caret.png"></image></view>
         <input type="text" v-model="form.phone" placeholder="请输入手机号">
       </view>
       <view class="input-con code-input">
@@ -154,8 +154,15 @@
     color: #FFFFFF;
     box-sizing: border-box;
     .label {
-      width: 64rpx;
+      display: flex;
+      align-items: center;
+      width: 100rpx;
       margin-right: 50rpx;
+      .caret {
+        width: 30rpx;
+        height: 30rpx;
+        margin-left: 6rpx;
+      }
     }
     input {
       flex: 1;

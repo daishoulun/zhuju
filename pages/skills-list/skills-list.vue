@@ -8,8 +8,8 @@
         <view class="section">职业资格是对从事某一职业所必备的学识、技术和能力的基本要求，反映了劳动者为适应职业劳动需要而运用特定的知识、技术和技能的能力。与学历文凭不同，学历文凭主要反映学生学习的经历，是文化理论知识水平的证明。</view>
         <view class="section">职业资格与职业劳动的具体要求密切结合，更直接、更准确地反映了特定职业的实际工作标准和操作规范，以及劳动者从事该职业所达到的实际工作能力水平。</view>
         <view class="section">
-          <image class="skill-book" src="https://atta.juzitang.net/1bd3d48c6a2d7883b773e88a1477b3b.png"></image>
-          <image class="skill-book" src="https://atta.juzitang.net/d4e60f311956fb237c7bb7a3a399e82.png"></image>
+          <image class="skill-book" src="http://atta.juzitang.net/1bd3d48c6a2d7883b773e88a1477b3b.png"></image>
+          <image class="skill-book" src="http://atta.juzitang.net/d4e60f311956fb237c7bb7a3a399e82.png"></image>
         </view>
       </view>
     </view>

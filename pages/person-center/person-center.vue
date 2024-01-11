@@ -5,7 +5,9 @@
 		<view class="bg" :style="{
       backgroundImage: userInfo.bgImage ? `url(${userInfo.bgImage})` : ''
     }">
-      <image class="draw-list" src="/static/list.png" @click="handleSetting"></image>
+      <view class="draw-wrap" :style="{ top: drawTop + 'px' }" @click="handleSetting">
+        <image class="draw-list" src="/static/list.png"></image>
+      </view>
     </view>
     <view class="person-main">
       <view class="user-header">
@@ -72,6 +74,7 @@
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
   import AccountSetting from '@/components/account-setting.vue'
   import LoginModal from '@/components/login-modal.vue'
+  import disTopHeight from '@/mixins/disTopHeight'
   import { fetchUserInfo, getProfile, getActivityList, getMomentList, createLike, cancelLike } from '@/api/person-center.js'
 	export default {
     components: {
@@ -80,6 +83,7 @@
       AccountSetting,
       LoginModal
     },
+    mixins: [disTopHeight],
 		data() {
 			return {
         loginModalVisible: false,
@@ -103,6 +107,10 @@
 			};
 		},
     computed: {
+      drawTop() {
+        const space = (this.navBarHeight - 48) / 2
+        return space + this.statusBarHeight
+      },
       avatar() {
         if (this.isLogin) {
           return this.userInfo.avatar
@@ -314,12 +322,15 @@
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: 0 0;
-    .draw-list {
+    .draw-wrap {
       position: absolute;
       left: 32rpx;
-      top: 100rpx;
-      width: 56rpx;
-      height: 56rpx;
+      padding: 10px 10px 10px 0;
+      .draw-list {
+        display: block;
+        width: 56rpx;
+        height: 56rpx;
+      }
     }
   }
   .person-main {
