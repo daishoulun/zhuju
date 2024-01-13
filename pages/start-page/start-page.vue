@@ -28,6 +28,7 @@
   height: 100vh;
   text-align: center;
   background: url('http://atta.juzitang.net/ocbg.png');
+  background-color: #000000;
   background-size: 100% auto;
   background-repeat: no-repeat;
   image {
