@@ -55,6 +55,7 @@ import PinyinUtils from '@/utils/pinUtils.js'
 import { cityData } from '@/utils/baidu_code.js'
 import { editInfo } from '@/api/person-center.js'
 import disTopHeight from '@/mixins/disTopHeight'
+import { BAIDU_AK, BAIDU_R_GEOCODING, BAIDU_GEOCODING } from '@/utils/constant.js'
 export default {
   mixins: [disTopHeight],
   data() {
@@ -68,6 +69,8 @@ export default {
       scrollTop: '',
       currentCity: '',
       userId: '',
+      from: '',
+      location: null
     };
   },
   computed: {
@@ -79,10 +82,11 @@ export default {
       return this.headerTop + this.headerWrapHeight
     }
   },
-  onLoad({ cityCode, city, userId }) {
+  onLoad({ cityCode, city, userId, from }) {
     this.cityCode = cityCode
     this.currentCity = city
     this.userId = userId
+    this.from = from
   },
   onReady() {
     this.formatCityData()
@@ -90,17 +94,28 @@ export default {
   },
   methods: {
     resetLoc() {
-      // uni.authorize({
-      //   scope: 'scope.userLocation',
-      //   success(r) {
-      //     uni.getLocation({
-      //       type: 'wgs84',
-      //       success: (res) => {
-      //         console.log('位置是', res)
-      //       }
-      //     })
-      //   }
-      // })
+      uni.getLocation({
+        type: 'wgs84',
+        success: ({latitude, longitude}) => {
+          const geoLocation = `${latitude},${longitude}`;
+          this.getAddressFromBaidu(geoLocation);
+        }
+      })
+    },
+    async getAddressFromBaidu(geoLocation) {
+      const url = `${BAIDU_R_GEOCODING}?ak=${BAIDU_AK}&output=json&coordtype=wgs84ll&location=${geoLocation}&`;
+      const response = await uni.request({ url });
+      const data = response.data
+      if (data.status === 0) {
+        this.currentCity = data.result.addressComponent.city
+        this.location = data.result.location
+        if (this.form !== 'home') {
+          const cityInfo = cityData.find(item => Number(item.bd_code) === Number(data.result.cityCode))
+          this.clickCity(cityInfo)
+        }
+      } else {
+        console.error('逆地址解析失败：', data);
+      }
     },
     formatCityData() {
       let cityMap = {}
@@ -142,12 +157,23 @@ export default {
       })
     },
     clickBack() {
-      uni.navigateBack()
+      if (this.from === 'home') {
+        getApp().globalData.location = this.location
+        uni.reLaunch({
+          url: '/pages/index/index'
+        })
+      } else {
+        uni.navigateBack()
+      }
     },
     clickCity(city) {
       this.currentCity = city.name
       this.cityCode = city.bd_code
-      this.edit(city.bd_code)
+      if (this.from === 'home') {
+        this.geocoding()
+      } else {
+        this.edit(city.bd_code)
+      }
     },
     edit(cityCode) {
       editInfo({
@@ -156,11 +182,21 @@ export default {
       }).then(res => {
         if (res.code === 0) {
           this.$showToast('修改成功')
-          this.clickBack()
+          // this.clickBack()
         } else {
           this.$showToast(res.msg)
         }
       })
+    },
+    async geocoding() {
+      const url = `${BAIDU_GEOCODING}?ak=${BAIDU_AK}&output=json&address=${this.currentCity}`;
+      const response = await uni.request({ url });
+      const data = response.data
+      if (data.status === 0) {
+        this.location = data.result.location
+      } else {
+        console.error('逆地址解析失败：', data);
+      }
     },
     searchCity() {
       const list = JSON.parse(JSON.stringify(this.originalList))

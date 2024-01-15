@@ -5,9 +5,9 @@
         <text v-for="item in tabList" :key="item.key" :class="active === item.key ? 'active' : ''"
         @click="handleTabbar(item.key)">{{ item.label }}</text>
       </view>
-      <view v-if="!hasDetail" class="header-local">
+      <view v-if="!hasDetail" class="header-local" @click="handleCity">
         <image src="/static/location.png" mode=""></image>
-        <text class="area">杭州</text>
+        <text class="area">{{ currentCity }}</text>
       </view>
     </view>
     <videos-list
@@ -60,6 +60,7 @@ import { createLike, cancelLike } from '@/api/person-center.js'
 import { createFollow, cancelFollow } from '@/api/fans-list.js'
 import disTopHeight from '@/mixins/disTopHeight'
 import checkLogin from '@/mixins/checkLogin'
+import { BAIDU_AK, BAIDU_R_GEOCODING } from '@/utils/constant.js'
 export default {
   components: {
     // twVideov,
@@ -74,6 +75,7 @@ export default {
   mixins: [disTopHeight, checkLogin],
   data() {
     return {
+      currentCity: '',
       commentPopupVisible: false,
       userAgreementModalVisible: false,
       loginModalVisible: false,
@@ -105,19 +107,26 @@ export default {
     }
   },
   onLoad() {
-    this.listQuery.lon = 116.4
-    this.listQuery.lat = 39.9
-    this.getList()
-    uni.getLocation({
-      type: 'wgs84',
-      success: ({latitude, longitude}) => {
-        const geoLocation = `${latitude},${longitude}`;
-        console.log(geoLocation)
-        this.getAddressFromBaidu(geoLocation);
-      // this.listQuery.lon = res.longitude
-      // this.listQuery.lat = res.latitude
-      }
-    })
+    const location = getApp().globalData.location
+    if (location) {
+      const geoLocation = `${location.lat},${location.lng}`;
+      this.getAddressFromBaidu(geoLocation);
+      this.listQuery.lon = location.lng
+      this.listQuery.lat = location.lat
+      getApp().globalData.location = null
+      this.getList()
+    } else {
+      uni.getLocation({
+        type: 'wgs84',
+        success: ({latitude, longitude}) => {
+          const geoLocation = `${latitude},${longitude}`;
+          this.getAddressFromBaidu(geoLocation);
+          this.listQuery.lon = longitude
+          this.listQuery.lat = latitude
+          this.getList()
+        }
+      })
+    }
     uni.$on('login', () => {
       this.isLogin = false
       this.loginModalVisible = true
@@ -143,18 +152,18 @@ export default {
       }
     },
     async getAddressFromBaidu(geoLocation) {
-      // const apiKey = 'cEp4DBq3xUaM7OxfRHL9d26S6xfmtwa6'; // 替换为你的百度地图API密钥
-      // const url = `https://api.map.baidu.com/geocoder/v2/?location=${geoLocation}&output=json&ak=${apiKey}`;
-      // const response = await uni.request({ url });
-      // console.log('response', response)
-      // console.log('data', data)
-      // const data = JSON.parse(response.data);
-      // if (data.status === 0) {
-      //   return data.result.addressComponent; // 返回地址信息
-      // } else {
-      //   console.error('逆地址解析失败：', data);
-      //   return '';
-      // }
+      const url = `${BAIDU_R_GEOCODING}?ak=${BAIDU_AK}&output=json&coordtype=wgs84ll&location=${geoLocation}&`;
+      const response = await uni.request({ url });
+      console.log(response)
+      const data = response.data;
+      if (data.status === 0) {
+        const cityInfo = data.result
+        this.currentCity = cityInfo.addressComponent.city
+        this.cityCode = cityInfo.cityCode
+      } else {
+        console.error('逆地址解析失败：', data);
+        return '';
+      }
     },
     async getList() {
       if (this.active === 'recommend') {
@@ -392,6 +401,12 @@ export default {
     commentSuccess() {
       this.setData('commentNum', this.currentItem.moment.commentNum, this.currentItem.indexId)
     },
+    handleCity() {
+      const userId = uni.getStorageSync('userId') || ''
+      uni.navigateTo({
+        url: `/pages/select-city/select-city?cityCode=${this.cityCode || ''}&city=${this.currentCity || ''}&userId=${userId}&from=home`
+      })
+    }
   },
   onShareAppMessage() {
     wxShare(this.shareForm).then(res => {

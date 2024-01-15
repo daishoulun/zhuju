@@ -24,7 +24,7 @@
       </view>
     </view>
     <view class="btn-wrap">
-      <view class="btn">去考证</view>
+      <view class="btn" @click="handleSkill">去考证</view>
     </view>
   </view>
 </template>
@@ -35,6 +35,11 @@
       return {
         
       };
+    },
+    methods: {
+      handleSkill() {
+        this.$showToast('开发中')
+      }
     }
   }
 </script>
