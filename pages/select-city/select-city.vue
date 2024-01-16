@@ -83,8 +83,12 @@ export default {
     }
   },
   onLoad({ cityCode, city, userId, from }) {
-    this.cityCode = cityCode
-    this.currentCity = city
+    if (cityCode) {
+      this.cityCode = cityCode
+      this.currentCity = city
+    } else {
+      this.resetLoc()
+    }
     this.userId = userId
     this.from = from
   },
@@ -181,7 +185,7 @@ export default {
         userId: this.userId
       }).then(res => {
         if (res.code === 0) {
-          this.$showToast('修改成功')
+          // this.$showToast('修改成功')
           // this.clickBack()
         } else {
           this.$showToast(res.msg)

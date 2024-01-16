@@ -15,7 +15,7 @@
         <image class="hi" src="/static/hi.png" mode=""></image>
         <view class="tip">输入新的手机号码</view>
         <view class="input-con">
-          <view class="label">+86</view>
+          <view class="label">+86<image class="caret" src="@/static/caret.png"></image></view>
           <input type="text" v-model="newPhone">
         </view>
         <view class="send-code" @click="handleSendCode">{{ codeText }}</view>
@@ -194,7 +194,7 @@
     .input-con {
       display: flex;
       align-items: center;
-      width: 612rpx;
+      width: 100%;
       height: 132rpx;
       padding: 0 28rpx;
       background: #2B2B2B;
@@ -204,8 +204,15 @@
       margin-bottom: 240rpx;
       box-sizing: border-box;
       .label {
-        width: 64rpx;
+        display: flex;
+        align-items: center;
+        width: 100rpx;
         margin-right: 50rpx;
+        .caret {
+          width: 30rpx;
+          height: 30rpx;
+          margin-left: 6rpx;
+        }
       }
       input {
         flex: 1;
