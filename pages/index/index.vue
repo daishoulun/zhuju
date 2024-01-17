@@ -188,7 +188,6 @@ export default {
           }
         } else if (item.type === 2) {
           const data = item.moment
-          item.moment.content += '适当放宽几乎都是科技很发达水库和是的快捷方式雕刻技法和快速导航福克斯的是的封建士大夫JFK对话框高考加分的高科技的反馈对话框高考加分的高科技的反馈对话框高考加分的高科技的反馈'
           item.content = data.content
           item.imgList = data.momentUrls
           // activityFileType 封面类型 1：图片，2：视频
@@ -207,11 +206,11 @@ export default {
       const res = await fetchRecommendList(this.listQuery)
       if (res.code === 0) {
         const data = this.formatVideoData(res.data.list)
-        // if (this.listQuery.current === 1) {
+        if (this.listQuery.current === 1) {
           this.vodList = data
-        // } else {
-        //   this.vodList.push(...data)
-        // }
+        } else {
+          this.vodList.push(...data)
+        }
       } else {
         this.$showToast(res.msg)
       }
@@ -220,11 +219,11 @@ export default {
       const res = await fetchFollowList(this.listQuery)
       if (res.code === 0) {
         const data = this.formatVideoData(res.data.list)
-        // if (this.listQuery.current === 1) {
+        if (this.listQuery.current === 1) {
           this.vodList = data
-        // } else {
-        //   this.vodList.push(...data)
-        // }
+        } else {
+          this.vodList.push(...data)
+        }
       } else {
         this.$showToast(res.msg)
       }
@@ -233,11 +232,11 @@ export default {
       const res = await fetchMomentList(this.listQuery)
       if (res.code === 0) {
         const data = this.formatVideoData(res.data.list)
-        // if (this.listQuery.current === 1) {
+        if (this.listQuery.current === 1) {
           this.vodList = data
-        // } else {
-        //   this.vodList.push(...data)
-        // }
+        } else {
+          this.vodList.push(...data)
+        }
       } else {
         this.$showToast(res.msg)
       }
@@ -271,8 +270,8 @@ export default {
       })
     },
     loadData() {
-      // this.listQuery.current++
-      // this.getList()
+      this.listQuery.current++
+      this.getList()
     },
     /* 下拉刷新 */
     refreshData() {
@@ -421,6 +420,10 @@ export default {
     
   },
   onReachBottom() {
+  },
+  onTabItemTap() {
+    this.listQuery.current = 1
+    this.getList()
   }
 }
 </script>

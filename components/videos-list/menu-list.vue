@@ -1,5 +1,6 @@
 <template>
   <view class="menu-list" :class="{ isDetail: hasDetail }">
+    <view class="bottom-shadow"></view>
     <!-- 底部标题 -->
     <view v-if="!(isDynamics && item.moment && item.moment.contentType === 3)" class="footTitle"
       :class="[vodIndex == index ? (sliderDrag ? 'vodMenu-bright1' : (moveOpacity ? 'vodMenu-bright2' : 'vodMenu-bright0')) : '']">
@@ -232,6 +233,7 @@ export default {
   bottom: 0;
   top: 0;
   pointer-events: none;
+  z-index: 9999;
 }
 
 .isHidden {
@@ -423,5 +425,26 @@ export default {
 .foot-primary {
   font-size: 27rpx;
   color: #FFFFFF;
+}
+
+.bottom-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 500rpx;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+  z-index: 7;
+  pointer-events: none;
+}
+.bottom-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 180rpx;
+  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+  z-index: 7;
+  pointer-events: none;
 }
 </style>

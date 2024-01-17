@@ -1,5 +1,7 @@
 <template>
   <view class="videos-list">
+    <view class="top-shadow"></view>
+    <view class="bottom-shadow"></view>
     <view class="video-content">
       <swiper
         class="swiper-wrap"

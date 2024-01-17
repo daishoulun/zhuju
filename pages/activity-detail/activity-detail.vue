@@ -20,7 +20,10 @@
       <view class="base-info"  @click="handleVideo">
         <view class="title">{{ activityDetail.activitySubject }}</view>
         <view class="time">{{ activityDetail.startTime }} - {{ activityDetail.endTime }}</view>
-        <view class="desc">{{ activityDetail.dsc }}</view>
+        <view class="desc">
+          {{ formatDyContent }}
+          <text v-if="(activityDetail.dsc || '').length > 85" class="pointer-events-auto" style="margin-left: 16rpx" @click.stop="desToggle = !desToggle">{{ desToggle ? '收起' : '展开' }}</text>
+        </view>
       </view>
       <view class="other-info">
         <view class="site-info">
@@ -56,7 +59,7 @@
               <view v-if="item.emcee" class="host">主持人</view>
               <view class="avatar">
                 <image class="img-head" :src="item.avatar" mode="aspectFill"></image>
-                <image class="sex" :src="item.sex === '1' ? '/static/man.png' : '/static/women.png'"></image>
+                <image class="sex" :src="item.gender === 0 ? '/static/man.png' : '/static/women.png'"></image>
               </view>
               <view class="name">{{ item.nickName }}</view>
             </view>
@@ -112,10 +115,24 @@
         isPlay: false,
         id: '',
         arrowHeight: 0,
-        loginModalVisible: false
+        loginModalVisible: false,
+        desToggle: false
       };
     },
     computed: {
+      formatDyContent() {
+        if (!this.activityDetail.dsc) {
+          return ''
+        }
+        if (this.desToggle) {
+          return this.activityDetail.dsc
+        }
+        if (this.activityDetail.dsc.length > 85) {
+          return this.activityDetail.dsc.substring(0, 85) + '...'
+        } else {
+          return this.activityDetail.dsc
+        }
+      },
       tabbarTop() {
         const space = (this.navBarHeight - this.arrowHeight) / 2
         return space + this.statusBarHeight
@@ -310,7 +327,7 @@
   }
   .base-info {
     width: 100%;
-    height: 352rpx;
+    min-height: 352rpx;
     padding: 50rpx 32rpx 0;
     box-sizing: border-box;
     border-radius: 40rpx 40rpx 0rpx 0rpx;
