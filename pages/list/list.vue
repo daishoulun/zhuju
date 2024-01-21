@@ -4,15 +4,19 @@
       <image src="/static/opening.png"></image>
     </view>
     <view class="banner-list">
-      <uni-swiper-dot class="uni-swiper-dot-box" @clickItem=clickItem :info="bannerList" :current="current" mode="default"
-        :dots-styles="dotsStyles" field="content">
-        <swiper class="swiper-box" @change="change" :current="swiperDotIndex">
-          <swiper-item v-for="(item, index) in bannerList" :key="index">
-            <view class="swiper-item" :class="'swiper-item' + index" :style="{ backgroundImage: 'url(' + item.bannerImgUrl + ')' }" @click="handleBanner(item.bannerJumpUrl)">
-            </view>
-          </swiper-item>
-        </swiper>
-      </uni-swiper-dot>
+      <swiper class="swiper-box" @change="change">
+        <swiper-item v-for="(item, index) in bannerList" :key="index">
+          <view class="swiper-item" :class="'swiper-item' + index" :style="{ backgroundImage: 'url(' + item.bannerImgUrl + ')' }" @click="handleBanner(item.bannerJumpUrl)">
+          </view>
+        </swiper-item>
+      </swiper>
+      <view class="dots">
+        <view
+          v-for="(item, index) in bannerList"
+          :key="index"
+          class="dots-item"
+          :class="{ active: current === index }"></view>
+      </view>
     </view>
     <view class="activity-main">
       <view class="activity-list-wrap" v-if="isLogin">
@@ -45,18 +49,6 @@
     data() {
       return {
         current: 0,
-				swiperDotIndex: 0,
-        mode: 'default',
-        dotsStyles: {
-          width: 8,
-          bottom: 6,
-          borderRadius: 3,
-          color: '#FFB7FF',
-          backgroundColor: 'rgba(255,255,255,0.29)',
-          border: '1px rgba(255,255,255,0.29) solid',
-          selectedBackgroundColor: '#FFB7FF',
-          selectedBorder: '1px #FFB7FF solid'
-        },
         bannerList: [],
         listQuery: {
           current: 1,
@@ -89,9 +81,6 @@
       },
       change(e) {
         this.current = e.detail.current
-      },
-      clickItem(e) {
-        this.swiperDotIndex = e
       },
       getList() {
         uni.showLoading({
@@ -150,7 +139,11 @@
     },
   }
 </script>
-
+<style>
+.uni-swiper__dots-item {
+  border-radius: 3px;
+}
+</style>
 <style lang="scss" scoped>
   .logo {
     position: relative;
@@ -163,6 +156,24 @@
   }
   .banner-list {
     margin-top: 62rpx;
+    .dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 6rpx;
+      .dots-item {
+        width: 12rpx;
+        height: 4rpx;
+        background: rgba(255,255,255,0.29);
+        border-radius: 2rpx;
+        margin-right: 14rpx;
+        transition: all .5s;
+        &.active {
+          width: 32rpx;
+          background: #FFB7FF;
+        }
+      }
+    }
   }
   .activity-list {
     height: 100vh;

@@ -1,8 +1,8 @@
 <template>
   <view class="system-setting">
-    <FormItem label="隐私政策" @click-label="handleLabel('privacy')"><text></text></FormItem>
-    <FormItem label="用户服务" @click-label="handleLabel('userService')"><text></text></FormItem>
-    <FormItem label="关于我们" @click-label="handleLabel('about')"><text></text></FormItem>
+    <FormItem label="隐私政策" @click-label="handleLabel('privacy')" @click-item="handleLabel('privacy')"><text></text></FormItem>
+    <FormItem label="用户服务" @click-label="handleLabel('userService')" @click-item="handleLabel('userService')"><text></text></FormItem>
+    <FormItem label="关于我们" @click-label="handleLabel('about')" @click-item="handleLabel('about')"><text></text></FormItem>
     <view class="log-out" @click="handleLogOff">退出登录</view>
   </view>
 </template>

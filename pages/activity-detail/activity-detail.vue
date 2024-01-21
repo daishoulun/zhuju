@@ -17,7 +17,7 @@
     </view>
     <view v-else-if="coverUrl" class="bg" :style="{ backgroundImage: 'url(' + coverUrl + ')' }"></view>
     <view class="activity-content">
-      <view class="base-info"  @click="handleVideo">
+      <view class="base-info" :class="{ hasToggle: desToggle }"  @click="handleVideo">
         <view class="title">{{ activityDetail.activitySubject }}</view>
         <view class="time">{{ activityDetail.startTime }} - {{ activityDetail.endTime }}</view>
         <view class="desc">
@@ -328,11 +328,11 @@
   .base-info {
     width: 100%;
     min-height: 352rpx;
-    padding: 50rpx 32rpx 0;
+    padding: 50rpx 32rpx;
     box-sizing: border-box;
     border-radius: 40rpx 40rpx 0rpx 0rpx;
     backdrop-filter: blur(4px);
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #181818 100%, #181818 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, #181818 100%, #181818 100%);
     .title {
       font-size: 36rpx;
       font-weight: 500;

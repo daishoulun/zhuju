@@ -195,6 +195,14 @@
         "navigationBarTitleText" : "举报",
         "enablePullDownRefresh" : false
       }
+    },
+    {
+      "path" : "pages/preview-img/preview-img",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "enablePullDownRefresh" : false
+      }
     }
   ],
   "globalStyle": {

@@ -75,11 +75,11 @@
   position: relative;
   width: 100%;
   height: 258rpx;
-  padding: 24rpx 20rpx;
-  border-top: 18rpx solid #181818;
+  padding: 42rpx 20rpx 24rpx;
   background-color: #262626;
   box-sizing: border-box;
   margin-bottom: 54rpx;
+  border-radius: 8rpx;
   .activity-cover {
     position: absolute;
     top: -18rpx;

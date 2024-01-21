@@ -1,7 +1,5 @@
 <template>
   <view class="videos-list">
-    <view class="top-shadow"></view>
-    <view class="bottom-shadow"></view>
     <view class="video-content">
       <swiper
         class="swiper-wrap"
@@ -18,6 +16,14 @@
           @click="handleClick(item)"
         >
           <template v-if="currentIndex === index">
+            <!-- 图片轮播位置标识 -->
+            <view
+              v-if="item.mediaType === 'img' && (item.imgList || []).length > 1"
+              class="num-tip"
+              :style="{ top: textPos + 'px' }"
+            >
+              {{ subCurrentIndex + 1 }}/{{ (item.imgList || []).length }}
+            </view>
             <image v-if="item.mediaType === 'video' && !isPlay" class="play-btn" src="@/static/video-play.png"></image>
             <video
               v-if="item.mediaType === 'video'"
@@ -34,6 +40,7 @@
               v-else-if="item.mediaType === 'img'"
               class="swiper-wrap"
               circular
+              @change="subSwiperChange"
             >
               <swiper-item
                 class="video-box"
@@ -47,6 +54,7 @@
             <menu-list
               :item="item"
               :activeType="activeType"
+              :currentProgress="subCurrentIndex"
               @click-transfer="val => $emit('click-transfer', val)"
               @click-toggle="val => $emit('click-toggle', val)"
               @click-follow="val => $emit('click-follow', val)"
@@ -76,11 +84,15 @@
         type: String,
         default: 'recommend'
       },
+      textPos: {
+        type: Number
+      }
     },
     data() {
       return {
         isPlay: true, // 视频是否正在播放
         currentIndex: 0,
+        subCurrentIndex: 0
       }
     },
     watch: {
@@ -103,11 +115,15 @@
       },
       swiperChange(e) {
         this.currentIndex = e.detail.current
+        this.subCurrentIndex = 0
         this.isPlay = true
         // 提前两个滚动页加载数据
         if (this.currentIndex + 2 === this.list.length) {
           this.$emit('load-data')
         }
+      },
+      subSwiperChange(e) {
+        this.subCurrentIndex = e.detail.current
       },
       handleClick(item) {
         if (item.mediaType === 'video') {
@@ -164,6 +180,17 @@
         height: 100%;
         .img {
           width: 100%;
+        }
+        .num-tip {
+          position: absolute;
+          right: 24rpx;
+          padding: 4rpx 8rpx;
+          background: rgba(0,0,0,0.2);
+          border-radius: 8rpx;
+          font-size: 28rpx;
+          font-weight: 500;
+          color: #FFFFFF;
+          z-index: 9;
         }
       }
     }

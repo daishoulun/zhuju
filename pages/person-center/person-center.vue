@@ -2,17 +2,21 @@
 	<view class="person-center" :class="{
     noLogin: isLogin
   }">
-		<view class="bg" :style="{
-      backgroundImage: userInfo.bgImage ? `url(${userInfo.bgImage})` : ''
-    }">
-      <view class="draw-wrap" :style="{ top: drawTop + 'px' }" @click="handleSetting">
+		<view
+      class="bg"
+      :style="{
+        backgroundImage: userInfo.bgImage ? `url(${userInfo.bgImage})` : ''
+      }"
+      @click="handleBg"
+    >
+      <view class="draw-wrap" :style="{ top: drawTop + 'px' }" @click.stop="handleSetting">
         <image class="draw-list" src="/static/list.png"></image>
       </view>
     </view>
     <view class="person-main">
       <view class="user-header">
         <view class="avatar">
-          <image :src="avatar" mode="aspectFill"></image>
+          <image :src="avatar" mode="aspectFill" @click="handleAvatar"></image>
         </view>
         <view class="user-data">
           <view class="data-item" @click="handleLike('like')">
@@ -60,6 +64,7 @@
         </template>
         <view v-else class="empty-state">
           <image src="/static/empty.png" mode=""></image>
+          <view class="text">这里什么也没有</view>
         </view>
         
       </view>
@@ -74,6 +79,7 @@
   import DynamicsList from '@/components/dynamics-list/dynamics-list'
   import AccountSetting from '@/components/account-setting.vue'
   import LoginModal from '@/components/login-modal.vue'
+  import EmptyState from '@/components/empty-state.vue'
   import disTopHeight from '@/mixins/disTopHeight'
   import { fetchUserInfo, getProfile, getActivityList, getMomentList, createLike, cancelLike } from '@/api/person-center.js'
 	export default {
@@ -81,7 +87,8 @@
       ActiveList,
       DynamicsList,
       AccountSetting,
-      LoginModal
+      LoginModal,
+      EmptyState
     },
     mixins: [disTopHeight],
 		data() {
@@ -285,6 +292,27 @@
             this.$showToast(res.msg)
           }
         })
+      },
+      handleAvatar() {
+        if (!this.isLogin) {
+          this.loginModalVisible = true
+          return
+        }
+        uni.navigateTo({
+          url: `/pages/preview-img/preview-img?src=${this.avatar}&type=circular`
+        })
+      },
+      handleBg() {
+        if (!this.isLogin) {
+          this.loginModalVisible = true
+          return
+        }
+        if (!this.userInfo.bgImage) {
+          return
+        }
+        uni.navigateTo({
+          url: `/pages/preview-img/preview-img?src=${this.userInfo.bgImage}&type=rect`
+        })
       }
     },
     onPullDownRefresh() {
@@ -347,6 +375,12 @@
       image {
         width: 204rpx;
         height: 204rpx;
+      }
+      .text {
+        font-size: 28rpx;
+        font-weight: 400;
+        color: #7D7D7D;
+        margin-top: 28rpx;
       }
     }
     .avatar {

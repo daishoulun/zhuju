@@ -1,6 +1,6 @@
 <template>
-  <view class="form-item">
-    <view v-if="label" class="label" @click="handleItem">{{ label }}</view>
+  <view class="form-item" @click="handleForm">
+    <view v-if="label" class="label" @click.stop="handleItem">{{ label }}</view>
     <view class="input">
       <slot>
         <input
@@ -49,6 +49,9 @@
     methods: {
       handleItem() {
         this.$emit('click-label')
+      },
+      handleForm() {
+        this.$emit('click-item')
       }
     }
   }

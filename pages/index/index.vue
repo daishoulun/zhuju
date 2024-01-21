@@ -16,6 +16,7 @@
       :list="vodList"
       :params="listQuery"
       :activeType="active"
+      :text-pos="tabbarTop + 40"
       @click-transfer="clickTransfer"
       @click-liked="clickLiked"
       @click-comment="clickComment"
@@ -422,8 +423,7 @@ export default {
   onReachBottom() {
   },
   onTabItemTap() {
-    this.listQuery.current = 1
-    this.getList()
+    this.getData(this.active)
   }
 }
 </script>

@@ -5,11 +5,11 @@
       <image class="camera" src="../../static/camera.png" @click="handlePic"></image>
     </view>
     <view class="user-form">
-      <FormItem label="昵称">
-        <view class="uni-input" @click="handleNickName">{{ userForm.nickName }}</view>
+      <FormItem label="昵称" @click-item="handleNickName">
+        <view class="uni-input">{{ userForm.nickName }}</view>
       </FormItem>
-      <FormItem label="简介">
-        <text class="self-desc" @click="handleSelfIntro">介绍一下你自己</text>
+      <FormItem label="简介" @click-item="handleSelfIntro">
+        <text class="self-desc">介绍一下你自己</text>
       </FormItem>
       <FormItem label="性别" :has-arrow="false">
         <view class="uni-input">{{ userForm.gender === 1 ? '女' : '男' }}</view>
@@ -19,8 +19,8 @@
           <view class="uni-input">{{ userForm.birthday }}</view>
         </picker>
       </FormItem>
-      <FormItem label="地区">
-        <view class="uni-input" @click="updateCity">{{ userForm.city 
+      <FormItem label="地区" @click-item="updateCity">
+        <view class="uni-input">{{ userForm.city 
         || '暂无' }}</view>
       </FormItem>
       <FormItem class="home-bg" label="主页背景" :hasArrow="false">

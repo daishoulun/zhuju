@@ -1,8 +1,10 @@
 <template>
 	<view class="protocol-policy">
-		<view class="private">
+		<!-- <view class="private">
       根据业务开展的实际情况，煮桔近期更新了《用户隐私政策》中的相关内容。您可以前往插件更新后的协议全文，有意见可到zhuju@163.com邮箱，反馈对本次隐私政策更新的任何疑问以及意见。根据业务开展的实际情况，煮桔近期更新了《用户隐私政策》中的相关内容。您可以前往插件更新后的协议全文，有意见可到zhuju@163.com邮箱，反馈对本次隐私政策更新的任何疑问以及意见。根据业务开展的实际情况，煮桔近期更新了《用户隐私政策》中的相关内容。您可以前往插件更新后的协议全文，有意见可到zhuju@163.com邮箱，反馈对本次隐私政策更新的任何疑问以及意见。根据业务开展的实际情况，煮桔近期更新了《用户隐私政策》中的相关内容。您可以前往插件更新后的协议全文，有意见可到zhuju@163.com邮箱，反馈对本次隐私政策更新的任何疑问以及意见。根据业务开展的实际情况，煮桔近期更新了《用户隐私政策》中的相关内容。您可以前往插件更新后的协议全文，有意见可到zhuju@163.com邮箱，反馈对本次隐私政策更新的任何疑问以及意见。
-      </view>
+      </view> -->
+      <web-view :src="webUrlMap[type]"></web-view>
+
 	</view>
 </template>
 
@@ -10,9 +12,16 @@
 	export default {
 		data() {
 			return {
-				
+        type: '',
+				webUrlMap: {
+          privacy: 'http://test-h5.51zhuju.com/secret.html',
+          userService: 'http://test-h5.51zhuju.com/agreement.html'
+        }
 			};
-		}
+		},
+    onLoad(opt) {
+      this.type = opt.type
+    }
 	}
 </script>
 

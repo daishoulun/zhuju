@@ -1,5 +1,6 @@
 <template>
   <view class="menu-list" :class="{ isDetail: hasDetail }">
+    <view class="top-shadow"></view>
     <view class="bottom-shadow"></view>
     <!-- 底部标题 -->
     <view v-if="!(isDynamics && item.moment && item.moment.contentType === 3)" class="footTitle"
@@ -17,9 +18,17 @@
         {{ formatDyContent }}
         <text v-if="dyContent.length > 32" class="pointer-events-auto" style="margin-left: 16rpx" @click.stop="handleToggleText">展开</text>
       </view>
-      <view v-if="!isDynamics" class="location">
-        <image src="/static/location.png" mode=""></image>
-        <text>{{ item.location }} · {{ item.distance | distanceFilter }}</text>
+      <view v-if="item.location" class="location-wrap">
+        <view class="location">
+          <image src="/static/location.png" mode=""></image>
+          <text>{{ item.location }} · {{ item.distance | distanceFilter }}</text>
+        </view>
+      </view>
+      <view v-if="item.mediaType === 'img' && progressNum > 1" class="progress-bar">
+        <view
+          v-for="item in progressNum"
+          :key="item"
+          class="progress-item" :class="{ active: item === currentProgress }"></view>
       </view>
     </view>
     <!-- 右侧操作栏 -->
@@ -119,6 +128,10 @@ export default {
     hasDetail: { // 是否是详情页
       type: Boolean,
       default: false
+    },
+    currentProgress: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
@@ -157,6 +170,9 @@ export default {
       } else {
         return this.dyContent
       }
+    },
+    progressNum() {
+      return (this.item.imgList || []).length
     }
   },
   methods: {
@@ -358,18 +374,44 @@ export default {
   left: 0;
   z-index: 8;
   padding: 0 32rpx;
+  width: 100%;
+  box-sizing: border-box;
+  .progress-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32rpx;
+    .progress-item {
+      flex: 1;
+      height: 6rpx;
+      background: #a1a1a1;
+      margin-right: 8rpx;
+      border-radius: 6rpx;
+      &:last-of-type {
+        margin-right: 0;
+      }
+      &.active {
+        background: #FFFFFF;
+      }
+    }
+  }
 
-  .location {
+  .location-wrap {
     display: flex;
     align-items: center;
-    height: 64rpx;
-    background: rgba(0, 0, 0, 0.32);
-    border-radius: 32rpx;
-    padding: 0 16rpx;
     font-size: 28rpx;
     font-weight: 500;
     color: #CECECE;
-
+    .location {
+      flex: none;
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.32);
+      border-radius: 32rpx;
+      height: 64rpx;
+      padding: 0 16rpx;
+    }
     image {
       width: 32rpx;
       height: 32rpx;
@@ -426,7 +468,16 @@ export default {
   font-size: 27rpx;
   color: #FFFFFF;
 }
-
+.top-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200rpx;
+  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
 .bottom-shadow {
   position: absolute;
   bottom: 0;
@@ -434,17 +485,7 @@ export default {
   width: 100%;
   height: 500rpx;
   background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
-  z-index: 7;
-  pointer-events: none;
-}
-.bottom-shadow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 180rpx;
-  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
-  z-index: 7;
+  z-index: 1;
   pointer-events: none;
 }
 </style>

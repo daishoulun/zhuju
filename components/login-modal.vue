@@ -1,6 +1,8 @@
 <template>
   <ModalWrap class="login-modal">
-    <text slot="title">请先登录后查看更多精彩内容</text>
+    <view slot="title" class="login-tip">
+      <text>请先登录后查看更多精彩内容</text>
+    </view>
     <view slot="footer">
       <view class="btn" @click="handleLogin">去登录</view>
       <view class="no-agree">
@@ -37,6 +39,9 @@
 
 <style lang="scss" scoped>
 .login-modal {
+  .login-tip {
+    padding-top: 68rpx;
+  }
   .btn {
     width: 576rpx;
     height: 84rpx;
@@ -52,7 +57,7 @@
   .no-agree {
     text-align: center;
     .no-agree-btn {
-      font-size: 28rpx;
+      font-size: 32rpx;
       font-weight: 400;
       color: #7D7D7D;
     }
