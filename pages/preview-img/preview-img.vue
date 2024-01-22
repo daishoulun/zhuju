@@ -19,6 +19,8 @@
   import SetImgPopup from '../../components/set-img-popup.vue';
   import { generateRandomString } from '@/utils/index'
   import { getAliInfo } from '@/api/login.js'
+  import { fetchUserInfo } from '@/api/person-center.js'
+
   export default {
     components: {
       SetImgPopup
@@ -27,7 +29,8 @@
       return {
         setImgPopupVisible: false,
         imgUrl: '',
-        type: ''
+        type: '',
+        userInfo: {}
       };
     },
     computed: {
@@ -40,10 +43,22 @@
       }
     },
     onLoad(opt) {
-      this.imgUrl = opt.src
       this.type = opt.type
     },
+    onShow() {
+      this.getUserInfo(uni.getStorageSync('userId'))
+    },
     methods: {
+      getUserInfo(userId) {
+        fetchUserInfo({ userId }).then(res => {
+          const data = res.data || {}
+          if (this.type=== 'rect') {
+            this.imgUrl = data.bgImage
+          } else {
+            this.imgUrl = data.avatar
+          }
+        })
+      },
       handleImg() {
         this.setImgPopupVisible = true
         this.$nextTick(() => {

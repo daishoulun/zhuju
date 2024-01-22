@@ -3,7 +3,7 @@
     <view class="logo" :style="{ top: imgTop + 'px' }">
       <image src="/static/opening.png"></image>
     </view>
-    <view class="banner-list">
+    <view class="banner-list" :style="{ marginTop: bannerTop + 'px' }">
       <swiper class="swiper-box" @change="change">
         <swiper-item v-for="(item, index) in bannerList" :key="index">
           <view class="swiper-item" :class="'swiper-item' + index" :style="{ backgroundImage: 'url(' + item.bannerImgUrl + ')' }" @click="handleBanner(item.bannerJumpUrl)">
@@ -64,7 +64,10 @@
       imgTop() {
         const space = (this.navBarHeight - 20) / 2
         return space + this.statusBarHeight
-      }
+      },
+      bannerTop() {
+        return this.navBarHeight + 16
+      },
     },
     onShow() {
       this.init()
@@ -155,7 +158,6 @@
     }
   }
   .banner-list {
-    margin-top: 62rpx;
     .dots {
       display: flex;
       align-items: center;

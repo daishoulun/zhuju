@@ -420,11 +420,10 @@ export default {
     }
     
   },
-  onReachBottom() {
+  onPullDownRefresh() {
+    uni.stopPullDownRefresh()
+    // this.getData(this.active)
   },
-  onTabItemTap() {
-    this.getData(this.active)
-  }
 }
 </script>
 

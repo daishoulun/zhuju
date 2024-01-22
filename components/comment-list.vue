@@ -4,14 +4,14 @@
       <view class="comment-item" v-for="item in viewList" :key="item.commentId">
         <view class="comment-main">
           <view class="user-avatar">
-            <image :src="item.avatar" mode="aspectFill"></image>
+            <image :src="item.avatar" mode="aspectFill" @click="handleAvatar(item)"></image>
           </view>
-          <view class="comment-con">
+          <view class="comment-con" @click.stop="handleReply(item, level)">
             <view class="user-name">{{ item.nickName }}<text v-if="item.replyNickName" style="margin-left: 8rpx;">回复 {{ item.replyNickName }}</text> <text v-if="item.author" class="author">作者</text> </view>
             <view class="comment-text">{{ item.content }}</view>
             <view class="action-bar">
               <text class="time">{{ item.createTime }}</text>
-              <text class="reply" @click="handleReply(item, level)">回复TA</text>
+              <text class="reply">回复TA</text>
             </view>
             <comment-list v-if="hasSub" class="sub-comment-list" :detail="detail" :level="level + 1" :hasSub="false"
               :list="item.commentList" @reply="(data, level) => handleReply(data, level, item)"></comment-list>
@@ -126,6 +126,13 @@ export default {
       } else {
         this.$emit('reply', item, sourceLevel)
       }
+    },
+    handleAvatar(item) {
+      const userId = uni.getStorageSync('userId')
+      if (item.commentUserId === userId) return
+      uni.navigateTo({
+        url: '/pages/person-detail/person-detail?id=' + item.commentUserId
+      })
     },
     resetForm() {
       this.form.replyUserId = ''

@@ -33,7 +33,7 @@
               :controls="false"
               :show-center-play-btn="false"
               loop
-              object-fit="cover"
+              object-fit="contain"
               autoplay
             ></video>
             <swiper

@@ -143,9 +143,6 @@ export default {
     },
     footTitle() {
       if (this.isDynamics) {
-        if (this.hasDetail) {
-
-        }
         return this.item?.moment?.title || ''
       } else {
         return this.item.location
@@ -155,7 +152,7 @@ export default {
     dyContent() {
       if (this.isDynamics) {
         if (this.hasDetail) {
-          return this.item.content
+          return this.item.content || ''
         }
         return this.item?.moment?.content || ''
       }
@@ -365,6 +362,9 @@ export default {
 
 .isDetail .footTitle {
   bottom: 210rpx;
+  .progress-bar {
+    transform: translateY(178rpx);
+  }
 }
 
 /* 底部标题部分 */
@@ -388,6 +388,7 @@ export default {
       background: #a1a1a1;
       margin-right: 8rpx;
       border-radius: 6rpx;
+      transition: all .5s;
       &:last-of-type {
         margin-right: 0;
       }

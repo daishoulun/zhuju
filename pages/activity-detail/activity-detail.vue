@@ -425,9 +425,12 @@
         position: relative;
         width: calc((100% - 48rpx) / 4);
         height: 192rpx;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         background: #262626;
         border-radius: 16rpx;
-        padding-top: 28rpx;
         text-align: center;
         overflow: hidden;
         margin-right: 16rpx;

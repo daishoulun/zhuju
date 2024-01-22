@@ -5,11 +5,20 @@
     }" @click="handleBack">
       <image class="back-icon" src="/static/arrow-l.png"></image>
     </view>
+    <!-- 图片轮播位置标识 -->
+    <view
+      v-if="detail.mediaType === 'img' && (detail.contentUrlList || []).length > 1"
+      class="num-tip"
+      :style="{ top: (tabbarTop + 44) + 'px' }"
+    >
+      {{ subCurrentIndex + 1 }}/{{ (detail.contentUrlList || []).length }}
+    </view>
     <view class="dynamics-content" @click="handleClick">
       <swiper
         v-if="detail.contentType === 1"
         class="swiper-wrap"
         circular
+        @change="subSwiperChange"
       >
         <swiper-item
           v-for="img in detail.contentUrlList"
@@ -37,6 +46,7 @@
       :item="detail"
       :hasDetail="true"
       activeType="dynamics"
+      :currentProgress="subCurrentIndex"
       @click-transfer="clickTransfer"
       @click-liked="clickLiked"
       @click-comment="clickComment"
@@ -70,6 +80,7 @@
     data() {
       return {
         id: '',
+        subCurrentIndex: 0,
         commentPopupVisible: false,
         transferPopupVisible: false,
         detail: {},
@@ -107,11 +118,25 @@
       getDetail() {
         queryDynamicsDetail({ momentId: this.id }).then(res => {
           if (res.code === 0) {
-            this.detail = res.data || {}
+            const data = res.data || {}
+            data.videoUrl = data.contentUrlList
+            data.imgList = data.contentUrlList
+            if (data.contentType === 1) {
+              data.mediaType = 'img'
+            } else if (data.contentType === 2) {
+              data.mediaType = 'video'
+            } else {
+              data.mediaType = 'text'
+            }
+            this.detail = data
+            console.log(this.detail)
           } else {
             this.$showToast(res.msg)
           }
         })
+      },
+      subSwiperChange(e) {
+        this.subCurrentIndex = e.detail.current
       },
       clickTransfer() {
         this.transferPopupVisible = true
@@ -236,6 +261,17 @@
       width: 44rpx;
       height: 44rpx;
     }
+  }
+  .num-tip {
+    position: absolute;
+    right: 24rpx;
+    padding: 4rpx 8rpx;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8rpx;
+    font-size: 28rpx;
+    font-weight: 500;
+    color: #FFFFFF;
+    z-index: 9;
   }
   .dynamics-content {
     width: 100%;

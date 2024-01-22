@@ -107,8 +107,11 @@
       }
     }
     .active-footer {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
       height: 132rpx;
-      padding: 24rpx 16rpx 0 20rpx;
+      padding: 0 16rpx;
       background: #262626;
       .title {
         font-size: 26rpx;
