@@ -23,6 +23,7 @@
       @click-follow="clickFollow"
       @click-toggle="clickToggle"
       @load-data="loadData"
+      @refresh="handleRefresh"
     ></videos-list>
     <UserAgreement v-if="userAgreementModalVisible" @close="userAgreementModalVisible = flase"></UserAgreement>
     <LoginModal v-if="loginModalVisible" @close="loginModalVisible = false"></LoginModal>
@@ -40,6 +41,7 @@
       @comment-success="commentSuccess"
     ></dy-detail-modal>
     <empty-state v-if="vodList.length === 0"></empty-state>
+    <page-loading-modal v-if="pageLoading"></page-loading-modal>
   </view>
 </template>
 
@@ -61,6 +63,7 @@ import { createLike, cancelLike } from '@/api/person-center.js'
 import { createFollow, cancelFollow } from '@/api/fans-list.js'
 import disTopHeight from '@/mixins/disTopHeight'
 import checkLogin from '@/mixins/checkLogin'
+import PageLoadingModal from '@/components/page-loading.vue'
 import { BAIDU_AK, BAIDU_R_GEOCODING } from '@/utils/constant.js'
 export default {
   components: {
@@ -71,7 +74,8 @@ export default {
     LoginModal,
     TransferModal,
     DyDetailModal,
-    EmptyState
+    EmptyState,
+    PageLoadingModal
   },
   mixins: [disTopHeight, checkLogin],
   data() {
@@ -98,7 +102,9 @@ export default {
       currentItem: {},
       dyDetailModalShow: false,
       shareForm: null,
-      isLogin: false
+      isLogin: false,
+      pageLoading: false,
+      canRefresh: true
     }
   },
   computed: {
@@ -167,6 +173,7 @@ export default {
       }
     },
     async getList() {
+      this.pageLoading = true
       if (this.active === 'recommend') {
         await this.getRecommendList()
       } else if (this.active === 'follow') {
@@ -174,6 +181,8 @@ export default {
       } else {
         await this.getTrendsList()
       }
+      this.pageLoading = false
+      uni.stopPullDownRefresh()
     },
     formatVideoData(list) {
       return list.map(item => {
@@ -263,6 +272,7 @@ export default {
       this.active = val
       this.listQuery.current = 1
       this.vodList = []
+      this.canRefresh = true
       await this.getList()
       this.videoKey++
       this.videoShow = false
@@ -406,6 +416,9 @@ export default {
       uni.navigateTo({
         url: `/pages/select-city/select-city?cityCode=${this.cityCode || ''}&city=${this.currentCity || ''}&userId=${userId}&from=home`
       })
+    },
+    handleRefresh(val) {
+      this.canRefresh = val
     }
   },
   onShareAppMessage() {
@@ -421,8 +434,11 @@ export default {
     
   },
   onPullDownRefresh() {
-    uni.stopPullDownRefresh()
-    // this.getData(this.active)
+    if (this.canRefresh) {
+      this.getData(this.active)
+    } else {
+      uni.stopPullDownRefresh()
+    }
   },
 }
 </script>

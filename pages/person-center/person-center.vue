@@ -71,6 +71,7 @@
     </view>
     <AccountSetting ref="accountSet"></AccountSetting>
     <LoginModal v-if="loginModalVisible" @close="loginModalVisible = false"></LoginModal>
+    <page-loading-modal v-if="pageLoading"></page-loading-modal>
 	</view>
 </template>
 
@@ -81,6 +82,7 @@
   import LoginModal from '@/components/login-modal.vue'
   import EmptyState from '@/components/empty-state.vue'
   import disTopHeight from '@/mixins/disTopHeight'
+  import PageLoadingModal from '@/components/page-loading.vue'
   import { fetchUserInfo, getProfile, getActivityList, getMomentList, createLike, cancelLike } from '@/api/person-center.js'
 	export default {
     components: {
@@ -88,7 +90,8 @@
       DynamicsList,
       AccountSetting,
       LoginModal,
-      EmptyState
+      EmptyState,
+      PageLoadingModal
     },
     mixins: [disTopHeight],
 		data() {
@@ -110,7 +113,7 @@
         profileInfo: {},
         total: 0,
         list: [],
-        loading: false,
+        pageLoading: false
 			};
 		},
     computed: {
@@ -182,9 +185,7 @@
         })
       },
       getList() {
-        uni.showLoading({
-        	title: '加载中'
-        });
+        this.pageLoading = true
         if (this.active === 'active') {
           this.getActivity()
         } else {
@@ -204,9 +205,8 @@
             this.$showToast(res.msg)
           }
         }).finally(() => {
-          this.loading = false
+          this.pageLoading = false
           uni.stopPullDownRefresh()
-          uni.hideLoading();
         })
       },
       getMomentList() {
@@ -222,9 +222,8 @@
             this.$showToast(res.msg)
           }
         }).finally(() => {
-          this.loading = false
+          this.pageLoading = false
           uni.stopPullDownRefresh()
-          uni.hideLoading();
         })
       },
       handleTabbar(val) {
@@ -320,15 +319,15 @@
       this.getList()
     },
     onReachBottom() {
-      if (this.loading) {
+      if (this.pageLoading) {
         return
       }
-      this.loading = true
+      this.pageLoading = true
       if (this.total > this.list.length) {
         this.listQuery.current++
         this.getList()
       } else {
-        this.loading = false
+        this.pageLoading = false
         // this.$showToast('没有更多数据了')
       }
     },
@@ -399,6 +398,7 @@
     .user-header {
       .user-data {
         display: flex;
+        justify-content: space-between;
         width: 498rpx;
         font-size: $font-size-base;
         margin-left: 188rpx;

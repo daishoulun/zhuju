@@ -78,6 +78,7 @@
       @confirm="joinBlack"
       @close="closeBlackModal"
     ></join-black-modal>
+    <page-loading-modal v-if="pageLoading"></page-loading-modal>
 	</view>
 </template>
 
@@ -89,12 +90,14 @@
   import { fetchUserInfo, getProfile, getActivityList, getMomentList, joinBlack } from '@/api/person-center.js'
   import { cancelFollow, createFollow } from '@/api/fans-list.js'
   import disTopHeight from '@/mixins/disTopHeight'
+  import PageLoadingModal from '@/components/page-loading.vue'
 	export default {
     components: {
       ActiveList,
       DynamicsList,
       PersonMorePopup,
-      JoinBlackModal
+      JoinBlackModal,
+      PageLoadingModal
     },
     mixins: [disTopHeight],
     filters: {
@@ -128,7 +131,7 @@
         profileInfo: {},
         total: 0,
         list: [],
-        loading: false,
+        pageLoading: false,
         actionBarHeight: 0
 			};
 		},
@@ -181,9 +184,6 @@
         })
       },
       getList() {
-        uni.showLoading({
-        	title: '加载中'
-        });
         if (this.active === 'active') {
           this.getActivity()
         } else {
@@ -203,9 +203,8 @@
             this.$showToast(res.msg)
           }
         }).finally(() => {
-          this.loading = false
+          this.pageLoading = false
           uni.stopPullDownRefresh()
-          uni.hideLoading();
         })
       },
       getMomentList() {
@@ -221,9 +220,8 @@
             this.$showToast(res.msg)
           }
         }).finally(() => {
-          this.loading = false
+          this.pageLoading = false
           uni.stopPullDownRefresh()
-          uni.hideLoading();
         })
       },
       handleTabbar(val) {
@@ -316,15 +314,15 @@
       this.getList()
     },
     onReachBottom() {
-      if (this.loading) {
+      if (this.pageLoading) {
         return
       }
-      this.loading = true
+      this.pageLoading = true
       if (this.total > this.list.length) {
         this.listQuery.current++
         this.getList()
       } else {
-        this.loading = false
+        this.pageLoading = false
         // this.$showToast('没有更多数据了')
       }
     },

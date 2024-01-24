@@ -121,6 +121,12 @@
         if (this.currentIndex + 2 === this.list.length) {
           this.$emit('load-data')
         }
+        if (this.currentIndex === 0) {
+          this.$emit('refresh', true)
+        } else {
+          // 禁用上拉刷新
+          this.$emit('refresh', false)
+        }
       },
       subSwiperChange(e) {
         this.subCurrentIndex = e.detail.current

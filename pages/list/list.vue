@@ -34,6 +34,7 @@
         <view class="btn" @click="handleLogin">去登录</view>
       </view>
     </view>
+    <page-loading-modal v-if="pageLoading"></page-loading-modal>
   </view>
 </template>
 
@@ -41,9 +42,11 @@
   import ActivityCard from '@/components/activity-card.vue'
   import disTopHeight from '@/mixins/disTopHeight'
   import { fetchList } from '@/api/list.js'
+  import PageLoadingModal from '@/components/page-loading.vue'
   export default {
     components: {
       ActivityCard,
+      PageLoadingModal
     },
     mixins: [disTopHeight],
     data() {
@@ -58,6 +61,7 @@
         total: 0,
         loading: false,
         isLogin: false,
+        pageLoading: false
       };
     },
     computed: {
@@ -86,9 +90,7 @@
         this.current = e.detail.current
       },
       getList() {
-        uni.showLoading({
-        	title: '加载中'
-        });
+        this.pageLoading = true
         fetchList(this.listQuery).then(res => {
           if (res.code === 0) {
             this.bannerList = res.data.banners
@@ -104,7 +106,7 @@
         }).finally(() => {
           this.loading = false
           uni.stopPullDownRefresh()
-          uni.hideLoading();
+          this.pageLoading = false
         })
       },
       handleBanner(url) {

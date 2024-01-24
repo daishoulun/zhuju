@@ -45,7 +45,7 @@ export default {
       const res = await fetchCommentList(this.listQuery)
       if (res.code === 0) {
         this.commentList = res.data.commentList
-        this.total = res.data.commentCount
+        this.total = res.data.commentCount || 0
       } else {
         this.$showToast(res.msg)
       }

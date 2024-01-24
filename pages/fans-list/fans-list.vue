@@ -42,14 +42,19 @@
         <image class="empty" src="/static/empty.png"></image>
       </view>
     </view>
+    <page-loading-modal v-if="pageLoading"></page-loading-modal>
   </view>
 </template>
 
 <script>
   import { fetchFansList, fetchFollowList, fetchFirendList, createFollow, cancelFollow } from '@/api/fans-list.js'
   import disTopHeight from '@/mixins/disTopHeight'
+  import PageLoadingModal from '@/components/page-loading.vue'
   export default {
     mixins: [disTopHeight],
+    components: {
+      PageLoadingModal
+    },
     data() {
       return {
         type: '',
@@ -66,10 +71,10 @@
         },
         list: [],
         total: 0,
-        loading: false,
         timer: null,
         from: '',
-        placeholder: '搜索粉丝'
+        placeholder: '搜索粉丝',
+        pageLoading: false,
       };
     },
     computed: {
@@ -87,63 +92,53 @@
       this.getList()
     },
     methods: {
-      getList() {
-        uni.showLoading({
-        	title: '加载中'
-        });
+      async getList() {
+        this.pageLoading = true
         if (this.type === 'like') {
-          this.getFollowList()
+          await this.getFollowList()
         } else if (this.type === 'fans') {
-          this.getFansList()
+          await this.getFansList()
         } else {
-          this.getFirendList()
+          await this.getFirendList()
         }
+        this.pageLoading = false
       },
       searchList() {
         this.listQuery.current = 1
         this.getList()
       },
-      getFollowList() {
-        fetchFollowList(this.listQuery).then(res => {
-          this.total = res.data.totalNum
-          if (this.listQuery.current === 1) {
-            this.list = res.data.list || []
-          } else {
-            this.list = this.list.concat(res.data.list || [])
-          }
-        }).finally(() => {
-          this.loading = false
+      async getFollowList() {
+        const res = await fetchFollowList(this.listQuery).finally(() => {
           uni.stopPullDownRefresh()
-          uni.hideLoading();
         })
+        this.total = res.data.totalNum
+        if (this.listQuery.current === 1) {
+          this.list = res.data.list || []
+        } else {
+          this.list = this.list.concat(res.data.list || [])
+        }
       },
-      getFansList() {
-        fetchFansList(this.listQuery).then(res => {
-          this.total = res.data.totalNum
-          if (this.listQuery.current === 1) {
-            this.list = res.data.list || []
-          } else {
-            this.list = this.list.concat(res.data.list || [])
-          }
-        }).finally(() => {
-          this.loading = false
+      async getFansList() {
+        const res = await fetchFansList(this.listQuery).finally(() => {
           uni.stopPullDownRefresh()
-          uni.hideLoading();
         })
+        this.total = res.data.totalNum
+        if (this.listQuery.current === 1) {
+          this.list = res.data.list || []
+        } else {
+          this.list = this.list.concat(res.data.list || [])
+        }
       },
-      getFirendList() {
-        fetchFirendList(this.listQuery).then(res => {
-          this.total = res.data.totalNum
-          if (this.listQuery.current === 1) {
-            this.list = res.data.list || []
-          } else {
-            this.list = this.list.concat(res.data.list || [])
-          }
-        }).finally(() => {
-          this.loading = false
+      async getFirendList() {
+        const res = await fetchFirendList(this.listQuery).finally(() => {
           uni.stopPullDownRefresh()
-          uni.hideLoading();
         })
+        this.total = res.data.totalNum
+        if (this.listQuery.current === 1) {
+          this.list = res.data.list || []
+        } else {
+          this.list = this.list.concat(res.data.list || [])
+        }
       },
       handleTabbar(item) {
         this.list = []
@@ -188,15 +183,15 @@
       this.getList()
     },
     onReachBottom() {
-      if (this.loading) {
+      if (this.pageLoading) {
         return
       }
-      this.loading = true
+      this.pageLoading = true
       if (this.total > this.list.length) {
         this.listQuery.current++
         this.getList()
       } else {
-        this.loading = false
+        this.pageLoading = false
         this.$showToast('没有更多数据了')
       }
     },
