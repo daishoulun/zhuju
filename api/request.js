@@ -17,7 +17,7 @@ const request = (opt) => {
           // token过期或者被顶下线
           uni.clearStorageSync()
           uni.$emit('login')
-          resolve(res.data || res)
+          reject(res.data || res)
         } else if (res.data.code === 1003) {
           // 注册信息没有填写的状态
           uni.showToast({
