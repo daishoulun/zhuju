@@ -50,7 +50,9 @@
                 <image class="img" :src="img" mode="widthFix"></image>
               </swiper-item>
             </swiper>
-            <view v-else class="text-content">{{ item.content }}</view>
+            <view v-else class="text-content" :style="{
+              color: ['#000', '#000000', 'black'].includes(setPageBg(item)) ? '#fff' : '#000' 
+            }">{{ item.content }}</view>
             <menu-list
               :item="item"
               :activeType="activeType"
@@ -106,7 +108,6 @@
     },
     methods: {
       setPageBg(item) {
-        const data = this.list[this.currentIndex]
         if (item.type === 2 && item.moment && item.moment.contentType === 3) {
           return item.moment.bgColor
         } else {

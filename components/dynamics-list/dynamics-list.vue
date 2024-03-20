@@ -1,8 +1,11 @@
 <template>
   <view class="dynamics-list">
-    <view v-for="item in list" :key="item.momentId" class="dynamics-item" :style="{ backgroundImage: 'url(' + setCoverUrl(item) + ')'}" @click="handleDetail(item.momentId)">
+    <view v-for="item in list" :key="item.momentId" class="dynamics-item" :style="{ backgroundColor: item.bgColor, backgroundImage: 'url(' + setCoverUrl(item) + ')'}" @click="handleDetail(item.momentId)">
+      <view v-if="item.contentType === 3" class="text-con" :style="{
+        color: ['#000', '#000000', 'black'].includes(item.bgColor) ? '#fff' : '#000' 
+      }">{{ item.content }}</view>
       <view class="like">
-        <image class="like-icon" :src="item.liked ? '../../static/heart-active.png' : '../../static/heart.png'" @click.stop="handleLike(item)"></image>
+        <imag class="like-icon" :src="item.liked ? '../../static/heart-active.png' : '../../static/heart.png'" @click.stop="handleLike(item)" />
         {{ item.likeCount || 0 }}
       </view>
     </view>
@@ -32,7 +35,9 @@
         this.$emit('click-like', item)
       },
       setCoverUrl(item) {
-        return item.contentUrlList && item.contentUrlList[0] || ''
+        let url = item.contentUrlList && item.contentUrlList[0] || ''
+        const endTip = url.includes('mp4') ? '?x-oss-process=video/snapshot,t_0,f_jpg' : ''
+        return url + endTip
       }
     }
   }
@@ -56,6 +61,16 @@
     background-position: center;
     &:nth-of-type(2n) {
       margin-right: 0;
+    }
+    .text-con {
+      line-height: 408rpx;
+      padding: 16rpx;
+      text-align: center;
+      box-sizing: border-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 28rpx;
     }
     .like {
       position: absolute;
