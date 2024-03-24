@@ -13,8 +13,7 @@ const request = (opt) => {
     uni.request({
       ...opt,
       success(res) {
-        if (res.data.code === 1001) {
-          // token过期或者被顶下线
+        if ([1001, 1006].includes(res.data.code)) {
           uni.clearStorageSync()
           uni.$emit('login')
           reject(res.data || res)
@@ -27,6 +26,18 @@ const request = (opt) => {
           uni.reLaunch({
             url: '/pages/set-avatar/set-avatar'
           })
+          resolve(res.data || res)
+        } else if ([1004, 1005].includes(res.data.code)) {
+          // 用户被踢下线或顶下线
+          uni.showToast({
+            title: res.data.msg,
+            icon:'none'
+          })
+          setTimeout(() => {
+            uni.reLaunch({
+              url: '/pages/login/login'
+            })
+          }, 300)
           resolve(res.data || res)
         } else {
           resolve(res.data || res)

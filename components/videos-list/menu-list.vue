@@ -85,6 +85,7 @@ export default {
   },
   filters: {
     distanceFilter(val) {
+      if (val < 0.1) return '0.1km'
       return Number(val).toFixed(2) + 'km'
     }
   },
